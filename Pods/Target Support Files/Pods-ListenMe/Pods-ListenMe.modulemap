@@ -1,4 +1,4 @@
-framework module Pods_ListenMe {
+module Pods_ListenMe [system] {
   umbrella header "Pods-ListenMe-umbrella.h"
 
   export *

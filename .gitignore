@@ -19,5 +19,3 @@ xcuserdata/
 *.dSYM.zip
 *.dSYM
 
-## Carthage
-Carthage/Build

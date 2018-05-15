@@ -1,0 +1,6 @@
+module SwiftyAttributes [system] {
+  umbrella header "SwiftyAttributes-umbrella.h"
+
+  export *
+  module * { export * }
+}
