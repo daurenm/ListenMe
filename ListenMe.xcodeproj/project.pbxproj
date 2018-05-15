@@ -11,15 +11,19 @@
 		291520EE20A750BE00A1140E /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291520ED20A750BE00A1140E /* RootViewController.swift */; };
 		291520F020A750BF00A1140E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 291520EF20A750BF00A1140E /* Assets.xcassets */; };
 		291520F320A750BF00A1140E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 291520F120A750BF00A1140E /* LaunchScreen.storyboard */; };
+		3B6C64D64C9C049A67A8566F /* Pods_ListenMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0E2DE26A8C1D2F60467AE79 /* Pods_ListenMe.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		27AA245749F4B26AC93AE938 /* Pods-ListenMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ListenMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-ListenMe/Pods-ListenMe.release.xcconfig"; sourceTree = "<group>"; };
 		291520E820A750BE00A1140E /* ListenMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ListenMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		291520EB20A750BE00A1140E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		291520ED20A750BE00A1140E /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		291520EF20A750BF00A1140E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		291520F220A750BF00A1140E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		291520F420A750BF00A1140E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		75F327E7052E228E4CDA36D4 /* Pods-ListenMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ListenMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ListenMe/Pods-ListenMe.debug.xcconfig"; sourceTree = "<group>"; };
+		F0E2DE26A8C1D2F60467AE79 /* Pods_ListenMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ListenMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,17 +31,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B6C64D64C9C049A67A8566F /* Pods_ListenMe.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1540999AD8CDDE0109DA5598 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F0E2DE26A8C1D2F60467AE79 /* Pods_ListenMe.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		291520DF20A750BE00A1140E = {
 			isa = PBXGroup;
 			children = (
 				291520EA20A750BE00A1140E /* ListenMe */,
 				291520E920A750BE00A1140E /* Products */,
+				A55956F4410BA87EB302AE2C /* Pods */,
+				1540999AD8CDDE0109DA5598 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,11 +69,28 @@
 			children = (
 				291520EB20A750BE00A1140E /* AppDelegate.swift */,
 				291520ED20A750BE00A1140E /* RootViewController.swift */,
+				29E57DB220AB467900DF1F15 /* Other Files */,
+			);
+			path = ListenMe;
+			sourceTree = "<group>";
+		};
+		29E57DB220AB467900DF1F15 /* Other Files */ = {
+			isa = PBXGroup;
+			children = (
 				291520EF20A750BF00A1140E /* Assets.xcassets */,
 				291520F120A750BF00A1140E /* LaunchScreen.storyboard */,
 				291520F420A750BF00A1140E /* Info.plist */,
 			);
-			path = ListenMe;
+			name = "Other Files";
+			sourceTree = "<group>";
+		};
+		A55956F4410BA87EB302AE2C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				75F327E7052E228E4CDA36D4 /* Pods-ListenMe.debug.xcconfig */,
+				27AA245749F4B26AC93AE938 /* Pods-ListenMe.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -68,9 +100,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 291520F720A750BF00A1140E /* Build configuration list for PBXNativeTarget "ListenMe" */;
 			buildPhases = (
+				423CBFD93EBE4981A123E56C /* [CP] Check Pods Manifest.lock */,
 				291520E420A750BE00A1140E /* Sources */,
 				291520E520A750BE00A1140E /* Frameworks */,
 				291520E620A750BE00A1140E /* Resources */,
+				C1BD3AF66B12D5AAAA4DED4F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -125,6 +159,49 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		423CBFD93EBE4981A123E56C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ListenMe-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C1BD3AF66B12D5AAAA4DED4F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ListenMe/Pods-ListenMe-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
+				"${BUILT_PRODUCTS_DIR}/EasyPeasy/EasyPeasy.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyAttributes/SwiftyAttributes.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EasyPeasy.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyAttributes.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ListenMe/Pods-ListenMe-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		291520E420A750BE00A1140E /* Sources */ = {
@@ -266,11 +343,13 @@
 		};
 		291520F820A750BF00A1140E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 75F327E7052E228E4CDA36D4 /* Pods-ListenMe.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7ZVMMF7RSQ;
 				INFOPLIST_FILE = ListenMe/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -284,11 +363,13 @@
 		};
 		291520F920A750BF00A1140E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 27AA245749F4B26AC93AE938 /* Pods-ListenMe.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7ZVMMF7RSQ;
 				INFOPLIST_FILE = ListenMe/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
