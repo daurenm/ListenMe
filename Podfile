@@ -7,6 +7,8 @@ def default_pods
   pod 'EasyPeasy'
   pod 'ChameleonFramework/Swift', :git => 'https://github.com/ViccAlexander/Chameleon.git'
   pod 'SwiftyAttributes'
+
+#   pod 'SwiftySound'
 end
 
 target 'ListenMe' do
