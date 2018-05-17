@@ -22,7 +22,7 @@ class PlayLocalAudioFile: UIViewController {
         return url
     }()
     
-    var player: AVAudioPlayer!
+    var playerManager: PlayerManager { return PlayerManager.default }
     
     // MARK: - Views
     lazy var playButton: UIButton = {
@@ -36,7 +36,7 @@ class PlayLocalAudioFile: UIViewController {
     }()
     
     @objc func playTap() {
-        player.play()
+        playerManager.play(url: url)
     }
     
     lazy var pauseButton: UIButton = {
@@ -50,29 +50,14 @@ class PlayLocalAudioFile: UIViewController {
     }()
     
     @objc func pauseTap() {
-        player.pause()
+        playerManager.pause()
     }
 
     // MARK: - Lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        preparePlayer()
         setupViews()
-    }
-    
-    private func preparePlayer() {
-        do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-            try AVAudioSession.sharedInstance().setActive(true)
-            
-            player = try AVAudioPlayer(contentsOf: url)
-            guard player != nil else {
-                assert(false, "couldn't create the player")
-            }
-        } catch {
-            assert(false, error.localizedDescription)
-        }
     }
     
     private func setupViews() {
