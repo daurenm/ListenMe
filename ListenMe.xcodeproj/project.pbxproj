@@ -13,6 +13,7 @@
 		291520F320A750BF00A1140E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 291520F120A750BF00A1140E /* LaunchScreen.storyboard */; };
 		2980814620ADDC8800F5E4F8 /* PlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2980814520ADDC8800F5E4F8 /* PlayerManager.swift */; };
 		2980814820ADE66C00F5E4F8 /* AVAudioSession+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2980814720ADE66C00F5E4F8 /* AVAudioSession+helpers.swift */; };
+		2980814E20ADEE5500F5E4F8 /* DirectoriesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2980814D20ADEE5500F5E4F8 /* DirectoriesController.swift */; };
 		29E57DB720AB483000DF1F15 /* Reusable+TV+CV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E57DB620AB483000DF1F15 /* Reusable+TV+CV.swift */; };
 		29E57DB920AB48B500DF1F15 /* PlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E57DB820AB48B500DF1F15 /* PlaylistCell.swift */; };
 		29E57DBC20AB4A3900DF1F15 /* PlaylistCV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E57DBB20AB4A3900DF1F15 /* PlaylistCV.swift */; };
@@ -31,6 +32,7 @@
 		291520F420A750BF00A1140E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2980814520ADDC8800F5E4F8 /* PlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerManager.swift; sourceTree = "<group>"; };
 		2980814720ADE66C00F5E4F8 /* AVAudioSession+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAudioSession+helpers.swift"; sourceTree = "<group>"; };
+		2980814D20ADEE5500F5E4F8 /* DirectoriesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoriesController.swift; sourceTree = "<group>"; };
 		29E57DB620AB483000DF1F15 /* Reusable+TV+CV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reusable+TV+CV.swift"; sourceTree = "<group>"; };
 		29E57DB820AB48B500DF1F15 /* PlaylistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistCell.swift; sourceTree = "<group>"; };
 		29E57DBB20AB4A3900DF1F15 /* PlaylistCV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistCV.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 			children = (
 				291520ED20A750BE00A1140E /* PlaylistController.swift */,
 				29E57DBF20AB551500DF1F15 /* PlayLocalAudioFile.swift */,
+				2980814D20ADEE5500F5E4F8 /* DirectoriesController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -238,6 +241,7 @@
 			files = (
 				29E57DBC20AB4A3900DF1F15 /* PlaylistCV.swift in Sources */,
 				29E57DB720AB483000DF1F15 /* Reusable+TV+CV.swift in Sources */,
+				2980814E20ADEE5500F5E4F8 /* DirectoriesController.swift in Sources */,
 				2980814820ADE66C00F5E4F8 /* AVAudioSession+helpers.swift in Sources */,
 				29E57DC020AB551500DF1F15 /* PlayLocalAudioFile.swift in Sources */,
 				2980814620ADDC8800F5E4F8 /* PlayerManager.swift in Sources */,

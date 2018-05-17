@@ -19,18 +19,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = .white
 //        let rootViewController = PlaylistController()
-        let rootViewController = PlayLocalAudioFile()
+//        let rootViewController = PlayLocalAudioFile()
+        let rootViewController = DirectoriesController()
         let navigationController = UINavigationController(rootViewController: rootViewController)
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
         return true
     }
 
-    func applicationWillResignActive(_ application: UIApplication) {
-    }
-
     func applicationDidEnterBackground(_ application: UIApplication) {
         AVAudioSession.deactivateIfNeeded()
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        print(#function, url)
+        return true
+    }
+
+    func applicationWillResignActive(_ application: UIApplication) {
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -42,6 +48,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
     }
 
-
+    
 }
 
