@@ -1,5 +1,5 @@
 //
-//  PlayLocalAudioFile.swift
+//  PlayController.swift
 //  ListenMe
 //
 //  Created by Dauren Muratov on 5/15/18.
@@ -11,16 +11,25 @@ import EasyPeasy
 import AVFoundation
 import SwiftyAttributes
 
-class PlayLocalAudioFile: UIViewController {
+class PlayController: UIViewController {
     
     // MARK: - Constants
     var buttonHeight: CGFloat { return 44 }
+
+    static var defaultFileURL: URL {
+        return Bundle.main.url(forResource: "this is water", withExtension: ".mp3")!
+    }
+
+    // MARK: - Shared methods
+    func prepareToPlayNewFile(url: URL) {
+        guard currentFileURL != url else { return }
+        
+        playerManager.pause()
+        currentFileURL = url
+    }
     
     // MARK: - Properties
-    lazy var url: URL = {
-        let url = Bundle.main.url(forResource: "this is water", withExtension: ".mp3")!
-        return url
-    }()
+    var currentFileURL: URL
     
     var playerManager: PlayerManager { return PlayerManager.default }
     
@@ -36,7 +45,7 @@ class PlayLocalAudioFile: UIViewController {
     }()
     
     @objc func playTap() {
-        playerManager.play(url: url)
+        playerManager.play(url: currentFileURL)
     }
     
     lazy var pauseButton: UIButton = {
@@ -54,6 +63,15 @@ class PlayLocalAudioFile: UIViewController {
     }
 
     // MARK: - Lifecycle methods
+    init(fileURL: URL = defaultFileURL) {
+        currentFileURL = fileURL
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

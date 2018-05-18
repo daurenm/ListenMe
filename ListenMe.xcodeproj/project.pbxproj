@@ -18,7 +18,7 @@
 		29E57DB920AB48B500DF1F15 /* PlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E57DB820AB48B500DF1F15 /* PlaylistCell.swift */; };
 		29E57DBC20AB4A3900DF1F15 /* PlaylistCV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E57DBB20AB4A3900DF1F15 /* PlaylistCV.swift */; };
 		29E57DBE20AB53C200DF1F15 /* this is water.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 29E57DBD20AB53C200DF1F15 /* this is water.mp3 */; };
-		29E57DC020AB551500DF1F15 /* PlayLocalAudioFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E57DBF20AB551500DF1F15 /* PlayLocalAudioFile.swift */; };
+		29E57DC020AB551500DF1F15 /* PlayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E57DBF20AB551500DF1F15 /* PlayController.swift */; };
 		54C6A65460C5F018CA3EF612 /* libPods-ListenMe.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51F401C6F501817A5F9B3E8E /* libPods-ListenMe.a */; };
 /* End PBXBuildFile section */
 
@@ -37,7 +37,7 @@
 		29E57DB820AB48B500DF1F15 /* PlaylistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistCell.swift; sourceTree = "<group>"; };
 		29E57DBB20AB4A3900DF1F15 /* PlaylistCV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistCV.swift; sourceTree = "<group>"; };
 		29E57DBD20AB53C200DF1F15 /* this is water.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "this is water.mp3"; sourceTree = "<group>"; };
-		29E57DBF20AB551500DF1F15 /* PlayLocalAudioFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayLocalAudioFile.swift; sourceTree = "<group>"; };
+		29E57DBF20AB551500DF1F15 /* PlayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayController.swift; sourceTree = "<group>"; };
 		51F401C6F501817A5F9B3E8E /* libPods-ListenMe.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ListenMe.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		75F327E7052E228E4CDA36D4 /* Pods-ListenMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ListenMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ListenMe/Pods-ListenMe.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -107,7 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				291520ED20A750BE00A1140E /* PlaylistController.swift */,
-				29E57DBF20AB551500DF1F15 /* PlayLocalAudioFile.swift */,
+				29E57DBF20AB551500DF1F15 /* PlayController.swift */,
 				2980814D20ADEE5500F5E4F8 /* DirectoriesController.swift */,
 			);
 			path = Controllers;
@@ -243,7 +243,7 @@
 				29E57DB720AB483000DF1F15 /* Reusable+TV+CV.swift in Sources */,
 				2980814E20ADEE5500F5E4F8 /* DirectoriesController.swift in Sources */,
 				2980814820ADE66C00F5E4F8 /* AVAudioSession+helpers.swift in Sources */,
-				29E57DC020AB551500DF1F15 /* PlayLocalAudioFile.swift in Sources */,
+				29E57DC020AB551500DF1F15 /* PlayController.swift in Sources */,
 				2980814620ADDC8800F5E4F8 /* PlayerManager.swift in Sources */,
 				291520EE20A750BE00A1140E /* PlaylistController.swift in Sources */,
 				291520EC20A750BE00A1140E /* AppDelegate.swift in Sources */,

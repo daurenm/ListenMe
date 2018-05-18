@@ -19,8 +19,11 @@ class PlayerManager {
     
     // MARK: - Shared methods
     func play(url: URL) {
+        if player?.url != url {
+            player = try? AVAudioPlayer(contentsOf: url)
+        }
+        
         AVAudioSession.activateIfNeeded()
-        player = try? AVAudioPlayer(contentsOf: url)
         player?.play()
     }
     
