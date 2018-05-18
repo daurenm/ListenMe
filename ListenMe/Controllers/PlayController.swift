@@ -62,6 +62,19 @@ class PlayController: UIViewController {
         playerManager.pause()
     }
 
+    lazy var showFilesButton: UIButton = {
+        let button = UIButton()
+        button.setAttributedTitle("Show Files".withTextColor(.white), for: .normal)
+        button.backgroundColor = .flatOrange
+        button.addTarget(self, action: #selector(showFilesList), for: .touchUpInside)
+        return button
+    }()
+    
+    @objc func showFilesList() {
+        FileManager.default.changeToDocumentsDirectory()
+        print(FileManager.default.currentDirectoryFiles!)
+    }
+    
     // MARK: - Lifecycle methods
     init(fileURL: URL = defaultFileURL) {
         currentFileURL = fileURL
@@ -85,6 +98,7 @@ class PlayController: UIViewController {
         
         view.addSubview(playButton)
         view.addSubview(pauseButton)
+        view.addSubview(showFilesButton)
         
         playButton.easy.layout(
             CenterY(), Right(20).to(layoutGuide),
@@ -93,6 +107,10 @@ class PlayController: UIViewController {
         pauseButton.easy.layout(
             CenterY(), Left(20).to(layoutGuide),
             Height(buttonHeight), Width(100)
+        )
+        showFilesButton.easy.layout(
+            Bottom(), Height(44),
+            Left(), Right()
         )
     }
 }
