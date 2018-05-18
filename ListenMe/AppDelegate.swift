@@ -32,7 +32,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        print(#function, url)
+        let askForPermission = url.startAccessingSecurityScopedResource()
+        guard askForPermission else {
+            print("Couldn't get permission to view file at '\(url.path)'") // replace with alert
+            return false
+        }
+        
+        let fileManager = FileManager.default
+        let newPath = "\(fileManager.currentDirectoryPath)/\(url.lastPathComponent)"
+        do {
+            try fileManager.copyItem(atPath: url.path, toPath: newPath)
+            print(fileManager.currentDirectoryFiles!)
+        } catch {
+            print("Error while copying: \(error.localizedDescription)") // replace with alert
+        }
+
         return true
     }
 
