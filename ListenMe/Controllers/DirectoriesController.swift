@@ -35,9 +35,9 @@ class DirectoriesController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        runBasicCommands()
-        fileManager.changeToDocumentsDirectory()
-        print(fileManager.currentDirectoryFiles!)
+        runBasicCommands()
+//        fileManager.changeToDocumentsDirectory()
+//        print(fileManager.currentDirectoryFiles!)
     }
     
     private func runBasicCommands() {
@@ -61,6 +61,24 @@ class DirectoriesController: UIViewController {
         
         // deleting a file
         try? fileManager.removeItem(atPath: "dummyFile")
+        print(fileManager.currentDirectoryFiles!)
+        
+        // creating a directory
+        let newDirectoryPath = "dummyFolder/"
+        try? fileManager.createDirectory(atPath: newDirectoryPath, withIntermediateDirectories: true, attributes: nil)
+        print("Creating a new dir", fileManager.currentDirectoryFiles!)
+    
+        // removing the created directory
+        try? fileManager.removeItem(atPath: newDirectoryPath)
+        print("Removing created dir", fileManager.currentDirectoryFiles!)
+        
+        // creating a directory with intermediate directories
+        let directoryPathWithIntermediateOnes = "dummyFolder/one/two/three"
+        try? fileManager.createDirectory(atPath: directoryPathWithIntermediateOnes, withIntermediateDirectories: true, attributes: nil)
+        print(fileManager.currentDirectoryFiles!)
+        
+        print(try! fileManager.contentsOfDirectory(atPath: "dummyFolder/one/two"))
+        try? fileManager.removeItem(atPath: "dummyFolder")
         print(fileManager.currentDirectoryFiles!)
     }
 }
