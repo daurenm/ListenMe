@@ -35,61 +35,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         // save given file
-        let askForPermission = url.startAccessingSecurityScopedResource()
-        guard askForPermission else {
-            print("Couldn't get permission to view file at '\(url.path)'")
-            return false
+        let saveFileResponse = FilesManager.default.tryToSaveFile(given: url)
+        switch saveFileResponse {
+        case .error(let errorText):
+            showAlert(.error(errorText))
+        case .success(let path):
+            preparePlayController(with: path)
         }
-        
-        let fileManager = FileManager.default
-        fileManager.changeToDocumentsDirectory()
-        var path = "\(fileManager.currentDirectoryPath)/\(url.lastPathComponent)"
-        if fileManager.fileExists(atPath: path) {
-            guard let fileAlreadyExists = compareTwoFiles(given: path, secondPath: url.path) else { return false }
-            if fileAlreadyExists == true {
-                preparePlayController(with: path)
-                return true
-            } else {
-                path = findAppropriateEnding(for: path)
-            }
-        }
-        
-        do {
-            try fileManager.copyItem(atPath: url.path, toPath: path)
-            print(fileManager.currentDirectoryFiles!)
-        } catch {
-            print("Error while copying: \(error.localizedDescription)")
-        }
-        
-        preparePlayController(with: path)
         return true
     }
     
-    private func compareTwoFiles(given firstPath: String, secondPath: String) -> Bool? {
-        do {
-            let firstURL = URL(fileURLWithPath: firstPath)
-            let secondURL = URL(fileURLWithPath: secondPath)
-            let firstFile = try Data(contentsOf: firstURL)
-            let secondFile = try Data(contentsOf: secondURL)
-            if firstFile == secondFile {
-                print("Hah, the file is already in Documents directory :)")
-                return true
-            }
-            print("Hm, two files different files with the same name :/")
-            return false
-        } catch {
-            print("Got error while comparing two files:", error.localizedDescription)
-            return nil
-        }
+    enum Alert {
+        case error(String)
+        case alert(String)
     }
     
-    private func findAppropriateEnding(for path: String, currentEnding: Int = 1) -> String {
-        let fileManager = FileManager.default
-        let newPath = path + "-\(currentEnding)"
-        if fileManager.fileExists(atPath: newPath) {
-            return findAppropriateEnding(for: path, currentEnding: currentEnding + 1)
+    private func showAlert(_ alert: Alert) {
+        let title: String
+        let message: String
+        switch alert {
+        case .alert(let text):
+            title = "Alert"
+            message = text
+        case .error(let text):
+            title = "Error"
+            message = text
         }
-        return newPath
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .cancel)
+        alertController.addAction(okAction)
+        guard let navController = window?.rootViewController as? UINavigationController else { return }
+        navController.present(alertController, animated: true)
     }
     
     private func preparePlayController(with path: String) {
