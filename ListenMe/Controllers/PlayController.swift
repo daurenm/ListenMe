@@ -80,6 +80,28 @@ class PlayController: UIViewController {
         print("]\n")
     }
     
+    lazy var clearInboxButton: UIButton = {
+        let button = UIButton()
+        button.setAttributedTitle("Clear Inbox".withTextColor(.white), for: .normal)
+        button.backgroundColor = .flatRed
+        button.addTarget(self, action: #selector(clearInbox), for: .touchUpInside)
+        return button
+    }()
+    
+    @objc func clearInbox() {
+//        FileManager.default.changeToDocumentsDirectory()
+//        let inboxURL = FileManager.documentsURL.appendingPathComponent("Inbox", isDirectory: true)
+//        FileManager.default.changeCurrentDirectoryPath(inboxURL.path)
+//        let files = FileManager.default.currentDirectoryFiles!
+//        do {
+//            let file = files.first!
+//            let url = inboxURL.appendingPathComponent(file)
+//            try FileManager.default.removeItem(at: url)
+//        } catch {
+//            print("Couldn't removeItem: \(error.localizedDescription)")
+//        }
+    }
+    
     // MARK: - Lifecycle methods
     init(fileURL: URL = defaultFileURL) {
         currentFileURL = fileURL
@@ -104,6 +126,7 @@ class PlayController: UIViewController {
         view.addSubview(playButton)
         view.addSubview(pauseButton)
         view.addSubview(showFilesButton)
+        view.addSubview(clearInboxButton)
         
         playButton.easy.layout(
             CenterY(), Right(20).to(layoutGuide),
@@ -115,6 +138,10 @@ class PlayController: UIViewController {
         )
         showFilesButton.easy.layout(
             Bottom(), Height(44),
+            Left(), Right()
+        )
+        clearInboxButton.easy.layout(
+            Bottom().to(showFilesButton), Height(44),
             Left(), Right()
         )
     }

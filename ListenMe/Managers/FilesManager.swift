@@ -14,8 +14,7 @@ class FilesManager {
     static let `default` = FilesManager()
     private init() {
         // create necessary directories
-        let fileManager = FileManager.default
-        fileManager.changeToPlaylistsDirectory()
+        FileManager.default.changeToPlaylistsDirectory()
     }
     
     // MARK: - Constants
@@ -28,7 +27,7 @@ class FilesManager {
     }
     
     // MARK: - Shared methods
-    func tryToSaveFile(given url: URL) -> Response<FilePath> {
+    func tryToSaveFile(given url: URL) -> Response<URL> {
         let fromAnotherApp = !url.path.contains("Inbox")
         if fromAnotherApp {
             let askForPermission = url.startAccessingSecurityScopedResource()
@@ -40,24 +39,25 @@ class FilesManager {
         
         let fileManager = FileManager.default
         fileManager.changeToPlaylistsDirectory()
-        var path = "\(fileManager.currentDirectoryPath)/\(url.lastPathComponent)"
-        if fileManager.fileExists(atPath: path) {
-            let fileAlreadyExistsResponse = compareTwoFiles(given: path, secondPath: url.path)
+//        var path = "\(fileManager.currentDirectoryPath)/\(url.lastPathComponent)"
+        var fileURL = URL(fileURLWithPath: fileManager.currentDirectoryPath).appendingPathComponent(url.lastPathComponent)
+        if fileManager.fileExists(atPath: fileURL.path) {
+            let fileAlreadyExistsResponse = compareTwoFiles(given: fileURL, secondURL: url)
             switch fileAlreadyExistsResponse {
             case .error(let errorText):
                 return .error(errorText: errorText)
             case .success(let success):
                 if success {
-                    return .success(path)
+                    return .success(fileURL)
                 } else {
-                    path = findAppropriateEnding(for: path)
+                    fileURL = findAppropriateEnding(for: fileURL)
                 }
             }
         }
         
         do {
-            try fileManager.copyItem(atPath: url.path, toPath: path)
-            return .success(path)
+            try fileManager.copyItem(at: url, to: fileURL)
+            return .success(fileURL)
         } catch {
             return .error(errorText: error.localizedDescription)
         }
@@ -66,10 +66,8 @@ class FilesManager {
 
 // MARK: - Private methods
 extension FilesManager {
-    private func compareTwoFiles(given firstPath: String, secondPath: String) -> Response<Bool> {
+    private func compareTwoFiles(given firstURL: URL, secondURL: URL) -> Response<Bool> {
         do {
-            let firstURL = URL(fileURLWithPath: firstPath)
-            let secondURL = URL(fileURLWithPath: secondPath)
             let firstFile = try Data(contentsOf: firstURL)
             let secondFile = try Data(contentsOf: secondURL)
             if firstFile == secondFile {
@@ -84,14 +82,16 @@ extension FilesManager {
         }
     }
     
-    private func findAppropriateEnding(for path: String, currentEnding: Int = 1) -> String {
+    private func findAppropriateEnding(for url: URL, currentEnding: Int = 1) -> URL {
         let fileManager = FileManager.default
-        let (name, `extension`) = extractNameAndExtension(from: path)
+        let name = url.deletingPathExtension().path
+        let `extension` = url.pathExtension
         let newPath = "\(name)-\(currentEnding).\(`extension`)"
+        let newURL = URL(fileURLWithPath: newPath)
         if fileManager.fileExists(atPath: newPath) {
-            return findAppropriateEnding(for: path, currentEnding: currentEnding + 1)
+            return findAppropriateEnding(for: url, currentEnding: currentEnding + 1)
         }
-        return newPath
+        return newURL
     }
     
     private func extractNameAndExtension(from path: String) -> (String, String) {

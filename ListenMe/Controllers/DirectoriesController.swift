@@ -25,7 +25,7 @@ class DirectoriesController: UIViewController {
     
     private func runBasicCommands() {
         // changing current directory to documents directory
-        guard fileManager.changeCurrentDirectoryPath(FileManager.documentsDirectory) else {
+        guard fileManager.changeCurrentDirectoryPath(FileManager.documentsURL.path) else {
             assert(false, "Couldn't cd to 'Documents' directory of the app")
         }
         

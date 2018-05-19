@@ -39,8 +39,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         switch saveFileResponse {
         case .error(let errorText):
             showAlert(.error(errorText))
-        case .success(let path):
-            preparePlayController(with: path)
+        case .success(let fileURL):
+            preparePlayController(with: fileURL)
         }
         return true
     }
@@ -68,11 +68,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navController.present(alertController, animated: true)
     }
     
-    private func preparePlayController(with path: String) {
+    private func preparePlayController(with fileURL: URL) {
         guard let navController = window?.rootViewController as? UINavigationController,
             let playController = navController.viewControllers.first as? PlayController else { return }
-        let url = URL(fileURLWithPath: path)
-        playController.prepareToPlayNewFile(url: url)
+        playController.prepareToPlayNewFile(url: fileURL)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
