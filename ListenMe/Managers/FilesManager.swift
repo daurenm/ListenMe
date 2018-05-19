@@ -29,10 +29,13 @@ class FilesManager {
     
     // MARK: - Shared methods
     func tryToSaveFile(given url: URL) -> Response<FilePath> {
-        let askForPermission = url.startAccessingSecurityScopedResource()
-        guard askForPermission else {
-            print("Couldn't get permission to view file at '\(url.path)'")
-            return .error(errorText: "Couldn't get permission to view the file :(")
+        let fromAnotherApp = !url.path.contains("Inbox")
+        if fromAnotherApp {
+            let askForPermission = url.startAccessingSecurityScopedResource()
+            guard askForPermission else {
+                print("Couldn't get permission to view file at '\(url.path)'")
+                return .error(errorText: "Couldn't get permission to view the file :(")
+            }
         }
         
         let fileManager = FileManager.default
@@ -56,8 +59,7 @@ class FilesManager {
             try fileManager.copyItem(atPath: url.path, toPath: path)
             return .success(path)
         } catch {
-            print("Error while copying: \(error.localizedDescription)")
-            return .error(errorText: "Error: \(error.localizedDescription)")
+            return .error(errorText: error.localizedDescription)
         }
     }
 }

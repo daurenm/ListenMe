@@ -27,13 +27,13 @@ extension FileManager {
     
     func changeToPlaylistsDirectory() {
         let alreadyExists = fileExists(atPath: FileManager.playlistsDirectory)
-        if alreadyExists { return }
-        
-        do {
-            try createDirectory(atPath: FileManager.playlistsDirectory, withIntermediateDirectories: true, attributes: nil)
-        } catch {
-            print("Error: \(#function) - \(error.localizedDescription)")
-            return
+        if !alreadyExists {
+            do {
+                try createDirectory(atPath: FileManager.playlistsDirectory, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                print("Error: \(#function) - \(error.localizedDescription)")
+                return
+            }
         }
         
         let success = changeCurrentDirectoryPath(FileManager.playlistsDirectory)
