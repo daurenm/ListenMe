@@ -12,7 +12,11 @@ class FilesManager {
     
     // MARK: - Singleton
     static let `default` = FilesManager()
-    private init() {}
+    private init() {
+        // create necessary directories
+        let fileManager = FileManager.default
+        fileManager.changeToPlaylistsDirectory()
+    }
     
     // MARK: - Constants
     typealias FilePath = String
@@ -25,15 +29,14 @@ class FilesManager {
     
     // MARK: - Shared methods
     func tryToSaveFile(given url: URL) -> Response<FilePath> {
-//        let askForPermission = url.startAccessingSecurityScopedResource()
-        let askForPermission = false
+        let askForPermission = url.startAccessingSecurityScopedResource()
         guard askForPermission else {
             print("Couldn't get permission to view file at '\(url.path)'")
             return .error(errorText: "Couldn't get permission to view the file :(")
         }
         
         let fileManager = FileManager.default
-        fileManager.changeToDocumentsDirectory()
+        fileManager.changeToPlaylistsDirectory()
         var path = "\(fileManager.currentDirectoryPath)/\(url.lastPathComponent)"
         if fileManager.fileExists(atPath: path) {
             let fileAlreadyExistsResponse = compareTwoFiles(given: path, secondPath: url.path)

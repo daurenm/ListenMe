@@ -71,13 +71,13 @@ class PlayController: UIViewController {
     }()
     
     @objc func showFilesList() {
-        FileManager.default.changeToDocumentsDirectory()
+        FileManager.default.changeToPlaylistsDirectory()
         let files = FileManager.default.currentDirectoryFiles!
-        print("[")
+        print("\n[")
         for file in files {
             print("  \(file)")
         }
-        print("]")
+        print("]\n")
     }
     
     // MARK: - Lifecycle methods

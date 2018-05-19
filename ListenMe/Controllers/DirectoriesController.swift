@@ -9,23 +9,6 @@
 import UIKit
 import EasyPeasy
 
-extension FileManager {
-    
-    static let documentsDirectory = `default`.urls(for: .documentDirectory, in: .userDomainMask)[0].path
-    
-    var currentDirectoryFiles: [String]? {
-        let items = try? contentsOfDirectory(atPath: currentDirectoryPath)
-        return items
-    }
-    
-    func changeToDocumentsDirectory() {
-        let success = changeCurrentDirectoryPath(FileManager.documentsDirectory)
-        if !success {
-            print(#function, "couldn't change directory to documents :(")
-        }
-    }
-}
-
 class DirectoriesController: UIViewController {
     
     // MARK: - Properties
