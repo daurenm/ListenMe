@@ -21,6 +21,10 @@ class FilesManager {
     typealias FilePath = String
     typealias ErrorText = String
     
+    var fileManager: FileManager {
+        return FileManager.default
+    }
+    
     enum Response<T> {
         case success(T)
         case error(errorText: ErrorText)
@@ -37,30 +41,36 @@ class FilesManager {
             }
         }
         
+        var response: Response<URL>? = nil
+        
         let fileManager = FileManager.default
         fileManager.changeToPlaylistsDirectory()
-//        var path = "\(fileManager.currentDirectoryPath)/\(url.lastPathComponent)"
         var fileURL = URL(fileURLWithPath: fileManager.currentDirectoryPath).appendingPathComponent(url.lastPathComponent)
         if fileManager.fileExists(atPath: fileURL.path) {
             let fileAlreadyExistsResponse = compareTwoFiles(given: fileURL, secondURL: url)
             switch fileAlreadyExistsResponse {
             case .error(let errorText):
-                return .error(errorText: errorText)
+                response = .error(errorText: errorText)
             case .success(let success):
                 if success {
-                    return .success(fileURL)
+                    response = .success(fileURL)
                 } else {
                     fileURL = findAppropriateEnding(for: fileURL)
                 }
             }
         }
         
-        do {
-            try fileManager.copyItem(at: url, to: fileURL)
-            return .success(fileURL)
-        } catch {
-            return .error(errorText: error.localizedDescription)
+        if response == nil {
+            do {
+                try fileManager.copyItem(at: url, to: fileURL)
+                response = .success(fileURL)
+            } catch {
+                response = .error(errorText: error.localizedDescription)
+            }
         }
+        
+        removeFile(at: url)
+        return response!
     }
 }
 
@@ -83,7 +93,6 @@ extension FilesManager {
     }
     
     private func findAppropriateEnding(for url: URL, currentEnding: Int = 1) -> URL {
-        let fileManager = FileManager.default
         let name = url.deletingPathExtension().path
         let `extension` = url.pathExtension
         let newPath = "\(name)-\(currentEnding).\(`extension`)"
@@ -99,6 +108,21 @@ extension FilesManager {
         let name = url.deletingPathExtension()
         let `extension` = url.pathExtension
         return (name.path, `extension`)
+    }
+    
+    private func removeFile(at url: URL) {
+        guard url.path.contains("Inbox") else { return }
+        
+        guard fileManager.fileExists(atPath: url.path) else {
+            print("\(url.path) doesn't exist")
+            return
+        }
+        
+        do {
+            try fileManager.removeItem(at: url)
+        } catch {
+            print(#function, error.localizedDescription)
+        }
     }
 }
 

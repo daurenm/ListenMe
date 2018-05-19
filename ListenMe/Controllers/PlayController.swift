@@ -89,17 +89,18 @@ class PlayController: UIViewController {
     }()
     
     @objc func clearInbox() {
-//        FileManager.default.changeToDocumentsDirectory()
-//        let inboxURL = FileManager.documentsURL.appendingPathComponent("Inbox", isDirectory: true)
-//        FileManager.default.changeCurrentDirectoryPath(inboxURL.path)
-//        let files = FileManager.default.currentDirectoryFiles!
-//        do {
-//            let file = files.first!
-//            let url = inboxURL.appendingPathComponent(file)
-//            try FileManager.default.removeItem(at: url)
-//        } catch {
-//            print("Couldn't removeItem: \(error.localizedDescription)")
-//        }
+        let inboxURL = FileManager.documentsURL.appendingPathComponent("Inbox", isDirectory: true)
+        FileManager.default.changeCurrentDirectoryPath(inboxURL.path)
+        let files = FileManager.default.currentDirectoryFiles!
+        print("removing \(files)")
+        do {
+            for file in files {
+                let url = inboxURL.appendingPathComponent(file)
+                try FileManager.default.removeItem(at: url)
+            }
+        } catch {
+            print("Couldn't removeItem: \(error.localizedDescription)")
+        }
     }
     
     // MARK: - Lifecycle methods
