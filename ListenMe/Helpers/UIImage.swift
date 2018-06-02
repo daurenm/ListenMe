@@ -10,24 +10,25 @@ import UIKit
 import AVFoundation
 
 extension UIImage {
-    static func extractPreviewImage(from url: URL) -> UIImage? {
+    static func extractCoverImage(from url: URL) -> UIImage? {
         let playerItem = AVPlayerItem(url: url)
         let metadataList = playerItem.asset.metadata
         
         var image: UIImage? = nil
         
+        print(#function)
         for item in metadataList {
-            if let itemValue = item.value {
-                print(item.commonKey ?? "nil")
-                if item.commonKey == .commonKeyTitle {
+            if let itemValue = item.value, let commonKey = item.commonKey {
+                if commonKey == .commonKeyTitle {
                     print("title = \(itemValue as! String)")
-                } else if item.commonKey == .commonKeyArtist {
+                } else if commonKey == .commonKeyArtist {
                     print("artist = \(itemValue as! String)")
-                } else if item.commonKey == .commonKeyArtwork, let audioImage = UIImage(data: itemValue as! Data) {
-                    image = audioImage
+                } else if commonKey == .commonKeyArtwork, let coverImage = UIImage(data: itemValue as! Data) {
+                    image = coverImage
                 }
             }
         }
+        print()
         
         return image
     }
