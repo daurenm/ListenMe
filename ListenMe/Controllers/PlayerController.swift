@@ -1,5 +1,5 @@
 //
-//  PlayController.swift
+//  PlayerController.swift
 //  ListenMe
 //
 //  Created by Dauren Muratov on 5/15/18.
@@ -11,7 +11,7 @@ import EasyPeasy
 import AVFoundation
 import SwiftyAttributes
 
-class PlayController: UIViewController {
+class PlayerController: UIViewController {
     
     // MARK: - Constants
     var buttonHeight: CGFloat { return 44 }
@@ -19,21 +19,29 @@ class PlayController: UIViewController {
     static var defaultFileURL: URL {
         return Bundle.main.url(forResource: "this is water", withExtension: ".mp3")!
     }
-
-    // MARK: - Shared methods
-    func prepareToPlayNewFile(url: URL) {
-        guard currentFileURL != url else { return }
-        
-        playerManager.pause()
-        currentFileURL = url
+    
+    static var sampleWithImage: URL {
+        return Bundle.main.url(forResource: "sampleWithImage", withExtension: ".mp3")!
     }
     
     // MARK: - Properties
-    var currentFileURL: URL
+    var currentFileURL: URL {
+        didSet {
+            imageView.image = UIImage.extractPreviewImage(from: currentFileURL)
+        }
+    }
     
     var playerManager: PlayerManager { return PlayerManager.default }
     
     // MARK: - Views
+    lazy var imageView: UIImageView = {
+        let iv = UIImageView()
+        iv.backgroundColor = .flatBlue
+        iv.contentMode = .scaleAspectFit
+        iv.image = UIImage.extractPreviewImage(from: currentFileURL)
+        return iv
+    }()
+    
     lazy var playButton: UIButton = {
         let button = UIButton()
         button.layer.backgroundColor = UIColor.flatGreen.cgColor
@@ -43,10 +51,6 @@ class PlayController: UIViewController {
         button.addTarget(self, action: #selector(playTap), for: .touchUpInside)
         return button
     }()
-    
-    @objc func playTap() {
-        playerManager.play(url: currentFileURL)
-    }
     
     lazy var pauseButton: UIButton = {
         let button = UIButton()
@@ -58,10 +62,6 @@ class PlayController: UIViewController {
         return button
     }()
     
-    @objc func pauseTap() {
-        playerManager.pause()
-    }
-
     lazy var showFilesButton: UIButton = {
         let button = UIButton()
         button.setAttributedTitle("Show Files".withTextColor(.white), for: .normal)
@@ -69,16 +69,6 @@ class PlayController: UIViewController {
         button.addTarget(self, action: #selector(showFilesList), for: .touchUpInside)
         return button
     }()
-    
-    @objc func showFilesList() {
-        FileManager.default.changeToPlaylistsDirectory()
-        let files = FileManager.default.currentDirectoryFiles!
-        print("\n[")
-        for file in files {
-            print("  \(file)")
-        }
-        print("]\n")
-    }
     
     lazy var clearInboxButton: UIButton = {
         let button = UIButton()
@@ -88,23 +78,8 @@ class PlayController: UIViewController {
         return button
     }()
     
-    @objc func clearInbox() {
-        let inboxURL = FileManager.documentsURL.appendingPathComponent("Inbox", isDirectory: true)
-        FileManager.default.changeCurrentDirectoryPath(inboxURL.path)
-        let files = FileManager.default.currentDirectoryFiles!
-        print("removing \(files)")
-        do {
-            for file in files {
-                let url = inboxURL.appendingPathComponent(file)
-                try FileManager.default.removeItem(at: url)
-            }
-        } catch {
-            print("Couldn't removeItem: \(error.localizedDescription)")
-        }
-    }
-    
     // MARK: - Lifecycle methods
-    init(fileURL: URL = defaultFileURL) {
+    init(fileURL: URL = sampleWithImage) {
         currentFileURL = fileURL
         super.init(nibName: nil, bundle: nil)
     }
@@ -124,17 +99,24 @@ class PlayController: UIViewController {
         view.addLayoutGuide(layoutGuide)
         layoutGuide.easy.layout(Center())
         
+        view.addSubview(imageView)
         view.addSubview(playButton)
         view.addSubview(pauseButton)
         view.addSubview(showFilesButton)
         view.addSubview(clearInboxButton)
         
+        let width = Device.SCREEN_WIDTH - 20 * 2
+        imageView.easy.layout(
+            Top(20),
+            Left(20), Right(20),
+            Height(width)
+        )
         playButton.easy.layout(
-            CenterY(), Right(20).to(layoutGuide),
+            Bottom(20).to(clearInboxButton), Right(20).to(layoutGuide),
             Height(buttonHeight), Width(100)
         )
         pauseButton.easy.layout(
-            CenterY(), Left(20).to(layoutGuide),
+            Bottom().to(playButton, .bottom), Left(20).to(layoutGuide),
             Height(buttonHeight), Width(100)
         )
         showFilesButton.easy.layout(
@@ -148,7 +130,51 @@ class PlayController: UIViewController {
     }
 }
 
+// MARK: - Action methods
+extension PlayerController {
+    @objc func playTap() {
+        playerManager.play(url: currentFileURL)
+    }
 
+    @objc func pauseTap() {
+        playerManager.pause()
+    }
+
+    @objc func showFilesList() {
+        FileManager.default.changeToPlaylistsDirectory()
+        let files = FileManager.default.currentDirectoryFiles!
+        print("\n[")
+        for file in files {
+            print("  \(file)")
+        }
+        print("]\n")
+    }
+    
+    @objc func clearInbox() {
+        let inboxURL = FileManager.documentsURL.appendingPathComponent("Inbox", isDirectory: true)
+        FileManager.default.changeCurrentDirectoryPath(inboxURL.path)
+        let files = FileManager.default.currentDirectoryFiles!
+        print("removing \(files)")
+        do {
+            for file in files {
+                let url = inboxURL.appendingPathComponent(file)
+                try FileManager.default.removeItem(at: url)
+            }
+        } catch {
+            print("Couldn't removeItem: \(error.localizedDescription)")
+        }
+    }
+}
+
+// MARK: - Shared methods
+extension PlayerController {
+    func prepareToPlayNewFile(url: URL) {
+        guard currentFileURL != url else { return }
+        
+        playerManager.pause()
+        currentFileURL = url
+    }
+}
 
 
 

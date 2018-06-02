@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -127,7 +127,7 @@
 		1B9F4C05389C46AE39E3FE996CF4CB39 /* EasyPeasy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EasyPeasy.swift; path = EasyPeasy/EasyPeasy.swift; sourceTree = "<group>"; };
 		1BDA428CBFD1952BBE4F073DF15A58DD /* ReferenceAttribute.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ReferenceAttribute.swift; path = EasyPeasy/ReferenceAttribute.swift; sourceTree = "<group>"; };
 		200C53E98C2FA9911D48CFDDE1006610 /* UIImage+ChameleonPrivate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+ChameleonPrivate.h"; path = "Pod/Classes/Objective-C/UIImage+ChameleonPrivate.h"; sourceTree = "<group>"; };
-		25131D8B49751249C4BE003BF11B5EC2 /* libSwiftyAttributes.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libSwiftyAttributes.a; path = libSwiftyAttributes.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		25131D8B49751249C4BE003BF11B5EC2 /* libSwiftyAttributes.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSwiftyAttributes.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2618F0C2268FFD2EEF579939704B44FF /* UIButton+Chameleon.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIButton+Chameleon.h"; path = "Pod/Classes/Objective-C/UIButton+Chameleon.h"; sourceTree = "<group>"; };
 		2948822D07A15830B6A134B6041EBD5E /* UILayoutGuide+Easy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UILayoutGuide+Easy.swift"; path = "EasyPeasy/UILayoutGuide+Easy.swift"; sourceTree = "<group>"; };
 		31538061738505C86D4911B76C7F2A51 /* WritingDirection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WritingDirection.swift; path = SwiftyAttributes/Sources/common/WritingDirection.swift; sourceTree = "<group>"; };
@@ -141,7 +141,7 @@
 		426EF692E7D09628EB2AB27594B6281A /* UILabel+Chameleon.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UILabel+Chameleon.h"; path = "Pod/Classes/Objective-C/UILabel+Chameleon.h"; sourceTree = "<group>"; };
 		4508EF6228763282D6E27CD1F8E298B1 /* Attribute+Sequence.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Attribute+Sequence.swift"; path = "SwiftyAttributes/Sources/common/Attribute+Sequence.swift"; sourceTree = "<group>"; };
 		46B368B1733B8C2FBB9D691A4060A9CD /* Constant.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Constant.swift; path = EasyPeasy/Constant.swift; sourceTree = "<group>"; };
-		47F332ADE0A0CE1BE800CA1D9226C792 /* libEasyPeasy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libEasyPeasy.a; path = libEasyPeasy.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		47F332ADE0A0CE1BE800CA1D9226C792 /* libEasyPeasy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libEasyPeasy.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4995B3105B43367C887E0DFB537E11B1 /* Item.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Item.swift; path = EasyPeasy/Item.swift; sourceTree = "<group>"; };
 		4ADEDDDF17EC2FA5E4A3446BC6AD2417 /* Node.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Node.swift; path = EasyPeasy/Node.swift; sourceTree = "<group>"; };
 		4FF7A8B7B9040EAD9D888903B372AA60 /* SwiftyAttributes-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftyAttributes-dummy.m"; sourceTree = "<group>"; };
@@ -164,7 +164,7 @@
 		873038B2F313BC77B3024E959750FEB8 /* Pods-ListenMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ListenMe.debug.xcconfig"; sourceTree = "<group>"; };
 		89FBA1BF651F1EA0AB256C2A69833B10 /* UIColor+Chameleon.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIColor+Chameleon.m"; path = "Pod/Classes/Objective-C/UIColor+Chameleon.m"; sourceTree = "<group>"; };
 		8AAF0A28ED877E89C80D32F92FD3F179 /* UIImage+ChameleonPrivate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+ChameleonPrivate.m"; path = "Pod/Classes/Objective-C/UIImage+ChameleonPrivate.m"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		94D56BE7BAF6E6A74F25EE88B50F0C24 /* EasyPeasy-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "EasyPeasy-umbrella.h"; path = "../../Headers/Public/EasyPeasy/EasyPeasy-umbrella.h"; sourceTree = "<group>"; };
 		9B00BDAB45D9C4186C5894B2D9EFA311 /* UIView+Easy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIView+Easy.swift"; path = "EasyPeasy/UIView+Easy.swift"; sourceTree = "<group>"; };
 		9B9C6841E430B3F2DB604744E7D9B052 /* SwiftyAttributes.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; name = SwiftyAttributes.modulemap; path = ../../Headers/Public/SwiftyAttributes/SwiftyAttributes.modulemap; sourceTree = "<group>"; };
@@ -190,7 +190,7 @@
 		DFAC07C1BD5CBC0FE2EDB5EB0A26DE9E /* Item+AppKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Item+AppKit.swift"; path = "EasyPeasy/Item+AppKit.swift"; sourceTree = "<group>"; };
 		E21C69958F90CACC90E506A77DE0ADCE /* PositionAttribute+UIKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "PositionAttribute+UIKit.swift"; path = "EasyPeasy/PositionAttribute+UIKit.swift"; sourceTree = "<group>"; };
 		E490E0E450B7487C30FE0395E2B7760B /* AttributeName.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AttributeName.swift; path = SwiftyAttributes/Sources/common/AttributeName.swift; sourceTree = "<group>"; };
-		E5411AB56DC582B47CBA6F6CDA224939 /* libPods-ListenMe.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-ListenMe.a"; path = "libPods-ListenMe.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5411AB56DC582B47CBA6F6CDA224939 /* libPods-ListenMe.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ListenMe.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5F748DA8F98E61F788C3488D6BA25DD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		E8F5AB75F027773ED72E80C8072ED79F /* VerticalGlyphForm.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VerticalGlyphForm.swift; path = SwiftyAttributes/Sources/common/VerticalGlyphForm.swift; sourceTree = "<group>"; };
 		EA0186CEF48079C0154B10AD4D7FCCA0 /* Pods-ListenMe-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ListenMe-resources.sh"; sourceTree = "<group>"; };
@@ -202,7 +202,7 @@
 		F9FDDAFE1947A6C8583C15EC5721D4AF /* Chameleon_.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Chameleon_.h; path = "Pod/Classes/Objective-C/Chameleon_.h"; sourceTree = "<group>"; };
 		FAA701F7D4BB1015B85EC8B526608B4B /* UIView+ChameleonPrivate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIView+ChameleonPrivate.m"; path = "Pod/Classes/Objective-C/UIView+ChameleonPrivate.m"; sourceTree = "<group>"; };
 		FDBA94A94B982885ECCA1662BE8CD7CF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		FE65282DFD06BE980320EB411FD3808F /* libChameleonFramework.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libChameleonFramework.a; path = libChameleonFramework.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE65282DFD06BE980320EB411FD3808F /* libChameleonFramework.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libChameleonFramework.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FEB22F5A119171EE5BE589CA67EA8025 /* UIButton+Chameleon.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIButton+Chameleon.m"; path = "Pod/Classes/Objective-C/UIButton+Chameleon.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -355,7 +355,6 @@
 				9B00BDAB45D9C4186C5894B2D9EFA311 /* UIView+Easy.swift */,
 				365B3A6FA069996606D8AD7D1D0E93FE /* Support Files */,
 			);
-			name = EasyPeasy;
 			path = EasyPeasy;
 			sourceTree = "<group>";
 		};
@@ -396,7 +395,6 @@
 				A9502BD14FE71759B78B2D73FF303603 /* Support Files */,
 				740918D23D5E6769E846EBA10D24BBD9 /* Swift */,
 			);
-			name = ChameleonFramework;
 			path = ChameleonFramework;
 			sourceTree = "<group>";
 		};
@@ -460,7 +458,6 @@
 				31538061738505C86D4911B76C7F2A51 /* WritingDirection.swift */,
 				7B13C521408883614A909F61ED7C8236 /* Support Files */,
 			);
-			name = SwiftyAttributes;
 			path = SwiftyAttributes;
 			sourceTree = "<group>";
 		};
@@ -598,7 +595,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 0940;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -640,7 +637,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "COMPATIBILITY_HEADER_PATH=\"${BUILT_PRODUCTS_DIR}/Swift Compatibility Header/${PRODUCT_MODULE_NAME}-Swift.h\"\nMODULE_MAP_PATH=\"${BUILT_PRODUCTS_DIR}/${PRODUCT_MODULE_NAME}.modulemap\"\n\nditto \"${DERIVED_SOURCES_DIR}/${PRODUCT_MODULE_NAME}-Swift.h\" \"${COMPATIBILITY_HEADER_PATH}\"\nditto \"${PODS_ROOT}/Headers/Public/SwiftyAttributes/SwiftyAttributes.modulemap\" \"${MODULE_MAP_PATH}\"\nditto \"${PODS_ROOT}/Headers/Public/SwiftyAttributes/SwiftyAttributes-umbrella.h\" \"${BUILT_PRODUCTS_DIR}\"\nprintf \"\\n\\nmodule ${PRODUCT_MODULE_NAME}.Swift {\\n  header \\\"${COMPATIBILITY_HEADER_PATH}\\\"\\n  requires objc\\n}\\n\" >> \"${MODULE_MAP_PATH}\"\n";
-			showEnvVarsInLog = 1;
 		};
 		7A56B371C8A144CAFCC7C30FF3F91F95 /* Copy generated compatibility header */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -661,7 +657,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "COMPATIBILITY_HEADER_PATH=\"${BUILT_PRODUCTS_DIR}/Swift Compatibility Header/${PRODUCT_MODULE_NAME}-Swift.h\"\nMODULE_MAP_PATH=\"${BUILT_PRODUCTS_DIR}/${PRODUCT_MODULE_NAME}.modulemap\"\n\nditto \"${DERIVED_SOURCES_DIR}/${PRODUCT_MODULE_NAME}-Swift.h\" \"${COMPATIBILITY_HEADER_PATH}\"\nditto \"${PODS_ROOT}/Headers/Public/ChameleonFramework/ChameleonFramework.modulemap\" \"${MODULE_MAP_PATH}\"\nditto \"${PODS_ROOT}/Headers/Public/ChameleonFramework/ChameleonFramework-umbrella.h\" \"${BUILT_PRODUCTS_DIR}\"\nprintf \"\\n\\nmodule ${PRODUCT_MODULE_NAME}.Swift {\\n  header \\\"${COMPATIBILITY_HEADER_PATH}\\\"\\n  requires objc\\n}\\n\" >> \"${MODULE_MAP_PATH}\"\n";
-			showEnvVarsInLog = 1;
 		};
 		8D2CD875A80A30E1375FFAE6A13B55C4 /* Copy generated compatibility header */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -682,7 +677,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "COMPATIBILITY_HEADER_PATH=\"${BUILT_PRODUCTS_DIR}/Swift Compatibility Header/${PRODUCT_MODULE_NAME}-Swift.h\"\nMODULE_MAP_PATH=\"${BUILT_PRODUCTS_DIR}/${PRODUCT_MODULE_NAME}.modulemap\"\n\nditto \"${DERIVED_SOURCES_DIR}/${PRODUCT_MODULE_NAME}-Swift.h\" \"${COMPATIBILITY_HEADER_PATH}\"\nditto \"${PODS_ROOT}/Headers/Public/EasyPeasy/EasyPeasy.modulemap\" \"${MODULE_MAP_PATH}\"\nditto \"${PODS_ROOT}/Headers/Public/EasyPeasy/EasyPeasy-umbrella.h\" \"${BUILT_PRODUCTS_DIR}\"\nprintf \"\\n\\nmodule ${PRODUCT_MODULE_NAME}.Swift {\\n  header \\\"${COMPATIBILITY_HEADER_PATH}\\\"\\n  requires objc\\n}\\n\" >> \"${MODULE_MAP_PATH}\"\n";
-			showEnvVarsInLog = 1;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -843,6 +837,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;

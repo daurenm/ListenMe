@@ -19,9 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = .white
 //        let rootViewController = PlaylistController()
-        let rootViewController = PlayController()
+        let rootViewController = PlayerController()
 //        let rootViewController = DirectoriesController()
         let navigationController = UINavigationController(rootViewController: rootViewController)
+        navigationController.navigationBar.isTranslucent = false
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
         return true
@@ -70,7 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func preparePlayController(with fileURL: URL) {
         guard let navController = window?.rootViewController as? UINavigationController,
-            let playController = navController.viewControllers.first as? PlayController else { return }
+            let playController = navController.viewControllers.first as? PlayerController else { return }
         playController.prepareToPlayNewFile(url: fileURL)
     }
 

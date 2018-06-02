@@ -11,6 +11,9 @@
 		291520EE20A750BE00A1140E /* PlaylistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291520ED20A750BE00A1140E /* PlaylistController.swift */; };
 		291520F020A750BF00A1140E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 291520EF20A750BF00A1140E /* Assets.xcassets */; };
 		291520F320A750BF00A1140E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 291520F120A750BF00A1140E /* LaunchScreen.storyboard */; };
+		292E524420C27308008D280E /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E524320C27308008D280E /* Device.swift */; };
+		292E524620C27509008D280E /* sampleWithImage.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 292E524520C27508008D280E /* sampleWithImage.mp3 */; };
+		292E524820C275BE008D280E /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E524720C275BE008D280E /* UIImage.swift */; };
 		2980814620ADDC8800F5E4F8 /* PlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2980814520ADDC8800F5E4F8 /* PlayerManager.swift */; };
 		2980814820ADE66C00F5E4F8 /* AVAudioSession+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2980814720ADE66C00F5E4F8 /* AVAudioSession+helpers.swift */; };
 		2980814E20ADEE5500F5E4F8 /* DirectoriesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2980814D20ADEE5500F5E4F8 /* DirectoriesController.swift */; };
@@ -20,7 +23,7 @@
 		29E57DB920AB48B500DF1F15 /* PlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E57DB820AB48B500DF1F15 /* PlaylistCell.swift */; };
 		29E57DBC20AB4A3900DF1F15 /* PlaylistCV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E57DBB20AB4A3900DF1F15 /* PlaylistCV.swift */; };
 		29E57DBE20AB53C200DF1F15 /* this is water.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 29E57DBD20AB53C200DF1F15 /* this is water.mp3 */; };
-		29E57DC020AB551500DF1F15 /* PlayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E57DBF20AB551500DF1F15 /* PlayController.swift */; };
+		29E57DC020AB551500DF1F15 /* PlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E57DBF20AB551500DF1F15 /* PlayerController.swift */; };
 		54C6A65460C5F018CA3EF612 /* libPods-ListenMe.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51F401C6F501817A5F9B3E8E /* libPods-ListenMe.a */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +35,9 @@
 		291520EF20A750BF00A1140E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		291520F220A750BF00A1140E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		291520F420A750BF00A1140E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		292E524320C27308008D280E /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		292E524520C27508008D280E /* sampleWithImage.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sampleWithImage.mp3; sourceTree = "<group>"; };
+		292E524720C275BE008D280E /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		2980814520ADDC8800F5E4F8 /* PlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerManager.swift; sourceTree = "<group>"; };
 		2980814720ADE66C00F5E4F8 /* AVAudioSession+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAudioSession+helpers.swift"; sourceTree = "<group>"; };
 		2980814D20ADEE5500F5E4F8 /* DirectoriesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoriesController.swift; sourceTree = "<group>"; };
@@ -41,7 +47,7 @@
 		29E57DB820AB48B500DF1F15 /* PlaylistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistCell.swift; sourceTree = "<group>"; };
 		29E57DBB20AB4A3900DF1F15 /* PlaylistCV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistCV.swift; sourceTree = "<group>"; };
 		29E57DBD20AB53C200DF1F15 /* this is water.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "this is water.mp3"; sourceTree = "<group>"; };
-		29E57DBF20AB551500DF1F15 /* PlayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayController.swift; sourceTree = "<group>"; };
+		29E57DBF20AB551500DF1F15 /* PlayerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerController.swift; sourceTree = "<group>"; };
 		51F401C6F501817A5F9B3E8E /* libPods-ListenMe.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ListenMe.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		75F327E7052E228E4CDA36D4 /* Pods-ListenMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ListenMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ListenMe/Pods-ListenMe.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -109,6 +115,7 @@
 		29E57DB220AB467900DF1F15 /* Other Files */ = {
 			isa = PBXGroup;
 			children = (
+				292E524520C27508008D280E /* sampleWithImage.mp3 */,
 				29E57DBD20AB53C200DF1F15 /* this is water.mp3 */,
 				291520EF20A750BF00A1140E /* Assets.xcassets */,
 				291520F120A750BF00A1140E /* LaunchScreen.storyboard */,
@@ -121,7 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				291520ED20A750BE00A1140E /* PlaylistController.swift */,
-				29E57DBF20AB551500DF1F15 /* PlayController.swift */,
+				29E57DBF20AB551500DF1F15 /* PlayerController.swift */,
 				2980814D20ADEE5500F5E4F8 /* DirectoriesController.swift */,
 			);
 			path = Controllers;
@@ -133,6 +140,8 @@
 				29E57DB620AB483000DF1F15 /* Reusable+TV+CV.swift */,
 				2980814720ADE66C00F5E4F8 /* AVAudioSession+helpers.swift */,
 				29C5554520AFEEC700AD3B80 /* FileManager+helpers.swift */,
+				292E524320C27308008D280E /* Device.swift */,
+				292E524720C275BE008D280E /* UIImage.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -219,6 +228,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				292E524620C27509008D280E /* sampleWithImage.mp3 in Resources */,
 				291520F020A750BF00A1140E /* Assets.xcassets in Resources */,
 				29E57DBE20AB53C200DF1F15 /* this is water.mp3 in Resources */,
 				291520F320A750BF00A1140E /* LaunchScreen.storyboard in Resources */,
@@ -254,15 +264,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				29E57DBC20AB4A3900DF1F15 /* PlaylistCV.swift in Sources */,
+				292E524420C27308008D280E /* Device.swift in Sources */,
 				29C5554320AFE1B600AD3B80 /* FilesManager.swift in Sources */,
 				29E57DB720AB483000DF1F15 /* Reusable+TV+CV.swift in Sources */,
 				2980814E20ADEE5500F5E4F8 /* DirectoriesController.swift in Sources */,
 				2980814820ADE66C00F5E4F8 /* AVAudioSession+helpers.swift in Sources */,
-				29E57DC020AB551500DF1F15 /* PlayController.swift in Sources */,
+				29E57DC020AB551500DF1F15 /* PlayerController.swift in Sources */,
 				2980814620ADDC8800F5E4F8 /* PlayerManager.swift in Sources */,
 				291520EE20A750BE00A1140E /* PlaylistController.swift in Sources */,
 				291520EC20A750BE00A1140E /* AppDelegate.swift in Sources */,
 				29E57DB920AB48B500DF1F15 /* PlaylistCell.swift in Sources */,
+				292E524820C275BE008D280E /* UIImage.swift in Sources */,
 				29C5554620AFEEC700AD3B80 /* FileManager+helpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
