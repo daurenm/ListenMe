@@ -49,8 +49,13 @@ class PlayerController: UIViewController {
     lazy var controlsView: PlayerControlsView = {
         let view = PlayerControlsView()
         view.onPlayPause = { [weak self] in
-            guard let `self` = self else { return }
-            self.playerManager.playPause()
+            self?.playerManager.playPause()
+        }
+        view.onBackwardJump = { [weak self] in
+            self?.playerManager.jump(for: -PlayerControlsView.jumpForSeconds)
+        }
+        view.onForwardJump = { [weak self] in
+            self?.playerManager.jump(for: PlayerControlsView.jumpForSeconds)
         }
         playerManager.didFinishPlaying = view.prepareToPlay
         return view

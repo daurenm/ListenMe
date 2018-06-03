@@ -43,9 +43,8 @@ class PlayerManager: NSObject {
         player?.play()
 
         timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { [weak self] (_) in
-            let currentTime = Int(self?.player?.currentTime.rounded() ?? 0)
-            self?.timeDidChange?(currentTime)
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { [unowned self] (_) in
+            self.timeDidChange?(self.currentTime)
         })
     }
     
@@ -58,6 +57,17 @@ class PlayerManager: NSObject {
         player?.currentTime = TimeInterval(time)
     }
     
+    func jump(for kseconds: Int) {
+        let savedVolume = player!.volume
+        player?.volume = 0
+        var newTime = player!.currentTime + TimeInterval(kseconds)
+        newTime = max(newTime, 0)
+        newTime = min(newTime, player!.duration)
+        seek(to: Int(newTime))
+        timeDidChange?(currentTime)
+        player?.volume = savedVolume
+    }
+    
     var duration: Int!
 
     // MARK: - Properties
@@ -66,6 +76,7 @@ class PlayerManager: NSObject {
     
     var timeDidChange: ((Int) -> ())?
     var didFinishPlaying: (() -> ())?
+    var currentTime: Int { return Int(player?.currentTime.rounded() ?? 0) }
     
     // MARK: - Lifecycle methods
     private override init() {

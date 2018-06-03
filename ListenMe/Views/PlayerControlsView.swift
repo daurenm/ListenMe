@@ -14,7 +14,8 @@ class PlayerControlsView: UIView {
     // MARK: - Constants
     static var defaultHeight: CGFloat { return 80 }
     typealias ButtonClosure = () -> ()
-    
+    static let jumpForSeconds = 30
+
     // MARK: - Public API
     func prepareToPlay() {
         playPauseButton.isSelected = false
@@ -24,9 +25,9 @@ class PlayerControlsView: UIView {
     var onPlayPause: ButtonClosure!
     var onBackwardJump: ButtonClosure!
     var onForwardJump: ButtonClosure!
-    var onPrevTrack: ButtonClosure!
-    var onNextTrack: ButtonClosure!
-
+    var onPrevTrack: ButtonClosure?
+    var onNextTrack: ButtonClosure?
+    
     // MARK: - Views
     lazy var playPauseButton: UIButton = {
         let button = UIButton()
@@ -57,14 +58,14 @@ class PlayerControlsView: UIView {
     lazy var prevTrackButton: UIButton = {
         let button = UIButton()
         button.setImage(#imageLiteral(resourceName: "player_controls_prev_track"), for: .normal)
-        button.addTarget { _ in self.onPrevTrack() }
+        button.addTarget { _ in self.onPrevTrack?() }
         return button
     }()
     
     lazy var nextTrackButton: UIButton = {
         let button = UIButton()
         button.setImage(#imageLiteral(resourceName: "player_controls_next_track"), for: .normal)
-        button.addTarget { _ in self.onNextTrack() }
+        button.addTarget { _ in self.onNextTrack?() }
         return button
     }()
     
