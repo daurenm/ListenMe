@@ -31,6 +31,8 @@ class PlayerController: UIViewController {
         guard !sameTrack else { return }
         
         coverIV.image = UIImage.extractCoverImage(from: url)
+        let trackName = url.deletingPathExtension().lastPathComponent
+        trackNameLabel.set(text: trackName)
         controlsView.prepareToPlay()
         sliderView.prepareToPlay(maximumValue: playerManager.duration)
     }
@@ -43,7 +45,15 @@ class PlayerController: UIViewController {
         let iv = UIImageView()
         iv.backgroundColor = .flatBlue
         iv.contentMode = .scaleAspectFit
+        iv.isHidden = true
         return iv
+    }()
+    
+    lazy var trackNameLabel: Label = {
+        let label = Label(font: UIFont.systemFont(ofSize: 20, weight: .bold), textColor: .white)
+        label.textAlignment = .center
+        label.set(text: "Top 50 rules - Garyvee")
+        return label
     }()
     
     lazy var sliderView: PlayerSliderView = {
@@ -106,6 +116,7 @@ class PlayerController: UIViewController {
         view.backgroundColor = UIColor(r: 31, g: 31, b: 31)
         
         view.addSubview(coverIV)
+        view.addSubview(trackNameLabel)
         view.addSubview(sliderView)
         view.addSubview(controlsView)
         view.addSubview(extrasView)
@@ -113,6 +124,9 @@ class PlayerController: UIViewController {
             Top(20),
             Left(20), Right(20),
             Height(300)
+        )
+        trackNameLabel.easy.layout(
+            CenterX(), Bottom(20).to(sliderView)
         )
         sliderView.easy.layout(
             Bottom(20).to(controlsView),

@@ -17,14 +17,13 @@ extension UIImage {
         var image: UIImage? = nil
         
         for item in metadataList {
-            if let itemValue = item.value, let commonKey = item.commonKey {
-                if commonKey == .commonKeyTitle {
-                    print("title = \(itemValue as! String)")
-                } else if commonKey == .commonKeyArtist {
-                    print("artist = \(itemValue as! String)")
-                } else if commonKey == .commonKeyArtwork, let coverImage = UIImage(data: itemValue as! Data) {
-                    image = coverImage
-                }
+            if let itemValue = item.value, let commonKey = item.commonKey, commonKey == .commonKeyArtwork, let coverImage = UIImage(data: itemValue as! Data) {
+//                if commonKey == .commonKeyTitle {
+//                    print("title = \(itemValue as! String)")
+//                } else if commonKey == .commonKeyArtist {
+//                    print("artist = \(itemValue as! String)")
+//                }
+                image = coverImage
             }
         }
         
