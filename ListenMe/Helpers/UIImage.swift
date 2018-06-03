@@ -16,7 +16,6 @@ extension UIImage {
         
         var image: UIImage? = nil
         
-        print(#function)
         for item in metadataList {
             if let itemValue = item.value, let commonKey = item.commonKey {
                 if commonKey == .commonKeyTitle {
@@ -28,7 +27,6 @@ extension UIImage {
                 }
             }
         }
-        print()
         
         return image
     }

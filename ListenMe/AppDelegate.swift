@@ -72,7 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func preparePlayController(with fileURL: URL) {
         guard let navController = window?.rootViewController as? UINavigationController,
             let playController = navController.viewControllers.first as? PlayerController else { return }
-        playController.prepareToPlayNewFile(url: fileURL)
+        playController.prepareToPlayNewTrack(url: fileURL)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

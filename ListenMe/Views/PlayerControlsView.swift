@@ -13,7 +13,20 @@ class PlayerControlsView: UIView {
     
     // MARK: - Constants
     static var defaultHeight: CGFloat { return 80 }
+    typealias ButtonClosure = () -> ()
     
+    // MARK: - Public API
+    func prepareToPlay() {
+        playPauseButton.isSelected = false
+    }
+    
+    // MARK: - Properties
+    var onPlayPause: ButtonClosure!
+    var onBackwardJump: ButtonClosure!
+    var onForwardJump: ButtonClosure!
+    var onPrevTrack: ButtonClosure!
+    var onNextTrack: ButtonClosure!
+
     // MARK: - Views
     lazy var playPauseButton: UIButton = {
         let button = UIButton()
@@ -22,6 +35,7 @@ class PlayerControlsView: UIView {
         button.setImage(#imageLiteral(resourceName: "player_controls_pause"), for: .selected)
         button.addTarget { (button) in
             button.isSelected.flip()
+            self.onPlayPause()
         }
         return button
     }()
@@ -29,24 +43,28 @@ class PlayerControlsView: UIView {
     lazy var backwardJumpButton: UIButton = {
         let button = UIButton()
         button.setImage(#imageLiteral(resourceName: "player_controls_backward_jump"), for: .normal)
+        button.addTarget { _ in self.onBackwardJump() }
         return button
     }()
     
     lazy var forwardJumpButton: UIButton = {
         let button = UIButton()
         button.setImage(#imageLiteral(resourceName: "player_controls_forward_jump"), for: .normal)
+        button.addTarget { _ in self.onForwardJump() }
         return button
     }()
     
     lazy var prevTrackButton: UIButton = {
         let button = UIButton()
         button.setImage(#imageLiteral(resourceName: "player_controls_prev_track"), for: .normal)
+        button.addTarget { _ in self.onPrevTrack() }
         return button
     }()
     
     lazy var nextTrackButton: UIButton = {
         let button = UIButton()
         button.setImage(#imageLiteral(resourceName: "player_controls_next_track"), for: .normal)
+        button.addTarget { _ in self.onNextTrack() }
         return button
     }()
     

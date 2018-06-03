@@ -24,13 +24,18 @@ class PlayerController: UIViewController {
         return Bundle.main.url(forResource: "sampleWithImage", withExtension: ".mp3")!
     }
     
-    // MARK: - Properties
-    var currentFileURL: URL {
-        didSet {
-            coverIV.image = extractPreviewImage(from: currentFileURL)
-        }
+    // MARK: - Public API
+    func prepareToPlayNewTrack(url: URL) {
+        let sameTrack = playerManager.prepareToPlay(url: url)
+        
+        guard !sameTrack else { return }
+        
+        coverIV.image = UIImage.extractCoverImage(from: url)
+        controlsView.prepareToPlay()
+        sliderView.prepareToPlay(maximumValue: playerManager.duration)
     }
-    
+
+    // MARK: - Properties
     var playerManager: PlayerManager { return PlayerManager.default }
     
     // MARK: - Views
@@ -38,43 +43,34 @@ class PlayerController: UIViewController {
         let iv = UIImageView()
         iv.backgroundColor = .flatBlue
         iv.contentMode = .scaleAspectFit
-        iv.image = extractPreviewImage(from: currentFileURL)
         return iv
     }()
     
-    func extractPreviewImage(from url: URL) -> UIImage? {
-        return UIImage.extractCoverImage(from: currentFileURL)
-    }
-    
-//    lazy var playButton: UIButton = {
-//        let button = UIButton()
-//        button.layer.backgroundColor = UIColor.flatGreen.cgColor
-//        button.layer.cornerRadius = buttonHeight / 2
-//        let title = "Play".withTextColor(.white)
-//        button.setAttributedTitle(title, for: .normal)
-//        button.addTarget(self, action: #selector(playTap), for: .touchUpInside)
-//        return button
-//    }()
-//
-//    lazy var pauseButton: UIButton = {
-//        let button = UIButton()
-//        button.layer.backgroundColor = UIColor.flatGreen.cgColor
-//        button.layer.cornerRadius = buttonHeight / 2
-//        let title = "Pause".withTextColor(.white)
-//        button.setAttributedTitle(title, for: .normal)
-//        button.addTarget(self, action: #selector(pauseTap), for: .touchUpInside)
-//        return button
-//    }()
-    
     lazy var controlsView: PlayerControlsView = {
         let view = PlayerControlsView()
+        view.onPlayPause = { [weak self] in
+            guard let `self` = self else { return }
+            self.playerManager.playPause()
+        }
+        playerManager.didFinishPlaying = view.prepareToPlay
+        return view
+    }()
+    
+    lazy var sliderView: PlayerSliderView = {
+        let view = PlayerSliderView()
+        playerManager.timeDidChange = { [unowned self] (curTime) in
+            view.timeDidChange(curTime)
+        }
+        view.didSeek = { [unowned self] (newTime) in
+            self.playerManager.seek(to: newTime)
+        }
         return view
     }()
     
     // MARK: - Lifecycle methods
     init(fileURL: URL = defaultFileURL) {
-        currentFileURL = fileURL
         super.init(nibName: nil, bundle: nil)
+        prepareToPlayNewTrack(url: fileURL)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -89,7 +85,6 @@ class PlayerController: UIViewController {
     }
     
     private func setupNavigationBar() {
-//        let clearBarButtonItem = UIBarButtonItem(title: "Clear Inbox", style: .plain, target: self, action: #selector(clearInbox))
         let printFilesBarButtonItem = UIBarButtonItem(title: "Print", style: .plain, target: self, action: #selector(showFilesList))
         navigationItem.rightBarButtonItems = [printFilesBarButtonItem]
     }
@@ -99,29 +94,27 @@ class PlayerController: UIViewController {
         
         view.addSubview(coverIV)
         view.addSubview(controlsView)
+        view.addSubview(sliderView)
         coverIV.easy.layout(
             Top(20),
             Left(20), Right(20),
             Height(300)
         )
         controlsView.easy.layout(
-            Bottom(20),
+            Bottom(80),
             Left(20), Right(20),
             Height(PlayerControlsView.defaultHeight)
+        )
+        sliderView.easy.layout(
+            Bottom(20).to(controlsView),
+            Left(20), Right(20),
+            Height(50)
         )
     }
 }
 
 // MARK: - Action methods
 extension PlayerController {
-    @objc func playTap() {
-        playerManager.play(url: currentFileURL)
-    }
-
-    @objc func pauseTap() {
-        playerManager.pause()
-    }
-
     @objc func showFilesList() {
         FileManager.default.changeToPlaylistsDirectory()
         let files = FileManager.default.currentDirectoryFiles!
@@ -131,7 +124,10 @@ extension PlayerController {
         }
         print("]\n")
     }
-    
+}
+
+
+
 //    @objc func clearInbox() {
 //        let inboxURL = FileManager.documentsURL.appendingPathComponent("Inbox", isDirectory: true)
 //        FileManager.default.changeCurrentDirectoryPath(inboxURL.path)
@@ -146,22 +142,6 @@ extension PlayerController {
 //            print("Couldn't removeItem: \(error.localizedDescription)")
 //        }
 //    }
-}
-
-// MARK: - Shared methods
-extension PlayerController {
-    func prepareToPlayNewFile(url: URL) {
-        guard currentFileURL != url else { return }
-        
-        playerManager.pause()
-        currentFileURL = url
-    }
-}
-
-
-
-
-
 
 
 
