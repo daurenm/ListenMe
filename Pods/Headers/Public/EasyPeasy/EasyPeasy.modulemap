@@ -1,4 +1,4 @@
-module EasyPeasy [system] {
+module EasyPeasy {
   umbrella header "EasyPeasy-umbrella.h"
 
   export *

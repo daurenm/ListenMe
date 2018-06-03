@@ -10,6 +10,7 @@ import UIKit
 import EasyPeasy
 import AVFoundation
 import SwiftyAttributes
+import MarqueeLabel
 
 class PlayerController: UIViewController {
     
@@ -30,7 +31,14 @@ class PlayerController: UIViewController {
         
         guard !sameTrack else { return }
         
-        coverIV.image = UIImage.extractCoverImage(from: url)
+        if let image = UIImage.extractCoverImage(from: url) {
+            coverIV.image = image
+            defaultCoverView.isHidden = true
+        } else {
+            coverIV.image = nil
+            defaultCoverView.isHidden = false
+        }
+        
         let trackName = url.deletingPathExtension().lastPathComponent
         trackNameLabel.set(text: trackName)
         controlsView.prepareToPlay()
@@ -41,16 +49,27 @@ class PlayerController: UIViewController {
     var playerManager: PlayerManager { return PlayerManager.default }
     
     // MARK: - Views
+    lazy var defaultCoverView: UIView = {
+        let iv = UIImageView(image: #imageLiteral(resourceName: "player_default_cover").withRenderingMode(.alwaysTemplate))
+        iv.contentMode = .scaleAspectFit
+        iv.tintColor = UIColor(r: 31, g: 31, b: 31)
+        
+        let view = UIView()
+        view.addSubview(iv)
+        iv.easy.layout(Center(), Size(75))
+        view.layer.backgroundColor = UIColor.white.cgColor // UIColor.white.withAlphaComponent(0.25).cgColor
+        view.layer.cornerRadius = 20
+        return view
+    }()
+    
     lazy var coverIV: UIImageView = {
         let iv = UIImageView()
-        iv.backgroundColor = .flatBlue
         iv.contentMode = .scaleAspectFit
-        iv.isHidden = true
         return iv
     }()
     
-    lazy var trackNameLabel: Label = {
-        let label = Label(font: UIFont.systemFont(ofSize: 20, weight: .bold), textColor: .white)
+    lazy var trackNameLabel: MarqueeLabel = {
+        let label = MarqueeLabel(font: UIFont.systemFont(ofSize: 20, weight: .bold), textColor: .white)
         label.textAlignment = .center
         label.set(text: "Top 50 rules - Garyvee")
         return label
@@ -93,6 +112,8 @@ class PlayerController: UIViewController {
     // MARK: - Lifecycle methods
     init(fileURL: URL = defaultFileURL) {
         super.init(nibName: nil, bundle: nil)
+        
+        title = "Playing"
         prepareToPlayNewTrack(url: fileURL)
     }
     
@@ -116,6 +137,7 @@ class PlayerController: UIViewController {
         view.backgroundColor = UIColor(r: 31, g: 31, b: 31)
         
         view.addSubview(coverIV)
+        view.addSubview(defaultCoverView)
         view.addSubview(trackNameLabel)
         view.addSubview(sliderView)
         view.addSubview(controlsView)
@@ -123,10 +145,16 @@ class PlayerController: UIViewController {
         coverIV.easy.layout(
             Top(20),
             Left(20), Right(20),
-            Height(300)
+            Bottom(20).to(trackNameLabel)
+        )
+        defaultCoverView.easy.layout(
+            Top().to(coverIV, .top),
+            Left(20), Right(20),
+            Bottom().to(coverIV, .bottom)
         )
         trackNameLabel.easy.layout(
-            CenterX(), Bottom(20).to(sliderView)
+            Bottom(20).to(sliderView),
+            Left(20), Right(20)
         )
         sliderView.easy.layout(
             Bottom(20).to(controlsView),

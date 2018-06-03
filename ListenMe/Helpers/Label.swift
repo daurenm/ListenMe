@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MarqueeLabel
 
 class Label: UILabel {
     
@@ -29,3 +30,30 @@ class Label: UILabel {
     }
 }
 
+extension MarqueeLabel {
+    
+    struct AssociatedKeys {
+        static var font: UInt8 = 0
+        static var textColor: UInt8 = 0
+    }
+    
+    var givenFont: UIFont {
+        get { return objc_getAssociatedObject(self, &AssociatedKeys.font) as! UIFont }
+        set { objc_setAssociatedObject(self, &AssociatedKeys.font, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
+    }
+    
+    var givenTextColor: UIColor {
+        get { return objc_getAssociatedObject(self, &AssociatedKeys.textColor) as! UIColor }
+        set { objc_setAssociatedObject(self, &AssociatedKeys.textColor, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
+    }
+    
+    convenience init(font: UIFont, textColor: UIColor) {
+        self.init(frame: .zero, duration: 8, fadeLength: 10)
+        self.givenFont = font
+        self.givenTextColor = textColor
+    }
+    
+    func set(text: String?) {
+        attributedText = text?.withFont(givenFont).withTextColor(givenTextColor)
+    }
+}
