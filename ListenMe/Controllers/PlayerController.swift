@@ -46,6 +46,17 @@ class PlayerController: UIViewController {
         return iv
     }()
     
+    lazy var sliderView: PlayerSliderView = {
+        let view = PlayerSliderView()
+        playerManager.timeDidChange = { [unowned self] (curTime) in
+            view.timeDidChange(curTime)
+        }
+        view.didSeek = { [unowned self] (newTime) in
+            self.playerManager.seek(to: newTime)
+        }
+        return view
+    }()
+    
     lazy var controlsView: PlayerControlsView = {
         let view = PlayerControlsView()
         view.onPlayPause = { [weak self] in
@@ -61,13 +72,10 @@ class PlayerController: UIViewController {
         return view
     }()
     
-    lazy var sliderView: PlayerSliderView = {
-        let view = PlayerSliderView()
-        playerManager.timeDidChange = { [unowned self] (curTime) in
-            view.timeDidChange(curTime)
-        }
-        view.didSeek = { [unowned self] (newTime) in
-            self.playerManager.seek(to: newTime)
+    lazy var extrasView: PlayerExtrasView = {
+        let view = PlayerExtrasView()
+        view.rateDidChange = { [weak self] (rate) in
+            self?.playerManager.changeRate(rate)
         }
         return view
     }()
@@ -98,22 +106,28 @@ class PlayerController: UIViewController {
         view.backgroundColor = UIColor(r: 31, g: 31, b: 31)
         
         view.addSubview(coverIV)
-        view.addSubview(controlsView)
         view.addSubview(sliderView)
+        view.addSubview(controlsView)
+        view.addSubview(extrasView)
         coverIV.easy.layout(
             Top(20),
             Left(20), Right(20),
             Height(300)
         )
-        controlsView.easy.layout(
-            Bottom(80),
-            Left(20), Right(20),
-            Height(PlayerControlsView.defaultHeight)
-        )
         sliderView.easy.layout(
             Bottom(20).to(controlsView),
             Left(20), Right(20),
             Height(50)
+        )
+        controlsView.easy.layout(
+            Bottom(20).to(extrasView),
+            Left(20), Right(20),
+            Height(PlayerControlsView.defaultHeight)
+        )
+        extrasView.easy.layout(
+            Bottom(20),
+            Left(20), Right(20),
+            Height(60)
         )
     }
 }

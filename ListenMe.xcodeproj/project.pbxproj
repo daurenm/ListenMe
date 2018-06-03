@@ -30,6 +30,8 @@
 		29E57DC020AB551500DF1F15 /* PlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E57DBF20AB551500DF1F15 /* PlayerController.swift */; };
 		29E96B1A20C3B0D90045DEDC /* PlayerSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E96B1920C3B0D90045DEDC /* PlayerSliderView.swift */; };
 		29E96B1C20C3B42C0045DEDC /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E96B1B20C3B42C0045DEDC /* Label.swift */; };
+		29E96B1F20C3D31C0045DEDC /* PlayerExtrasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E96B1E20C3D31C0045DEDC /* PlayerExtrasView.swift */; };
+		29E96B2120C3D63B0045DEDC /* TapGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E96B2020C3D63B0045DEDC /* TapGesture.swift */; };
 		29F6360C20C3109D004DA646 /* ClosureWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F6360B20C3109D004DA646 /* ClosureWrapper.swift */; };
 		54C6A65460C5F018CA3EF612 /* libPods-ListenMe.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51F401C6F501817A5F9B3E8E /* libPods-ListenMe.a */; };
 /* End PBXBuildFile section */
@@ -61,6 +63,8 @@
 		29E57DBF20AB551500DF1F15 /* PlayerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerController.swift; sourceTree = "<group>"; };
 		29E96B1920C3B0D90045DEDC /* PlayerSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSliderView.swift; sourceTree = "<group>"; };
 		29E96B1B20C3B42C0045DEDC /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
+		29E96B1E20C3D31C0045DEDC /* PlayerExtrasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerExtrasView.swift; sourceTree = "<group>"; };
+		29E96B2020C3D63B0045DEDC /* TapGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGesture.swift; sourceTree = "<group>"; };
 		29F6360B20C3109D004DA646 /* ClosureWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureWrapper.swift; sourceTree = "<group>"; };
 		51F401C6F501817A5F9B3E8E /* libPods-ListenMe.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ListenMe.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		75F327E7052E228E4CDA36D4 /* Pods-ListenMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ListenMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ListenMe/Pods-ListenMe.debug.xcconfig"; sourceTree = "<group>"; };
@@ -161,6 +165,7 @@
 				29F6360B20C3109D004DA646 /* ClosureWrapper.swift */,
 				292E525120C2AFF7008D280E /* UIButton.swift */,
 				29E96B1B20C3B42C0045DEDC /* Label.swift */,
+				29E96B2020C3D63B0045DEDC /* TapGesture.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -172,6 +177,7 @@
 				29E57DB820AB48B500DF1F15 /* PlaylistCell.swift */,
 				292E524920C2A389008D280E /* PlayerControlsView.swift */,
 				29E96B1920C3B0D90045DEDC /* PlayerSliderView.swift */,
+				29E96B1E20C3D31C0045DEDC /* PlayerExtrasView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -295,6 +301,7 @@
 				29E57DC020AB551500DF1F15 /* PlayerController.swift in Sources */,
 				2980814620ADDC8800F5E4F8 /* PlayerManager.swift in Sources */,
 				29E96B1A20C3B0D90045DEDC /* PlayerSliderView.swift in Sources */,
+				29E96B2120C3D63B0045DEDC /* TapGesture.swift in Sources */,
 				291520EE20A750BE00A1140E /* PlaylistController.swift in Sources */,
 				292E524A20C2A389008D280E /* PlayerControlsView.swift in Sources */,
 				292E524C20C2A833008D280E /* UIColor.swift in Sources */,
@@ -302,6 +309,7 @@
 				291520EC20A750BE00A1140E /* AppDelegate.swift in Sources */,
 				29E57DB920AB48B500DF1F15 /* PlaylistCell.swift in Sources */,
 				292E524820C275BE008D280E /* UIImage.swift in Sources */,
+				29E96B1F20C3D31C0045DEDC /* PlayerExtrasView.swift in Sources */,
 				29E96B1C20C3B42C0045DEDC /* Label.swift in Sources */,
 				29C5554620AFEEC700AD3B80 /* FileManager.swift in Sources */,
 			);

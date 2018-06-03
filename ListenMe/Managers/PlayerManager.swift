@@ -25,6 +25,7 @@ class PlayerManager: NSObject {
         guard player?.url != url else { return true }
 
         player = try? AVAudioPlayer(contentsOf: url)
+        player?.enableRate = true
         player?.delegate = self
         duration = Int(player?.duration ?? 0)
         return false
@@ -66,6 +67,13 @@ class PlayerManager: NSObject {
         seek(to: Int(newTime))
         timeDidChange?(currentTime)
         player?.volume = savedVolume
+    }
+    
+    func changeRate(_ rate: PlayerRate) {
+        let wasPlaying = isPlaying
+        if isPlaying { player?.pause() }
+        player?.rate = rate.rawValue
+        if wasPlaying { player?.play() }
     }
     
     var duration: Int!
