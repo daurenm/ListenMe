@@ -12,7 +12,11 @@ import AVFoundation
 class PlayerManager: NSObject {
     static let `default` = PlayerManager()
 
-    typealias IsPlayingAlready = Bool
+    enum Status {
+        case isPlayingAlready
+        case newTrack
+        case error(errorText: String)
+    }
 
     // MARK: - Shared properties
     var isPlaying: Bool {
@@ -20,15 +24,21 @@ class PlayerManager: NSObject {
     }
     
     // MARK: - Public API
-    func prepareToPlay(url: URL) -> IsPlayingAlready {
+    func prepareToPlay(url: URL) -> Status {
         pause()
-        guard player?.url != url else { return true }
+        guard player?.url != url else { return .isPlayingAlready }
 
-        player = try? AVAudioPlayer(contentsOf: url)
-        player?.enableRate = true
-        player?.delegate = self
-        duration = Int(player?.duration ?? 0)
-        return false
+        do {
+            player = try AVAudioPlayer(contentsOf: url)
+            player?.enableRate = true
+            player?.delegate = self
+            duration = Int(player?.duration ?? 0)
+        } catch {
+            print("Couldn't create player.", error.localizedDescription)
+            return .error(errorText: error.localizedDescription)
+        }
+        
+        return .newTrack
     }
     
     func playPause() {

@@ -21,6 +21,7 @@
 		2980814620ADDC8800F5E4F8 /* PlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2980814520ADDC8800F5E4F8 /* PlayerManager.swift */; };
 		2980814820ADE66C00F5E4F8 /* AVAudioSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2980814720ADE66C00F5E4F8 /* AVAudioSession.swift */; };
 		2980814E20ADEE5500F5E4F8 /* DirectoriesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2980814D20ADEE5500F5E4F8 /* DirectoriesController.swift */; };
+		29A082CB20C6F6F1004FB48D /* PlayerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A082CA20C6F6F1004FB48D /* PlayerCoordinator.swift */; };
 		29C5554320AFE1B600AD3B80 /* FilesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C5554220AFE1B600AD3B80 /* FilesManager.swift */; };
 		29C5554620AFEEC700AD3B80 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C5554520AFEEC700AD3B80 /* FileManager.swift */; };
 		29E57DB720AB483000DF1F15 /* Reusable+TV+CV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E57DB620AB483000DF1F15 /* Reusable+TV+CV.swift */; };
@@ -33,6 +34,8 @@
 		29E96B1F20C3D31C0045DEDC /* PlayerExtrasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E96B1E20C3D31C0045DEDC /* PlayerExtrasView.swift */; };
 		29E96B2120C3D63B0045DEDC /* TapGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E96B2020C3D63B0045DEDC /* TapGesture.swift */; };
 		29F6360C20C3109D004DA646 /* ClosureWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F6360B20C3109D004DA646 /* ClosureWrapper.swift */; };
+		29FF109F20C5A4730078CA14 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FF109E20C5A4730078CA14 /* Coordinator.swift */; };
+		29FF10A120C5A4890078CA14 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FF10A020C5A4890078CA14 /* AppCoordinator.swift */; };
 		54C6A65460C5F018CA3EF612 /* libPods-ListenMe.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51F401C6F501817A5F9B3E8E /* libPods-ListenMe.a */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +57,7 @@
 		2980814520ADDC8800F5E4F8 /* PlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerManager.swift; sourceTree = "<group>"; };
 		2980814720ADE66C00F5E4F8 /* AVAudioSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAudioSession.swift; sourceTree = "<group>"; };
 		2980814D20ADEE5500F5E4F8 /* DirectoriesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoriesController.swift; sourceTree = "<group>"; };
+		29A082CA20C6F6F1004FB48D /* PlayerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCoordinator.swift; sourceTree = "<group>"; };
 		29C5554220AFE1B600AD3B80 /* FilesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesManager.swift; sourceTree = "<group>"; };
 		29C5554520AFEEC700AD3B80 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		29E57DB620AB483000DF1F15 /* Reusable+TV+CV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reusable+TV+CV.swift"; sourceTree = "<group>"; };
@@ -66,6 +70,8 @@
 		29E96B1E20C3D31C0045DEDC /* PlayerExtrasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerExtrasView.swift; sourceTree = "<group>"; };
 		29E96B2020C3D63B0045DEDC /* TapGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGesture.swift; sourceTree = "<group>"; };
 		29F6360B20C3109D004DA646 /* ClosureWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureWrapper.swift; sourceTree = "<group>"; };
+		29FF109E20C5A4730078CA14 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		29FF10A020C5A4890078CA14 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		51F401C6F501817A5F9B3E8E /* libPods-ListenMe.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ListenMe.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		75F327E7052E228E4CDA36D4 /* Pods-ListenMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ListenMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ListenMe/Pods-ListenMe.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,14 +117,60 @@
 		291520EA20A750BE00A1140E /* ListenMe */ = {
 			isa = PBXGroup;
 			children = (
-				291520EB20A750BE00A1140E /* AppDelegate.swift */,
+				29FF109C20C5A4590078CA14 /* Application */,
+				29FF109D20C5A4660078CA14 /* Coordinators */,
 				29E57DB520AB480300DF1F15 /* Helpers */,
 				29C5554420AFEA9500AD3B80 /* Managers */,
-				29E57DB420AB47F700DF1F15 /* Controllers */,
-				29E57DBA20AB4A2600DF1F15 /* Views */,
+				29E57DB420AB47F700DF1F15 /* Flow */,
 				29E57DB220AB467900DF1F15 /* Other Files */,
 			);
 			path = ListenMe;
+			sourceTree = "<group>";
+		};
+		29A082C520C6F68B004FB48D /* PlayerController */ = {
+			isa = PBXGroup;
+			children = (
+				29A082CA20C6F6F1004FB48D /* PlayerCoordinator.swift */,
+				29E57DBF20AB551500DF1F15 /* PlayerController.swift */,
+				29A082C820C6F6BF004FB48D /* Views */,
+			);
+			path = PlayerController;
+			sourceTree = "<group>";
+		};
+		29A082C620C6F692004FB48D /* PlaylistController */ = {
+			isa = PBXGroup;
+			children = (
+				291520ED20A750BE00A1140E /* PlaylistController.swift */,
+				29A082C720C6F6B6004FB48D /* Views */,
+			);
+			path = PlaylistController;
+			sourceTree = "<group>";
+		};
+		29A082C720C6F6B6004FB48D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				29E57DBB20AB4A3900DF1F15 /* PlaylistCV.swift */,
+				29E57DB820AB48B500DF1F15 /* PlaylistCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		29A082C820C6F6BF004FB48D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				292E524920C2A389008D280E /* PlayerControlsView.swift */,
+				29E96B1920C3B0D90045DEDC /* PlayerSliderView.swift */,
+				29E96B1E20C3D31C0045DEDC /* PlayerExtrasView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		29A082C920C6F6C5004FB48D /* Directories [Testing] */ = {
+			isa = PBXGroup;
+			children = (
+				2980814D20ADEE5500F5E4F8 /* DirectoriesController.swift */,
+			);
+			path = "Directories [Testing]";
 			sourceTree = "<group>";
 		};
 		29C5554420AFEA9500AD3B80 /* Managers */ = {
@@ -142,14 +194,14 @@
 			name = "Other Files";
 			sourceTree = "<group>";
 		};
-		29E57DB420AB47F700DF1F15 /* Controllers */ = {
+		29E57DB420AB47F700DF1F15 /* Flow */ = {
 			isa = PBXGroup;
 			children = (
-				291520ED20A750BE00A1140E /* PlaylistController.swift */,
-				29E57DBF20AB551500DF1F15 /* PlayerController.swift */,
-				2980814D20ADEE5500F5E4F8 /* DirectoriesController.swift */,
+				29A082C620C6F692004FB48D /* PlaylistController */,
+				29A082C520C6F68B004FB48D /* PlayerController */,
+				29A082C920C6F6C5004FB48D /* Directories [Testing] */,
 			);
-			path = Controllers;
+			path = Flow;
 			sourceTree = "<group>";
 		};
 		29E57DB520AB480300DF1F15 /* Helpers */ = {
@@ -170,16 +222,21 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		29E57DBA20AB4A2600DF1F15 /* Views */ = {
+		29FF109C20C5A4590078CA14 /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				29E57DBB20AB4A3900DF1F15 /* PlaylistCV.swift */,
-				29E57DB820AB48B500DF1F15 /* PlaylistCell.swift */,
-				292E524920C2A389008D280E /* PlayerControlsView.swift */,
-				29E96B1920C3B0D90045DEDC /* PlayerSliderView.swift */,
-				29E96B1E20C3D31C0045DEDC /* PlayerExtrasView.swift */,
+				291520EB20A750BE00A1140E /* AppDelegate.swift */,
 			);
-			path = Views;
+			path = Application;
+			sourceTree = "<group>";
+		};
+		29FF109D20C5A4660078CA14 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				29FF109E20C5A4730078CA14 /* Coordinator.swift */,
+				29FF10A020C5A4890078CA14 /* AppCoordinator.swift */,
+			);
+			path = Coordinators;
 			sourceTree = "<group>";
 		};
 		A55956F4410BA87EB302AE2C /* Pods */ = {
@@ -302,11 +359,14 @@
 				2980814620ADDC8800F5E4F8 /* PlayerManager.swift in Sources */,
 				29E96B1A20C3B0D90045DEDC /* PlayerSliderView.swift in Sources */,
 				29E96B2120C3D63B0045DEDC /* TapGesture.swift in Sources */,
+				29FF10A120C5A4890078CA14 /* AppCoordinator.swift in Sources */,
 				291520EE20A750BE00A1140E /* PlaylistController.swift in Sources */,
 				292E524A20C2A389008D280E /* PlayerControlsView.swift in Sources */,
 				292E524C20C2A833008D280E /* UIColor.swift in Sources */,
 				29F6360C20C3109D004DA646 /* ClosureWrapper.swift in Sources */,
 				291520EC20A750BE00A1140E /* AppDelegate.swift in Sources */,
+				29A082CB20C6F6F1004FB48D /* PlayerCoordinator.swift in Sources */,
+				29FF109F20C5A4730078CA14 /* Coordinator.swift in Sources */,
 				29E57DB920AB48B500DF1F15 /* PlaylistCell.swift in Sources */,
 				292E524820C275BE008D280E /* UIImage.swift in Sources */,
 				29E96B1F20C3D31C0045DEDC /* PlayerExtrasView.swift in Sources */,

@@ -12,6 +12,10 @@ import AVFoundation
 import SwiftyAttributes
 import MarqueeLabel
 
+protocol PlayerControllerDelegate: class {
+    func didEncounterError(errorText: String)
+}
+
 class PlayerController: UIViewController {
     
     // MARK: - Constants
@@ -27,26 +31,32 @@ class PlayerController: UIViewController {
     
     // MARK: - Public API
     func prepareToPlayNewTrack(url: URL) {
-        let sameTrack = playerManager.prepareToPlay(url: url)
+        let status = playerManager.prepareToPlay(url: url)
         
-        guard !sameTrack else { return }
-        
-        if let image = UIImage.extractCoverImage(from: url) {
-            coverIV.image = image
-            defaultCoverView.isHidden = true
-        } else {
-            coverIV.image = nil
-            defaultCoverView.isHidden = false
+        switch status {
+        case .isPlayingAlready:
+            return
+        case .error(let errorText):
+            delegate?.didEncounterError(errorText: errorText)
+        case .newTrack:
+            if let image = UIImage.extractCoverImage(from: url) {
+                coverIV.image = image
+                defaultCoverView.isHidden = true
+            } else {
+                coverIV.image = nil
+                defaultCoverView.isHidden = false
+            }
+            
+            let trackName = url.deletingPathExtension().lastPathComponent
+            trackNameLabel.set(text: trackName)
+            controlsView.prepareToPlay()
+            sliderView.prepareToPlay(maximumValue: playerManager.duration)
         }
-        
-        let trackName = url.deletingPathExtension().lastPathComponent
-        trackNameLabel.set(text: trackName)
-        controlsView.prepareToPlay()
-        sliderView.prepareToPlay(maximumValue: playerManager.duration)
     }
 
     // MARK: - Properties
     var playerManager: PlayerManager { return PlayerManager.default }
+    weak var delegate: PlayerControllerDelegate?
     
     // MARK: - Views
     lazy var defaultCoverView: UIView = {
