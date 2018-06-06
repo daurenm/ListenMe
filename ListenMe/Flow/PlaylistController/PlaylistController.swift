@@ -9,14 +9,29 @@
 import UIKit
 import EasyPeasy
 import ChameleonFramework
+import AsyncDisplayKit
 
 class PlaylistController: UIViewController {
 
+    // MARK: - Properties
+    var tracks: [Track] = [] {
+        didSet {
+            playlistCV.reloadSections(IndexSet(integer: 0))
+        }
+    }
+    
     // MARK: - Views
     lazy var playlistCV: PlaylistCV = {
         let cv = PlaylistCV(width: view.frame.width)
         cv.dataSource = self
+        cv.view.refreshControl = refresher
         return cv
+    }()
+    
+    lazy var refresher: UIRefreshControl = {
+        let rc = UIRefreshControl()
+        rc.addTarget(self, action: #selector(refreshTracks), for: .valueChanged)
+        return rc
     }()
     
     // MARK: - Lifecycle methods
@@ -25,30 +40,59 @@ class PlaylistController: UIViewController {
     
         setupNavigationBar()
         setupViews()
+        loadTracks()
     }
-    
-    private func setupNavigationBar() {
+}
+
+// MARK: - Private methods
+private extension PlaylistController {
+    func setupNavigationBar() {
         title = "Playlist"
     }
     
-    private func setupViews() {
-        view.addSubview(playlistCV)
-        playlistCV.easy.layout(
+    func setupViews() {
+        view.addSubview(playlistCV.view)
+        playlistCV.view.easy.layout(
             Top().to(view.safeAreaLayoutGuide, .top),
             Left(), Right(),
             Bottom().to(view.safeAreaLayoutGuide, .bottom)
         )
     }
+    
+    func loadTracks() {
+        let response = FilesManager.default.getListOfFilesWithDuration()
+        switch response {
+        case .error(let errorText):
+            print("Error: \(errorText)")
+        case .success(let tracks):
+            self.tracks = tracks
+        }
+    }
 }
 
-extension PlaylistController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+// MARK: - Action methods
+extension PlaylistController {
+    @objc func refreshTracks() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.loadTracks()
+            self.refresher.endRefreshing()
+        }
+    }
+}
+
+extension PlaylistController: ASCollectionDataSource {
+    func collectionNode(_ collectionNode: ASCollectionNode, numberOfItemsInSection section: Int) -> Int {
+        return tracks.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(indexPath: indexPath) as PlaylistCell
-        return cell
+    func collectionNode(_ collectionNode: ASCollectionNode, nodeBlockForItemAt indexPath: IndexPath) -> ASCellNodeBlock {
+//        let track = tracks[indexPath.item]
+        let cellNodeBlock = { () -> ASCellNode in
+            let cell = ASCellNode()
+            cell.backgroundColor = .flatGreen
+            return cell
+        }
+        return cellNodeBlock
     }
 }
 

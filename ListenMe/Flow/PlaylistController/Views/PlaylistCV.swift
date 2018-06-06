@@ -7,16 +7,16 @@
 //
 
 import UIKit
+import AsyncDisplayKit
 
-class PlaylistCV: UICollectionView {
+class PlaylistCV: ASCollectionNode {
     
     init(width: CGFloat) {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: width, height: 60)
-        super.init(frame: .zero, collectionViewLayout: layout)
+        super.init(collectionViewLayout: layout)
         
-        backgroundColor = UIColor.flatGrayDark
-        registerReusableCell(PlaylistCell.self)
+        backgroundColor = .white
     }
     
     required init?(coder aDecoder: NSCoder) {

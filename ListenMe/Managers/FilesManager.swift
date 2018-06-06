@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AVFoundation
 
 class FilesManager {
     
@@ -20,6 +21,7 @@ class FilesManager {
     // MARK: - Constants
     typealias FilePath = String
     typealias ErrorText = String
+    typealias Directory = URL
     
     var fileManager: FileManager {
         return FileManager.default
@@ -72,6 +74,24 @@ class FilesManager {
         removeFile(at: url)
         return response!
     }
+    
+    func getListOfFilesWithDuration(in directory: Directory = FileManager.playlistsURL) -> Response<[Track]> {
+        let success = fileManager.changeCurrentDirectoryPath(directory.path)
+        guard success else {
+            return .error(errorText: "Couldn't change current directory to \(directory.path) :/")
+        }
+        guard let list = fileManager.currentDirectoryFiles else {
+            return .error(errorText: "Couldn't get dir:\(directory.path) files :/")
+        }
+        
+        let response: [Track] = list.map { (url) -> Track in
+            let asset = AVURLAsset(url: url)
+            let duration = asset.duration
+            let durationInSeconds = Int(CMTimeGetSeconds(duration))
+            return Track(url: url, durationInSeconds: durationInSeconds)
+        }
+        return .success(response)
+    }
 }
 
 // MARK: - Private methods
@@ -96,10 +116,10 @@ extension FilesManager {
         let name = url.deletingPathExtension().path
         let `extension` = url.pathExtension
         let newPath = "\(name)-\(currentEnding).\(`extension`)"
-        let newURL = URL(fileURLWithPath: newPath)
         if fileManager.fileExists(atPath: newPath) {
             return findAppropriateEnding(for: url, currentEnding: currentEnding + 1)
         }
+        let newURL = URL(fileURLWithPath: newPath)
         return newURL
     }
     

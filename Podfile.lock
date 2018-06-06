@@ -4,19 +4,46 @@ PODS:
     - ChameleonFramework/Default
   - EasyPeasy (1.7.0)
   - MarqueeLabel/Swift (3.1.4)
+  - PINCache (3.0.1-beta.6):
+    - PINCache/Arc-exception-safe (= 3.0.1-beta.6)
+    - PINCache/Core (= 3.0.1-beta.6)
+  - PINCache/Arc-exception-safe (3.0.1-beta.6):
+    - PINCache/Core
+  - PINCache/Core (3.0.1-beta.6):
+    - PINOperation (~> 1.1.0)
+  - PINOperation (1.1.1)
+  - PINRemoteImage/Core (3.0.0-beta.13):
+    - PINOperation
+  - PINRemoteImage/iOS (3.0.0-beta.13):
+    - PINRemoteImage/Core
+  - PINRemoteImage/PINCache (3.0.0-beta.13):
+    - PINCache (= 3.0.1-beta.6)
+    - PINRemoteImage/Core
   - SwiftyAttributes (4.2.0)
+  - Texture (2.7):
+    - Texture/PINRemoteImage (= 2.7)
+  - Texture/Core (2.7)
+  - Texture/PINRemoteImage (2.7):
+    - PINRemoteImage/iOS (= 3.0.0-beta.13)
+    - PINRemoteImage/PINCache
+    - Texture/Core
 
 DEPENDENCIES:
   - ChameleonFramework/Swift (from `https://github.com/ViccAlexander/Chameleon.git`)
   - EasyPeasy
   - MarqueeLabel/Swift
   - SwiftyAttributes
+  - Texture
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - EasyPeasy
     - MarqueeLabel
+    - PINCache
+    - PINOperation
+    - PINRemoteImage
     - SwiftyAttributes
+    - Texture
 
 EXTERNAL SOURCES:
   ChameleonFramework:
@@ -31,8 +58,12 @@ SPEC CHECKSUMS:
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   EasyPeasy: 2f2785ed78c6f9e9045221f2ff317730e7321bff
   MarqueeLabel: bf768455fe88d427f71476ebb23f9092b660f40b
+  PINCache: d195fdba255283f7e9900a55e3cced377f431f9b
+  PINOperation: a6219e6fc9db9c269eb7a7b871ac193bcf400aac
+  PINRemoteImage: d6d51c5d2adda55f1ce30c96e850b6c4ebd2856a
   SwiftyAttributes: da052e36f8950382016145969d95481c14d2d328
+  Texture: 9d7e38965cf22ccd7cd9c249dd78b3f14e70ab6c
 
-PODFILE CHECKSUM: 1623a92cd952920eee86b9c46746ea05b0a78dfa
+PODFILE CHECKSUM: e5c40bcd0b823579131b63781d0ca471588b5bdd
 
-COCOAPODS: 1.5.2
+COCOAPODS: 1.5.3

@@ -8,30 +8,54 @@
 
 import UIKit
 
-class AppCoordinator: Coordinator {
+class AppCoordinator: BaseCoordinator {
     
     // MARK: - Properties
-    var childCoordinators: [Coordinator] = []
-
     let window: UIWindow
-    lazy var navigationController: UINavigationController = {
+    let navigationController: UINavigationController = {
         let navController = UINavigationController()
         navController.navigationBar.isTranslucent = false
         return navController
     }()
     
     // MARK: - Lifecycle methods
-    
     init(window: UIWindow) {
         self.window = window
         self.window.rootViewController = navigationController
     }
     
-    func start() {
-//        // Here you should start PlaylistCoordinator.
-//        // But for now, just start PlayerCoordinator
-//        let playerCoordinator = PlayerCoordinator()
-//        playerCoordinator.start()
-        navigationController.setViewControllers([PlayerController()], animated: false)
+    override func start() {
+        runPlaylistFlow()
     }
 }
+
+// MARK: - Flows
+extension AppCoordinator {
+    func runPlaylistFlow() {
+        let playlistCoordinator = PlaylistCoordinator(rootViewController: navigationController)
+        playlistCoordinator.finishFlow = { [weak self, weak playlistCoordinator] in
+            self?.removeDependency(playlistCoordinator)
+        }
+        addDependency(playlistCoordinator)
+        playlistCoordinator.start()
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

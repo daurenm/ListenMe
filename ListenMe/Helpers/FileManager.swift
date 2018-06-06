@@ -13,9 +13,9 @@ extension FileManager {
     static let documentsURL = URL(fileURLWithPath: `default`.urls(for: .documentDirectory, in: .userDomainMask)[0].path)
     static let playlistsURL = documentsURL.appendingPathComponent("Playlists", isDirectory: true)
     
-    var currentDirectoryFiles: [String]? {
-        let items = try? contentsOfDirectory(atPath: currentDirectoryPath)
-        return items
+    var currentDirectoryFiles: [URL]? {
+        guard let items = try? contentsOfDirectory(atPath: currentDirectoryPath) else { return nil }
+        return items.map { URL(fileURLWithPath: $0) }
     }
     
     func changeToDocumentsDirectory() {
