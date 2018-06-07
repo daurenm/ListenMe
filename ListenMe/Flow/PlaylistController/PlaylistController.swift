@@ -24,7 +24,9 @@ class PlaylistController: UIViewController {
     lazy var playlistCV: PlaylistCV = {
         let cv = PlaylistCV(width: view.frame.width)
         cv.dataSource = self
+        cv.delegate = self
         cv.view.refreshControl = refresher
+        cv.backgroundColor = UIColor(r: 31, g: 31, b: 31)
         return cv
     }()
     
@@ -73,7 +75,7 @@ private extension PlaylistController {
 // MARK: - Action methods
 extension PlaylistController {
     @objc func refreshTracks() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.loadTracks()
             self.refresher.endRefreshing()
         }
@@ -86,16 +88,22 @@ extension PlaylistController: ASCollectionDataSource {
     }
     
     func collectionNode(_ collectionNode: ASCollectionNode, nodeBlockForItemAt indexPath: IndexPath) -> ASCellNodeBlock {
-//        let track = tracks[indexPath.item]
+        let track = tracks[indexPath.item]
         let cellNodeBlock = { () -> ASCellNode in
-            let cell = ASCellNode()
-            cell.backgroundColor = .flatGreen
+            let cell = PlaylistCellNode(track: track)
             return cell
         }
         return cellNodeBlock
     }
 }
 
+extension PlaylistController: ASCollectionDelegate {
+    func collectionNode(_ collectionNode: ASCollectionNode, didSelectItemAt indexPath: IndexPath) {
+        let track = tracks[indexPath.item]
+        let playerController = PlayerController(track: track)
+        navigationController?.pushViewController(playerController, animated: true)
+    }
+}
 
 
 

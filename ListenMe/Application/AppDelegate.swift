@@ -40,7 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         case .error(let errorText):
             showAlert(.error(errorText))
         case .success(let fileURL):
-            preparePlayController(with: fileURL)
+            let track = Track(url: fileURL)
+            preparePlayController(with: track)
         }
         return true
     }
@@ -68,10 +69,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navController.present(alertController, animated: true)
     }
     
-    private func preparePlayController(with fileURL: URL) {
+    private func preparePlayController(with track: Track) {
         guard let navController = window?.rootViewController as? UINavigationController,
             let playController = navController.viewControllers.first as? PlayerController else { return }
-        playController.prepareToPlayNewTrack(url: fileURL)
+        playController.prepareToPlayNewTrack(track)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

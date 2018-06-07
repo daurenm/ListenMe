@@ -30,8 +30,8 @@ class PlayerController: UIViewController {
     }
     
     // MARK: - Public API
-    func prepareToPlayNewTrack(url: URL) {
-        let status = playerManager.prepareToPlay(url: url)
+    func prepareToPlayNewTrack(_ track: Track) {
+        let status = playerManager.prepareToPlay(url: track.url)
         
         switch status {
         case .isPlayingAlready:
@@ -39,7 +39,7 @@ class PlayerController: UIViewController {
         case .error(let errorText):
             delegate?.didEncounterError(errorText: errorText)
         case .newTrack:
-            if let image = UIImage.extractCoverImage(from: url) {
+            if let image = UIImage.extractCoverImage(from: track.url) {
                 coverIV.image = image
                 defaultCoverView.isHidden = true
             } else {
@@ -47,10 +47,9 @@ class PlayerController: UIViewController {
                 defaultCoverView.isHidden = false
             }
             
-            let trackName = url.deletingPathExtension().lastPathComponent
-            trackNameLabel.set(text: trackName)
+            trackNameLabel.set(text: track.url.fileName)
             controlsView.prepareToPlay()
-            sliderView.prepareToPlay(maximumValue: playerManager.duration)
+            sliderView.prepareToPlay(maximumValue: track.durationInSeconds)
         }
     }
 
@@ -120,11 +119,11 @@ class PlayerController: UIViewController {
     }()
     
     // MARK: - Lifecycle methods
-    init(fileURL: URL = defaultFileURL) {
+    init(track: Track) {
         super.init(nibName: nil, bundle: nil)
         
         title = "Playing"
-        prepareToPlayNewTrack(url: fileURL)
+        prepareToPlayNewTrack(track)
     }
     
     required init?(coder aDecoder: NSCoder) {

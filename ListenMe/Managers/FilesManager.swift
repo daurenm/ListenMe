@@ -85,10 +85,7 @@ class FilesManager {
         }
         
         let response: [Track] = list.map { (url) -> Track in
-            let asset = AVURLAsset(url: url)
-            let duration = asset.duration
-            let durationInSeconds = Int(CMTimeGetSeconds(duration))
-            return Track(url: url, durationInSeconds: durationInSeconds)
+            return Track(url: url)
         }
         return .success(response)
     }

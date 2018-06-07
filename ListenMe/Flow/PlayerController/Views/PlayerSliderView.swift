@@ -72,9 +72,7 @@ class PlayerSliderView: UIView {
 
 private extension PlayerSliderView {
     func updateTime(_ time: Int, label: Label) {
-        let minutes = time / 60
-        let seconds = abs(time) % 60
-        let text = String.init(format: "%02d:%02d", minutes, seconds)
+        let text = time.asTrackDurationFormat
         label.set(text: text)
     }
     
