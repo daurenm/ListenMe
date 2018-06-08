@@ -133,13 +133,7 @@ class PlayerController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupNavigationBar()
         setupViews()
-    }
-    
-    private func setupNavigationBar() {
-        let printFilesBarButtonItem = UIBarButtonItem(title: "Print", style: .plain, target: self, action: #selector(showFilesList))
-        navigationItem.rightBarButtonItems = [printFilesBarButtonItem]
     }
     
     private func setupViews() {
@@ -182,36 +176,4 @@ class PlayerController: UIViewController {
         )
     }
 }
-
-// MARK: - Action methods
-extension PlayerController {
-    @objc func showFilesList() {
-        FileManager.default.changeToPlaylistsDirectory()
-        let files = FileManager.default.currentDirectoryFiles!
-        print("\n[")
-        for file in files {
-            print("  \(file)")
-        }
-        print("]\n")
-    }
-}
-
-
-
-//    @objc func clearInbox() {
-//        let inboxURL = FileManager.documentsURL.appendingPathComponent("Inbox", isDirectory: true)
-//        FileManager.default.changeCurrentDirectoryPath(inboxURL.path)
-//        let files = FileManager.default.currentDirectoryFiles!
-//        print("removing \(files)")
-//        do {
-//            for file in files {
-//                let url = inboxURL.appendingPathComponent(file)
-//                try FileManager.default.removeItem(at: url)
-//            }
-//        } catch {
-//            print("Couldn't removeItem: \(error.localizedDescription)")
-//        }
-//    }
-
-
 

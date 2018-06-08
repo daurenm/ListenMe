@@ -44,6 +44,11 @@ class PlaylistController: UIViewController {
         setupViews()
         loadTracks()
     }
+    
+    // MARK: - Public API
+    func updatePlaylist() {
+        loadTracks()
+    }
 }
 
 // MARK: - Private methods
@@ -75,7 +80,7 @@ private extension PlaylistController {
 // MARK: - Action methods
 extension PlaylistController {
     @objc func refreshTracks() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.loadTracks()
             self.refresher.endRefreshing()
         }

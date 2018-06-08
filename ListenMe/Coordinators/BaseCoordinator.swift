@@ -8,7 +8,7 @@
 
 import Foundation
 
-class BaseCoordinator: Coordinator {
+class BaseCoordinator: Coordinator, ShowsAlerts {
     
     var childCoordinators: [Coordinator] = []
     

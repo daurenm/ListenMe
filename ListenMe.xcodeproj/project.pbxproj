@@ -28,6 +28,7 @@
 		29BABDA320C985890012E059 /* TextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BABDA220C985890012E059 /* TextNode.swift */; };
 		29BABDA620C987110012E059 /* URL+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BABDA520C987110012E059 /* URL+helpers.swift */; };
 		29BABDA820C987AF0012E059 /* Int+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BABDA720C987AF0012E059 /* Int+helpers.swift */; };
+		29BABDAC20CA14400012E059 /* ShowsAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BABDAB20CA14400012E059 /* ShowsAlerts.swift */; };
 		29C5554320AFE1B600AD3B80 /* FilesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C5554220AFE1B600AD3B80 /* FilesManager.swift */; };
 		29C5554620AFEEC700AD3B80 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C5554520AFEEC700AD3B80 /* FileManager.swift */; };
 		29E57DB720AB483000DF1F15 /* Reusable+TV+CV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E57DB620AB483000DF1F15 /* Reusable+TV+CV.swift */; };
@@ -70,6 +71,7 @@
 		29BABDA220C985890012E059 /* TextNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextNode.swift; sourceTree = "<group>"; };
 		29BABDA520C987110012E059 /* URL+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+helpers.swift"; sourceTree = "<group>"; };
 		29BABDA720C987AF0012E059 /* Int+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+helpers.swift"; sourceTree = "<group>"; };
+		29BABDAB20CA14400012E059 /* ShowsAlerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowsAlerts.swift; sourceTree = "<group>"; };
 		29C5554220AFE1B600AD3B80 /* FilesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesManager.swift; sourceTree = "<group>"; };
 		29C5554520AFEEC700AD3B80 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		29E57DB620AB483000DF1F15 /* Reusable+TV+CV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reusable+TV+CV.swift"; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 				29BABDA220C985890012E059 /* TextNode.swift */,
 				29BABDA520C987110012E059 /* URL+helpers.swift */,
 				29BABDA720C987AF0012E059 /* Int+helpers.swift */,
+				29BABDAB20CA14400012E059 /* ShowsAlerts.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -417,6 +420,7 @@
 				29E57DC020AB551500DF1F15 /* PlayerController.swift in Sources */,
 				2980814620ADDC8800F5E4F8 /* PlayerManager.swift in Sources */,
 				29E96B1A20C3B0D90045DEDC /* PlayerSliderView.swift in Sources */,
+				29BABDAC20CA14400012E059 /* ShowsAlerts.swift in Sources */,
 				29E96B2120C3D63B0045DEDC /* TapGesture.swift in Sources */,
 				29FF10A120C5A4890078CA14 /* AppCoordinator.swift in Sources */,
 				291520EE20A750BE00A1140E /* PlaylistController.swift in Sources */,

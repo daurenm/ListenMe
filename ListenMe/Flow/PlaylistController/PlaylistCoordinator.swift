@@ -19,13 +19,30 @@ class PlaylistCoordinator: BaseCoordinator, PlaylistCoordinatorOutput {
 
     let navigationController: UINavigationController
     
+    lazy var playlistController = PlaylistController()
+    
     // MARK: - Lifecycle methods
     init(rootViewController: UINavigationController) {
         navigationController = rootViewController
     }
     
+    // MARK: - Public API
     override func start() {
-        let playlistController = PlaylistController()
         navigationController.setViewControllers([playlistController], animated: false)
     }
+    
+    func showError(with errorText: String) {
+        presentAlert(in: navigationController, alert: Alert.error(errorText))
+    }
+    
+    func startTrack(_ track: Track) {
+        playlistController.updatePlaylist()
+        let playerController = PlayerController(track: track)
+        navigationController.pushViewController(playerController, animated: true)
+    }
+}
+
+// MARK: - Private API
+extension PlaylistCoordinator {
+    
 }
