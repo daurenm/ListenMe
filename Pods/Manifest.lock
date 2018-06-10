@@ -3,6 +3,7 @@ PODS:
   - ChameleonFramework/Swift (2.1.0):
     - ChameleonFramework/Default
   - EasyPeasy (1.7.0)
+  - Hero (1.2.0)
   - MarqueeLabel/Swift (3.1.4)
   - PINCache (3.0.1-beta.6):
     - PINCache/Arc-exception-safe (= 3.0.1-beta.6)
@@ -31,6 +32,7 @@ PODS:
 DEPENDENCIES:
   - ChameleonFramework/Swift (from `https://github.com/ViccAlexander/Chameleon.git`)
   - EasyPeasy
+  - Hero
   - MarqueeLabel/Swift
   - SwiftyAttributes
   - Texture
@@ -38,6 +40,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - EasyPeasy
+    - Hero
     - MarqueeLabel
     - PINCache
     - PINOperation
@@ -57,6 +60,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   EasyPeasy: 2f2785ed78c6f9e9045221f2ff317730e7321bff
+  Hero: 33dadf2cd1c98af71e213dcbc2902e6e03622a4e
   MarqueeLabel: bf768455fe88d427f71476ebb23f9092b660f40b
   PINCache: d195fdba255283f7e9900a55e3cced377f431f9b
   PINOperation: a6219e6fc9db9c269eb7a7b871ac193bcf400aac
@@ -64,6 +68,6 @@ SPEC CHECKSUMS:
   SwiftyAttributes: da052e36f8950382016145969d95481c14d2d328
   Texture: 9d7e38965cf22ccd7cd9c249dd78b3f14e70ab6c
 
-PODFILE CHECKSUM: e5c40bcd0b823579131b63781d0ca471588b5bdd
+PODFILE CHECKSUM: b27868f84fa5d62ddab0d4dd788c6cd1b3f840a9
 
 COCOAPODS: 1.5.3

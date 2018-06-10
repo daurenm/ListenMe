@@ -21,6 +21,10 @@ class PlayerControlsView: UIView {
         playPauseButton.isSelected = false
     }
     
+    func play() {
+        playPauseAction(playPauseButton)
+    }
+    
     // MARK: - Properties
     var onPlayPause: ButtonClosure!
     var onBackwardJump: ButtonClosure!
@@ -32,39 +36,46 @@ class PlayerControlsView: UIView {
     lazy var playPauseButton: UIButton = {
         let button = UIButton()
         button.adjustsImageWhenHighlighted = false
-        button.setImage(#imageLiteral(resourceName: "player_controls_play"), for: .normal)
-        button.setImage(#imageLiteral(resourceName: "player_controls_pause"), for: .selected)
-        button.addTarget { (button) in
-            button.isSelected.flip()
-            self.onPlayPause()
-        }
+        button.setImage(#imageLiteral(resourceName: "player_controls_play").withRenderingMode(.alwaysTemplate), for: .normal)
+        button.setImage(#imageLiteral(resourceName: "player_controls_pause").withRenderingMode(.alwaysTemplate), for: .selected)
+        button.tintColor = .iconTint
+        button.addTarget(closure: playPauseAction)
         return button
     }()
     
+    func playPauseAction(_ button: UIButton) {
+        button.isSelected.flip()
+        onPlayPause()
+    }
+    
     lazy var backwardJumpButton: UIButton = {
         let button = UIButton()
-        button.setImage(#imageLiteral(resourceName: "player_controls_backward_jump"), for: .normal)
+        button.setImage(#imageLiteral(resourceName: "player_controls_backward_jump").withRenderingMode(.alwaysTemplate), for: .normal)
+        button.tintColor = .iconTint
         button.addTarget { _ in self.onBackwardJump() }
         return button
     }()
     
     lazy var forwardJumpButton: UIButton = {
         let button = UIButton()
-        button.setImage(#imageLiteral(resourceName: "player_controls_forward_jump"), for: .normal)
+        button.setImage(#imageLiteral(resourceName: "player_controls_forward_jump").withRenderingMode(.alwaysTemplate), for: .normal)
+        button.tintColor = .iconTint
         button.addTarget { _ in self.onForwardJump() }
         return button
     }()
     
     lazy var prevTrackButton: UIButton = {
         let button = UIButton()
-        button.setImage(#imageLiteral(resourceName: "player_controls_prev_track"), for: .normal)
+        button.setImage(#imageLiteral(resourceName: "player_controls_prev_track").withRenderingMode(.alwaysTemplate), for: .normal)
+        button.tintColor = .iconTint
         button.addTarget { _ in self.onPrevTrack?() }
         return button
     }()
     
     lazy var nextTrackButton: UIButton = {
         let button = UIButton()
-        button.setImage(#imageLiteral(resourceName: "player_controls_next_track"), for: .normal)
+        button.setImage(#imageLiteral(resourceName: "player_controls_next_track").withRenderingMode(.alwaysTemplate), for: .normal)
+        button.tintColor = .iconTint
         button.addTarget { _ in self.onNextTrack?() }
         return button
     }()

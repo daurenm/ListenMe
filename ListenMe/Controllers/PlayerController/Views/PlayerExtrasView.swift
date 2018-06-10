@@ -45,7 +45,7 @@ class PlayerExtrasView: UIView {
     // MARK: - Views
     lazy var rateLabel: Label = {
         let label = Label(font: UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.medium), textColor: .white)
-        label.layer.backgroundColor = UIColor.white.withAlphaComponent(0.25).cgColor
+        label.layer.backgroundColor = UIColor.iconTint.cgColor
         label.layer.cornerRadius = PlayerExtrasView.rateViewSize / 2
         label.textAlignment = .center
         updateRateLabel(rate: curRate, label: label)

@@ -50,9 +50,7 @@ extension PlaylistCoordinator: PlaylistControllerDelegate {
 
         router.popToRootModule(animated: true)
         let playerController = PlayerController(track: track)
-        router.push(playerController, animated: true) {
-            print("should deinit playerController")
-        }
+        router.push(playerController, animated: true)
     }
 }
 

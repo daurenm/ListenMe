@@ -17,7 +17,7 @@ class PlaylistCellNode: ASCellNode {
     
     // MARK: - Views
     lazy var trackNameNode: TextNode = {
-        let node = TextNode(font: UIFont.systemFont(ofSize: 15, weight: .regular), textColor: .white)
+        let node = TextNode(font: UIFont.systemFont(ofSize: 15, weight: .regular), textColor: .activeText)
         node.style.flexShrink = 1
         node.maximumNumberOfLines = 1
 
@@ -28,7 +28,7 @@ class PlaylistCellNode: ASCellNode {
     }()
     
     lazy var durationNode: TextNode = {
-        let node = TextNode(font: UIFont.systemFont(ofSize: 14, weight: .regular), textColor: UIColor(r: 216, g: 216, b: 216))
+        let node = TextNode(font: UIFont.systemFont(ofSize: 14, weight: .regular), textColor: .passiveText)
         
         let duration = track.durationInSeconds.asTrackDurationFormat
         node.setText(duration)
@@ -38,7 +38,7 @@ class PlaylistCellNode: ASCellNode {
     
     lazy var separatorNode: ASDisplayNode = {
         let node = ASDisplayNode()
-        node.backgroundColor = UIColor.white.withAlphaComponent(0.25)
+        node.backgroundColor = UIColor.separator
         node.style.height = ASDimension(unit: .points, value: 1)
         return node
     }()

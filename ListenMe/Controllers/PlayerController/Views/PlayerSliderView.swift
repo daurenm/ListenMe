@@ -30,21 +30,21 @@ class PlayerSliderView: UIView {
     // MARK: - Views
     lazy var slider: UISlider = {
         let sl = UISlider()
-        sl.tintColor = .white
-        sl.maximumTrackTintColor = UIColor.white.withAlphaComponent(0.25)
-        sl.setThumbImage(#imageLiteral(resourceName: "slider_thumb"), for: .normal)
+        sl.tintColor = .iconTint
+        sl.maximumTrackTintColor = UIColor.iconTint.withAlphaComponent(0.25)
+        sl.setThumbImage(#imageLiteral(resourceName: "slider_thumb").withTintColor(.iconTint), for: .normal)
         sl.addTarget(self, action: #selector(sliderValueDidChange), for: .valueChanged)
         return sl
     }()
     
     lazy var curTimeLabel: Label = {
-        let label = Label(font: UIFont.systemFont(ofSize: 13), textColor: UIColor(r: 216, g: 216, b: 216))
+        let label = Label(font: UIFont.systemFont(ofSize: 13), textColor: .passiveText)
         updateTime(0, label: label)
         return label
     }()
     
     lazy var timeLeftLabel: Label = {
-        let label = Label(font: UIFont.systemFont(ofSize: 13), textColor: UIColor(r: 216, g: 216, b: 216))
+        let label = Label(font: UIFont.systemFont(ofSize: 13), textColor: .passiveText)
         return label
     }()
     

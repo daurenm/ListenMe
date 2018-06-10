@@ -37,7 +37,7 @@ class PlaylistController: UIViewController {
         cv.dataSource = self
         cv.delegate = self
         cv.view.refreshControl = refresher
-        cv.backgroundColor = UIColor(r: 31, g: 31, b: 31)
+        cv.backgroundColor = UIColor.background
         return cv
     }()
     

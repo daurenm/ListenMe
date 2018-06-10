@@ -42,17 +42,18 @@ class PlayerController: UIViewController {
 
     // MARK: - Properties
     var playerManager: PlayerManager { return PlayerManager.default }
+    var shouldAutoStart: Bool!
     
     // MARK: - Views
     lazy var defaultCoverView: UIView = {
         let iv = UIImageView(image: #imageLiteral(resourceName: "player_default_cover").withRenderingMode(.alwaysTemplate))
         iv.contentMode = .scaleAspectFit
-        iv.tintColor = UIColor(r: 31, g: 31, b: 31)
+        iv.tintColor = UIColor.background
         
         let view = UIView()
         view.addSubview(iv)
         iv.easy.layout(Center(), Size(75))
-        view.layer.backgroundColor = UIColor.white.cgColor // UIColor.white.withAlphaComponent(0.25).cgColor
+        view.layer.backgroundColor = UIColor.iconTint.cgColor
         view.layer.cornerRadius = 20
         return view
     }()
@@ -64,7 +65,7 @@ class PlayerController: UIViewController {
     }()
     
     lazy var trackNameLabel: MarqueeLabel = {
-        let label = MarqueeLabel(font: UIFont.systemFont(ofSize: 20, weight: .bold), textColor: .white)
+        let label = MarqueeLabel(font: UIFont.systemFont(ofSize: 20, weight: .bold), textColor: .iconTint)
         label.textAlignment = .center
         return label
     }()
@@ -109,6 +110,7 @@ class PlayerController: UIViewController {
         
         title = "Playing"
         prepareToPlayNewTrack(track)
+        shouldAutoStart = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -121,8 +123,17 @@ class PlayerController: UIViewController {
         setupViews()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if shouldAutoStart {
+            controlsView.play()
+            shouldAutoStart = false
+        }
+    }
+    
     private func setupViews() {
-        view.backgroundColor = UIColor(r: 31, g: 31, b: 31)
+        view.backgroundColor = UIColor.background
         
         view.addSubview(coverIV)
         view.addSubview(defaultCoverView)
@@ -159,10 +170,6 @@ class PlayerController: UIViewController {
             Left(20), Right(20),
             Height(60)
         )
-    }
-    
-    deinit {
-        print("PlayerController:deinit")
     }
 }
 

@@ -30,6 +30,7 @@ extension ShowsAlerts {
             message = text
         }
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.view.tintColor = .activeText
         let okAction = UIAlertAction(title: "OK", style: .cancel)
         alertController.addAction(okAction)
         viewController.present(alertController, animated: true)

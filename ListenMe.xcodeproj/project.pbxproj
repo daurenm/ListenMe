@@ -30,6 +30,7 @@
 		29BABDD920CD3D610012E059 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BABDD620CD3D610012E059 /* Coordinator.swift */; };
 		29BABDDA20CD3D610012E059 /* Presentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BABDD720CD3D610012E059 /* Presentable.swift */; };
 		29BABDDB20CD3D610012E059 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BABDD820CD3D610012E059 /* Router.swift */; };
+		29BABDDE20CD48760012E059 /* SmallPlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BABDDD20CD48760012E059 /* SmallPlayerController.swift */; };
 		29C5554320AFE1B600AD3B80 /* FilesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C5554220AFE1B600AD3B80 /* FilesManager.swift */; };
 		29C5554620AFEEC700AD3B80 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C5554520AFEEC700AD3B80 /* FileManager.swift */; };
 		29E57DB720AB483000DF1F15 /* Reusable+TV+CV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E57DB620AB483000DF1F15 /* Reusable+TV+CV.swift */; };
@@ -73,6 +74,7 @@
 		29BABDD620CD3D610012E059 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		29BABDD720CD3D610012E059 /* Presentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Presentable.swift; sourceTree = "<group>"; };
 		29BABDD820CD3D610012E059 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		29BABDDD20CD48760012E059 /* SmallPlayerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallPlayerController.swift; sourceTree = "<group>"; };
 		29C5554220AFE1B600AD3B80 /* FilesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesManager.swift; sourceTree = "<group>"; };
 		29C5554520AFEEC700AD3B80 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		29E57DB620AB483000DF1F15 /* Reusable+TV+CV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reusable+TV+CV.swift"; sourceTree = "<group>"; };
@@ -136,7 +138,7 @@
 				29E57DB520AB480300DF1F15 /* Helpers */,
 				297324B120C77DB0001109B9 /* Models */,
 				29C5554420AFEA9500AD3B80 /* Managers */,
-				29E57DB420AB47F700DF1F15 /* Flow */,
+				29E57DB420AB47F700DF1F15 /* Controllers */,
 				29E57DB220AB467900DF1F15 /* Other Files */,
 			);
 			path = ListenMe;
@@ -196,6 +198,14 @@
 			path = "Directories [Testing]";
 			sourceTree = "<group>";
 		};
+		29BABDDC20CD47DE0012E059 /* SmallPlayerController */ = {
+			isa = PBXGroup;
+			children = (
+				29BABDDD20CD48760012E059 /* SmallPlayerController.swift */,
+			);
+			path = SmallPlayerController;
+			sourceTree = "<group>";
+		};
 		29C5554420AFEA9500AD3B80 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
@@ -217,14 +227,15 @@
 			name = "Other Files";
 			sourceTree = "<group>";
 		};
-		29E57DB420AB47F700DF1F15 /* Flow */ = {
+		29E57DB420AB47F700DF1F15 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				29A082C620C6F692004FB48D /* PlaylistController */,
 				29A082C520C6F68B004FB48D /* PlayerController */,
+				29BABDDC20CD47DE0012E059 /* SmallPlayerController */,
 				29A082C920C6F6C5004FB48D /* Directories [Testing] */,
 			);
-			path = Flow;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		29E57DB520AB480300DF1F15 /* Helpers */ = {
@@ -361,6 +372,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-ListenMe/Pods-ListenMe-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
 				"${BUILT_PRODUCTS_DIR}/EasyPeasy/EasyPeasy.framework",
+				"${BUILT_PRODUCTS_DIR}/Hero/Hero.framework",
 				"${BUILT_PRODUCTS_DIR}/MarqueeLabel/MarqueeLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/PINCache/PINCache.framework",
 				"${BUILT_PRODUCTS_DIR}/PINOperation/PINOperation.framework",
@@ -372,6 +384,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EasyPeasy.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hero.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MarqueeLabel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINCache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINOperation.framework",
@@ -420,6 +433,7 @@
 				29BABDDB20CD3D610012E059 /* Router.swift in Sources */,
 				2980814820ADE66C00F5E4F8 /* AVAudioSession.swift in Sources */,
 				29E57DC020AB551500DF1F15 /* PlayerController.swift in Sources */,
+				29BABDDE20CD48760012E059 /* SmallPlayerController.swift in Sources */,
 				2980814620ADDC8800F5E4F8 /* PlayerManager.swift in Sources */,
 				29E96B1A20C3B0D90045DEDC /* PlayerSliderView.swift in Sources */,
 				29BABDAC20CA14400012E059 /* ShowsAlerts.swift in Sources */,

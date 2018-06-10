@@ -25,6 +25,10 @@ protocol RouterType: Presentable {
 }
 
 extension RouterType {
+    func push(_ module: Presentable, animated: Bool, completion: (() -> ())? = nil) {
+        push(module, animated: animated, completion: completion)
+    }
+    
     func setRootModule(_ module: Presentable, hideBar: Bool = false) {
         setRootModule(module, hideBar: hideBar)
     }

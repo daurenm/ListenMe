@@ -9,6 +9,7 @@ def default_pods
   pod 'SwiftyAttributes'
   pod 'MarqueeLabel/Swift'
   pod 'Texture'
+  pod 'Hero'
 end
 
 target 'ListenMe' do
