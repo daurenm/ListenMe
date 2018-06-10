@@ -30,7 +30,7 @@ class PlayerExtrasView: UIView {
     static var rateViewSize: CGFloat { return 50 }
     
     // MARK: - Properties
-    var curRate: PlayerRate = .normal
+    var curRate: PlayerRate
     
     lazy var formatter: NumberFormatter = {
         let nf = NumberFormatter()
@@ -59,7 +59,8 @@ class PlayerExtrasView: UIView {
     }()
     
     // MARK: - Lifecycle methods
-    init() {
+    init(savedRate: PlayerRate?) {
+        curRate = savedRate ?? .normal
         super.init(frame: .zero)
         
         addSubview(rateLabel)

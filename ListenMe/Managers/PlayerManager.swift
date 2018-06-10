@@ -30,6 +30,9 @@ class PlayerManager: NSObject {
 
         do {
             player = try AVAudioPlayer(contentsOf: url)
+            if let savedRate = UserDefaults.getSavedRate() {
+                player?.rate = savedRate.rawValue
+            }
             player?.enableRate = true
             player?.delegate = self
             duration = Int(player?.duration ?? 0)

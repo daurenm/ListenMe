@@ -97,9 +97,10 @@ class PlayerController: UIViewController {
     }()
     
     lazy var extrasView: PlayerExtrasView = {
-        let view = PlayerExtrasView()
+        let view = PlayerExtrasView(savedRate: UserDefaults.getSavedRate())
         view.rateDidChange = { [weak self] (rate) in
             self?.playerManager.changeRate(rate)
+            UserDefaults.updateRate(rate)
         }
         return view
     }()
