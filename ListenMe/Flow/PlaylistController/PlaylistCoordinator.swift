@@ -8,41 +8,60 @@
 
 import UIKit
 
-protocol PlaylistCoordinatorOutput: class {
-    var finishFlow: (() -> ())? { get set }
-}
-
-class PlaylistCoordinator: BaseCoordinator, PlaylistCoordinatorOutput {
+class PlaylistCoordinator: Coordinator, ShowsAlerts {
     
     // MARK: - Properties
-    var finishFlow: (() -> ())?
-
-    let navigationController: UINavigationController
-    
-    lazy var playlistController = PlaylistController()
+    lazy var playlistController: PlaylistController = {
+        let vc = PlaylistController()
+        vc.errorDelegate = self
+        vc.delegate = self
+        return vc
+    }()
     
     // MARK: - Lifecycle methods
-    init(rootViewController: UINavigationController) {
-        navigationController = rootViewController
+    override func toPresent() -> UIViewController {
+        return playlistController
     }
     
     // MARK: - Public API
-    override func start() {
-        navigationController.setViewControllers([playlistController], animated: false)
-    }
-    
     func showError(with errorText: String) {
-        presentAlert(in: navigationController, alert: Alert.error(errorText))
+        router.presentAlert(Alert.error(errorText))
     }
     
     func startTrack(_ track: Track) {
         playlistController.updatePlaylist()
-        let playerController = PlayerController(track: track)
-        navigationController.pushViewController(playerController, animated: true)
+        didSelect(track)
     }
 }
 
-// MARK: - Private API
-extension PlaylistCoordinator {
-    
+extension PlaylistCoordinator: ErrorDelegate {
+    func didEncounterError(errorText: String) {
+        showError(with: errorText)
+    }
 }
+
+extension PlaylistCoordinator: PlaylistControllerDelegate {
+    func didSelect(_ track: Track) {
+        let status = PlayerManager.default.prepareToPlay(url: track.url)
+        if case PlayerManager.Status.error(let errorText) = status {
+            showError(with: errorText)
+            return
+        }
+
+        router.popToRootModule(animated: true)
+        let playerController = PlayerController(track: track)
+        router.push(playerController, animated: true) {
+            print("should deinit playerController")
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+

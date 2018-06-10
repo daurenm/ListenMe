@@ -8,32 +8,12 @@
 
 import UIKit
 
-class AppCoordinator: BaseCoordinator {
+class AppCoordinator: Coordinator {
     
     // MARK: - Properties
-    let window: UIWindow
-    let navigationController: UINavigationController = {
-        let navController = UINavigationController()
-        navController.navigationBar.isTranslucent = false
-        return navController
-    }()
-    
-    lazy var playlistCoordinator: PlaylistCoordinator = {
-        let coordinator = PlaylistCoordinator(rootViewController: navigationController)
-        coordinator.finishFlow = { [weak self, weak coordinator] in
-            self?.removeDependency(coordinator)
-        }
-        addDependency(coordinator)
-        return coordinator
-    }()
+    lazy var playlistCoordinator = PlaylistCoordinator(router: router)
     
     // MARK: - Lifecycle methods
-    init(window: UIWindow) {
-        self.window = window
-        self.window.rootViewController = navigationController
-    }
-
-    // MARK: - Public API
     override func start() {
         runPlaylistFlow()
     }
@@ -47,12 +27,15 @@ class AppCoordinator: BaseCoordinator {
 // MARK: - Flows
 private extension AppCoordinator {
     func runPlaylistFlow() {
-        playlistCoordinator.start()
+        addChildCoordinator(playlistCoordinator)
+        router.push(playlistCoordinator, animated: false) { [weak self, weak playlistCoordinator] in
+            self?.removeChildCoordinator(playlistCoordinator)
+        }
     }
 }
 
 // MARK: - Private API
-extension AppCoordinator {
+private extension AppCoordinator {
     func saveNewTrack(_ url: URL) -> Track? {
         let response = FilesManager.default.tryToSaveFile(given: url)
         switch response {

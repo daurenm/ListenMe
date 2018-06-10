@@ -13,20 +13,16 @@ import AVFoundation
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var appCoordinator: AppCoordinator!
+    lazy var appCoordinator: AppCoordinator = AppCoordinator()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        setupAppCoordinator()
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = appCoordinator.toPresent()
+        window?.makeKeyAndVisible()
+        appCoordinator.start()
         return true
     }
     
-    private func setupAppCoordinator() {
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.makeKeyAndVisible()
-        appCoordinator = AppCoordinator(window: window!)
-        appCoordinator.start()
-    }
-
     func applicationDidEnterBackground(_ application: UIApplication) {
         AVAudioSession.deactivateIfNeeded()
     }

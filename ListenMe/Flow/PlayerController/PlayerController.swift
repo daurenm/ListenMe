@@ -12,10 +12,6 @@ import AVFoundation
 import SwiftyAttributes
 import MarqueeLabel
 
-protocol PlayerControllerDelegate: class {
-    func didEncounterError(errorText: String)
-}
-
 class PlayerController: UIViewController {
     
     // MARK: - Constants
@@ -31,31 +27,21 @@ class PlayerController: UIViewController {
     
     // MARK: - Public API
     func prepareToPlayNewTrack(_ track: Track) {
-        let status = playerManager.prepareToPlay(url: track.url)
-        
-        switch status {
-        case .isPlayingAlready:
-            return
-        case .error(let errorText):
-            delegate?.didEncounterError(errorText: errorText)
-        case .newTrack:
-            if let image = UIImage.extractCoverImage(from: track.url) {
-                coverIV.image = image
-                defaultCoverView.isHidden = true
-            } else {
-                coverIV.image = nil
-                defaultCoverView.isHidden = false
-            }
-            
-            trackNameLabel.set(text: track.url.fileName)
-            controlsView.prepareToPlay()
-            sliderView.prepareToPlay(maximumValue: track.durationInSeconds)
+        if let image = UIImage.extractCoverImage(from: track.url) {
+            coverIV.image = image
+            defaultCoverView.isHidden = true
+        } else {
+            coverIV.image = nil
+            defaultCoverView.isHidden = false
         }
+        
+        trackNameLabel.set(text: track.url.fileName)
+        controlsView.prepareToPlay()
+        sliderView.prepareToPlay(maximumValue: track.durationInSeconds)
     }
 
     // MARK: - Properties
     var playerManager: PlayerManager { return PlayerManager.default }
-    weak var delegate: PlayerControllerDelegate?
     
     // MARK: - Views
     lazy var defaultCoverView: UIView = {
@@ -80,7 +66,6 @@ class PlayerController: UIViewController {
     lazy var trackNameLabel: MarqueeLabel = {
         let label = MarqueeLabel(font: UIFont.systemFont(ofSize: 20, weight: .bold), textColor: .white)
         label.textAlignment = .center
-        label.set(text: "Top 50 rules - Garyvee")
         return label
     }()
     
@@ -174,6 +159,10 @@ class PlayerController: UIViewController {
             Left(20), Right(20),
             Height(60)
         )
+    }
+    
+    deinit {
+        print("PlayerController:deinit")
     }
 }
 

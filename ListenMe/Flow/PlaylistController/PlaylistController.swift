@@ -11,6 +11,14 @@ import EasyPeasy
 import ChameleonFramework
 import AsyncDisplayKit
 
+protocol PlaylistControllerDelegate: class {
+    func didSelect(_ track: Track)
+}
+
+protocol ErrorDelegate: class {
+    func didEncounterError(errorText: String)
+}
+
 class PlaylistController: UIViewController {
 
     // MARK: - Properties
@@ -19,6 +27,9 @@ class PlaylistController: UIViewController {
             playlistCV.reloadSections(IndexSet(integer: 0))
         }
     }
+    
+    weak var errorDelegate: ErrorDelegate?
+    weak var delegate: PlaylistControllerDelegate?
     
     // MARK: - Views
     lazy var playlistCV: PlaylistCV = {
@@ -70,7 +81,7 @@ private extension PlaylistController {
         let response = FilesManager.default.getListOfFilesWithDuration()
         switch response {
         case .error(let errorText):
-            print("Error: \(errorText)")
+            errorDelegate?.didEncounterError(errorText: errorText)
         case .success(let tracks):
             self.tracks = tracks
         }
@@ -105,8 +116,7 @@ extension PlaylistController: ASCollectionDataSource {
 extension PlaylistController: ASCollectionDelegate {
     func collectionNode(_ collectionNode: ASCollectionNode, didSelectItemAt indexPath: IndexPath) {
         let track = tracks[indexPath.item]
-        let playerController = PlayerController(track: track)
-        navigationController?.pushViewController(playerController, animated: true)
+        delegate?.didSelect(track)
     }
 }
 
