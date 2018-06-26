@@ -11,6 +11,11 @@ import EasyPeasy
 import AVFoundation
 import SwiftyAttributes
 import MarqueeLabel
+import Hero
+
+protocol PlayerControllerDelegate: class {
+    func dismiss(_ controller: UIViewController)
+}
 
 class PlayerController: UIViewController {
     
@@ -35,12 +40,17 @@ class PlayerController: UIViewController {
             defaultCoverView.isHidden = false
         }
         
-        trackNameLabel.set(text: track.url.fileName)
+        let trackNameText = track.url.fileName + "  "
+        trackNameLabel.set(text: trackNameText)
         controlsView.prepareToPlay()
         sliderView.prepareToPlay(maximumValue: track.durationInSeconds)
+
+        shouldAutoStart = true
     }
 
     // MARK: - Properties
+    weak var delegate: PlayerControllerDelegate?
+    
     var playerManager: PlayerManager { return PlayerManager.default }
     var shouldAutoStart: Bool!
     
@@ -67,6 +77,7 @@ class PlayerController: UIViewController {
     lazy var trackNameLabel: MarqueeLabel = {
         let label = MarqueeLabel(font: UIFont.systemFont(ofSize: 20, weight: .bold), textColor: .iconTint)
         label.textAlignment = .center
+        label.animationDelay = 1
         return label
     }()
     
@@ -111,7 +122,6 @@ class PlayerController: UIViewController {
         
         title = "Playing"
         prepareToPlayNewTrack(track)
-        shouldAutoStart = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -134,6 +144,7 @@ class PlayerController: UIViewController {
     }
     
     private func setupViews() {
+//        hero.isEnabled = true
         view.backgroundColor = UIColor.background
         
         view.addSubview(coverIV)
@@ -171,6 +182,30 @@ class PlayerController: UIViewController {
             Left(20), Right(20),
             Height(60)
         )
+        
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeDown))
+        swipeDown.direction = .down
+        view.addGestureRecognizer(swipeDown)
+        view.isUserInteractionEnabled = true
+    }
+    
+    @objc func didSwipeDown() {
+        print(#function)
+        delegate?.dismiss(self)
+    }
+    
+    deinit {
+        print("PlayerController", #function)
     }
 }
+
+
+
+
+
+
+
+
+
+
 

@@ -18,6 +18,8 @@ class PlaylistCoordinator: Coordinator, ShowsAlerts {
         return vc
     }()
     
+    var playerController: PlayerController?
+    
     // MARK: - Lifecycle methods
     override func toPresent() -> UIViewController {
         return playlistController
@@ -49,11 +51,22 @@ extension PlaylistCoordinator: PlaylistControllerDelegate {
         }
 
         router.popToRootModule(animated: true)
-        let playerController = PlayerController(track: track)
-        router.push(playerController, animated: true)
+        if playerController == nil {
+            playerController = PlayerController(track: track)
+            playerController?.delegate = self
+        } else if case PlayerManager.Status.newTrack = status {
+            playerController!.prepareToPlayNewTrack(track)
+        }
+        router.present(playerController!, animated: true)
+//        router.push(playerController, animated: true)
     }
 }
 
+extension PlaylistCoordinator: PlayerControllerDelegate {
+    func dismiss(_ controller: UIViewController) {
+        controller.dismiss(animated: true)
+    }
+}
 
 
 

@@ -25,9 +25,9 @@ class PlayerManager: NSObject {
     
     // MARK: - Public API
     func prepareToPlay(url: URL) -> Status {
-        pause()
         guard player?.url != url else { return .isPlayingAlready }
 
+        pause()
         do {
             player = try AVAudioPlayer(contentsOf: url)
             if let savedRate = UserDefaults.getSavedRate() {

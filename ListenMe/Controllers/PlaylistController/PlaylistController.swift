@@ -47,6 +47,11 @@ class PlaylistController: UIViewController {
         return rc
     }()
     
+    lazy var smallPlayerController: SmallPlayerController = {
+        let vc = SmallPlayerController()
+        return vc
+    }()
+    
     // MARK: - Lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,6 +79,13 @@ private extension PlaylistController {
             Top().to(view.safeAreaLayoutGuide, .top),
             Left(), Right(),
             Bottom().to(view.safeAreaLayoutGuide, .bottom)
+        )
+        
+        add(smallPlayerController,
+            attributes: [
+                Bottom().to(view.safeAreaLayoutGuide, .bottom), Height(SmallPlayerController.height),
+                Left(), Right()
+            ]
         )
     }
     
