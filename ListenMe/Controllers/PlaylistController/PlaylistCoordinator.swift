@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import EasyPeasy
 
 class PlaylistCoordinator: Coordinator, ShowsAlerts {
     
@@ -18,6 +19,7 @@ class PlaylistCoordinator: Coordinator, ShowsAlerts {
         return vc
     }()
     
+    var smallPlayerController: SmallPlayerController?
     var playerController: PlayerController?
     
     // MARK: - Lifecycle methods
@@ -58,17 +60,36 @@ extension PlaylistCoordinator: PlaylistControllerDelegate {
             playerController!.prepareToPlayNewTrack(track)
         }
         router.present(playerController!, animated: true)
-//        router.push(playerController, animated: true)
     }
 }
 
 extension PlaylistCoordinator: PlayerControllerDelegate {
     func dismiss(_ controller: UIViewController) {
         controller.dismiss(animated: true)
+        
+        guard controller == playerController else { return }
+        
+        if smallPlayerController == nil {
+            smallPlayerController = SmallPlayerController()
+            smallPlayerController!.delegate = self
+            playlistController.add(
+                smallPlayerController!,
+                attributes: [
+                    Bottom().to(playlistController.view.safeAreaLayoutGuide, .bottom), Height(SmallPlayerController.height),
+                    Left(), Right()
+                ]
+            )
+        }
+        
+        smallPlayerController!.update(with: playerController!.curTrack)
     }
 }
 
-
+extension PlaylistCoordinator: SmallPlayerControllerDelegate {
+    func smallPlayerWasTapped() {
+        router.present(playerController!, animated: true)
+    }    
+}
 
 
 

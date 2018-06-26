@@ -25,6 +25,10 @@ class PlayerControlsView: UIView {
         playPauseAction(playPauseButton)
     }
     
+    func updatePlayingStatus() {
+        playPauseButton.isSelected = PlayerManager.default.isPlaying
+    }
+    
     // MARK: - Properties
     var onPlayPause: ButtonClosure!
     var onBackwardJump: ButtonClosure!

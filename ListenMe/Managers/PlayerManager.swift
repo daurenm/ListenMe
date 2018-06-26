@@ -23,11 +23,17 @@ class PlayerManager: NSObject {
         return player?.isPlaying ?? false
     }
     
+    var currentTrackName: String? {
+        return player?.url?.fileName
+    }
+    
     // MARK: - Public API
     func prepareToPlay(url: URL) -> Status {
         guard player?.url != url else { return .isPlayingAlready }
 
         pause()
+//        onSuddenPause?()
+        
         do {
             player = try AVAudioPlayer(contentsOf: url)
             if let savedRate = UserDefaults.getSavedRate() {
@@ -95,6 +101,7 @@ class PlayerManager: NSObject {
     private var player: AVAudioPlayer?
     private var timer: Timer?
     
+//    var onSuddenPause: (() -> ())?
     var timeDidChange: ((Int) -> ())?
     var didFinishPlaying: (() -> ())?
     var currentTime: Int { return Int(player?.currentTime.rounded() ?? 0) }

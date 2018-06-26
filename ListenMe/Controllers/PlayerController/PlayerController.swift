@@ -32,6 +32,8 @@ class PlayerController: UIViewController {
     
     // MARK: - Public API
     func prepareToPlayNewTrack(_ track: Track) {
+        curTrack = track
+        
         if let image = UIImage.extractCoverImage(from: track.url) {
             coverIV.image = image
             defaultCoverView.isHidden = true
@@ -57,6 +59,8 @@ class PlayerController: UIViewController {
     
     var playerManager: PlayerManager { return PlayerManager.default }
     var shouldAutoStart: Bool!
+    
+    var curTrack: Track!
     
     var hideButtonSize: CGFloat {
         return 40
@@ -91,9 +95,6 @@ class PlayerController: UIViewController {
     
     lazy var sliderView: PlayerSliderView = {
         let view = PlayerSliderView()
-        playerManager.timeDidChange = { [unowned self] (curTime) in
-            view.timeDidChange(curTime)
-        }
         view.didSeek = { [unowned self] (newTime) in
             self.playerManager.seek(to: newTime)
         }
@@ -152,6 +153,16 @@ class PlayerController: UIViewController {
         setupViews()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        controlsView.updatePlayingStatus()
+
+        playerManager.timeDidChange = { [unowned self] (curTime) in
+            self.sliderView.timeDidChange(curTime)
+        }
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -162,7 +173,6 @@ class PlayerController: UIViewController {
     }
     
     private func setupViews() {
-//        hero.isEnabled = true
         view.backgroundColor = UIColor.background
         
         view.addSubview(hideButton)
@@ -214,13 +224,8 @@ class PlayerController: UIViewController {
     }
     
     @objc func didSwipeDown() {
-        print(#function)
         delegate?.dismiss(self)
-    }
-    
-    deinit {
-        print("PlayerController", #function)
-    }
+    }    
 }
 
 

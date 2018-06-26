@@ -11,12 +11,18 @@ import EasyPeasy
 import Hero
 import MarqueeLabel
 
+protocol SmallPlayerControllerDelegate: class {
+    func smallPlayerWasTapped()
+}
+
 class SmallPlayerController: UIViewController {
     
     static var height: CGFloat { return 60 }
     
     // MARK: - Properties
+    weak var delegate: SmallPlayerControllerDelegate?
     
+    var curTrack: Track!
     
     // MARK: - Views
     lazy var separatorView: UIView = {
@@ -43,7 +49,6 @@ class SmallPlayerController: UIViewController {
     
     lazy var trackNameLabel: MarqueeLabel = {
         let label = MarqueeLabel(font: UIFont.systemFont(ofSize: 14, weight: .medium), textColor: .iconTint)
-        label.set(text: "Top 10 rules - GaryVee")
         return label
     }()
     
@@ -51,24 +56,33 @@ class SmallPlayerController: UIViewController {
         let button = UIButton()
         button.setImage(#imageLiteral(resourceName: "player_controls_backward_jump").withRenderingMode(.alwaysTemplate), for: .normal)
         button.tintColor = .iconTint
-        button.addTarget { _ in self.onBackwardJump() }
+        button.addTarget { _ in
+            PlayerManager.default.jump(for: -PlayerControlsView.jumpForSeconds)
+        }
         return button
     }()
-    
-    @objc func onBackwardJump() {
-        print(#function)
-    }
 
-    lazy var playButton: UIButton = {
+    lazy var playPauseBox: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        let tapGesture = TapGesture { _ in
+            self.playPause()
+        }
+        view.addGestureRecognizer(tapGesture)
+        return view
+    }()
+    
+    lazy var playPauseButton: UIButton = {
         let button = UIButton()
-        button.setImage(#imageLiteral(resourceName: "player_controls_triangle").withRenderingMode(.alwaysTemplate), for: .normal)
+        button.setImage(#imageLiteral(resourceName: "player_controls_play").withRenderingMode(.alwaysTemplate), for: .normal)
+        button.setImage(#imageLiteral(resourceName: "player_controls_pause").withRenderingMode(.alwaysTemplate), for: .selected)
         button.tintColor = .iconTint
-        button.addTarget { _ in self.onPlay() }
         return button
     }()
     
-    @objc func onPlay() {
-        print(#function)
+    func playPause() {
+        playPauseButton.isSelected.flip()
+        PlayerManager.default.playPause()
     }
     
     // MARK: - Lifecycle methods
@@ -83,7 +97,7 @@ private extension SmallPlayerController {
     func setupViews() {
         view.hero.id = "player"
         view.backgroundColor = UIColor.background
-        [separatorView, progressView, coverIV, trackNameLabel, playButton, jumpBackwardButton].forEach {
+        [separatorView, progressView, coverIV, trackNameLabel, playPauseButton, jumpBackwardButton, playPauseBox].forEach {
             view.addSubview($0)
         }
         
@@ -107,17 +121,44 @@ private extension SmallPlayerController {
         jumpBackwardButton.easy.layout(
             CenterY(),
             Size(30),
-            Right(10).to(playButton)
+            Right(10).to(playPauseButton)
         )
-        playButton.easy.layout(
+        playPauseButton.easy.layout(
             CenterY(),
             Size(30),
             Right(20)
         )
+        playPauseBox.easy.layout(
+            Bottom(), Top(),
+            Right(),
+            Left().to(playPauseButton, .left)
+        )
+        
+        let tapGesture = TapGesture { _ in
+            self.delegate?.smallPlayerWasTapped()
+        }
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    func updateProgress(with curTime: Int) {
+        let progress = Float(curTime) / Float(curTrack.durationInSeconds)
+        progressView.progress = progress
     }
 }
 
-
+// MARK: - Public API
+extension SmallPlayerController {
+    func update(with track: Track) {
+        curTrack = track
+        trackNameLabel.set(text: track.url.fileName + "  ")
+        updateProgress(with: PlayerManager.default.currentTime)
+        playPauseButton.isSelected = PlayerManager.default.isPlaying
+        
+        PlayerManager.default.timeDidChange = { [unowned self] curTime in
+            self.updateProgress(with: curTime)
+        }
+    }
+}
 
 
 
