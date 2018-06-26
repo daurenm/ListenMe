@@ -22,6 +22,10 @@ protocol ErrorDelegate: class {
 class PlaylistController: UIViewController {
 
     // MARK: - Properties
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+
     var tracks: [Track] = [] {
         didSet {
             playlistCV.reloadSections(IndexSet(integer: 0))

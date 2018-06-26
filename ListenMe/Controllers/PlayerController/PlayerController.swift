@@ -49,10 +49,18 @@ class PlayerController: UIViewController {
     }
 
     // MARK: - Properties
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
+    
     weak var delegate: PlayerControllerDelegate?
     
     var playerManager: PlayerManager { return PlayerManager.default }
     var shouldAutoStart: Bool!
+    
+    var hideButtonSize: CGFloat {
+        return 40
+    }
     
     // MARK: - Views
     lazy var defaultCoverView: UIView = {
@@ -116,6 +124,16 @@ class PlayerController: UIViewController {
         return view
     }()
     
+    lazy var hideButton: UIButton = {
+        let button = UIButton()
+        button.setImage(#imageLiteral(resourceName: "player_controls_collapse").withRenderingMode(.alwaysTemplate), for: .normal)
+        button.tintColor = .white
+        button.layer.cornerRadius = hideButtonSize / 2
+        button.layer.backgroundColor = UIColor.iconTint.cgColor
+        button.addTarget(self, action: #selector(didSwipeDown), for: .touchUpInside)
+        return button
+    }()
+    
     // MARK: - Lifecycle methods
     init(track: Track) {
         super.init(nibName: nil, bundle: nil)
@@ -147,14 +165,20 @@ class PlayerController: UIViewController {
 //        hero.isEnabled = true
         view.backgroundColor = UIColor.background
         
+        view.addSubview(hideButton)
         view.addSubview(coverIV)
         view.addSubview(defaultCoverView)
         view.addSubview(trackNameLabel)
         view.addSubview(sliderView)
         view.addSubview(controlsView)
         view.addSubview(extrasView)
+        hideButton.easy.layout(
+            Top(30),
+            Left(20),
+            Size(hideButtonSize)
+        )
         coverIV.easy.layout(
-            Top(20),
+            Top(20).to(hideButton),
             Left(20), Right(20),
             Bottom(20).to(trackNameLabel)
         )
