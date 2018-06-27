@@ -95,7 +95,6 @@ class SmallPlayerController: UIViewController {
 
 private extension SmallPlayerController {
     func setupViews() {
-        view.hero.id = "player"
         view.backgroundColor = UIColor.background
         [separatorView, progressView, coverIV, trackNameLabel, playPauseButton, jumpBackwardButton, playPauseBox].forEach {
             view.addSubview($0)

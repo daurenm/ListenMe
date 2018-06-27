@@ -174,7 +174,6 @@ class PlayerController: UIViewController {
     
     private func setupViews() {
         view.backgroundColor = UIColor.background
-        
         view.addSubview(hideButton)
         view.addSubview(coverIV)
         view.addSubview(defaultCoverView)
@@ -225,7 +224,7 @@ class PlayerController: UIViewController {
     
     @objc func didSwipeDown() {
         delegate?.dismiss(self)
-    }    
+    }
 }
 
 
