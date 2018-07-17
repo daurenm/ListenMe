@@ -109,14 +109,14 @@ extension PlaylistCoordinator: SmallPlayerControllerDelegate {
 }
 
 extension UIView {
-    func takeScreenshot() -> UIImage {
+    func takeScreenshot() -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, UIScreen.main.scale)
         drawHierarchy(in: self.bounds, afterScreenUpdates: true)
         
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        return image ?? UIImage()
+        return image// ?? UIImage()
     }
 }
 
@@ -128,12 +128,16 @@ extension PlaylistCoordinator: UIViewControllerTransitioningDelegate {
         return animator
     }
     
-//    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-//        guard let smallPlayerView = smallPlayerController?.view else { return nil }
-//        animator.smallPlayerView = smallPlayerView
-//        animator.isPresenting = false
-//        return animator
-//    }
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        guard let smallPlayerView = smallPlayerController?.smallPlayerView else { return nil }
+//        let dummyView = UIView()
+//        dummyView.backgroundColor = .flatPink
+//        let screenshot = smallPlayerView.takeScreenshot()
+//        assert(screenshot != nil)
+//        animator.smallPlayerView = UIImageView(image: screenshot)
+        animator.isPresenting = false
+        return animator
+    }
 }
 
 //extension PlaylistCoordinator: UIViewControllerTransitioningDelegate {
