@@ -21,18 +21,20 @@ class PlaylistCoordinator: Coordinator, ShowsAlerts {
     
     var smallPlayerController: SmallPlayerController?
     var playerController: PlayerController?
+
+    let animator = PlayerAnimator()
     
-    lazy var presentInteractor: MiniToLargeViewInteractive = {
-        let interactor = MiniToLargeViewInteractive()
-        interactor.attachToViewController(viewController: playerController!, withView: smallPlayerController!.view, presentViewController: smallPlayerController)
-        return interactor
-    }()
-    
-    lazy var dismissInteractor: MiniToLargeViewInteractive = {
-        let interactor = MiniToLargeViewInteractive()
-        interactor.attachToViewController(viewController: smallPlayerController!, withView: smallPlayerController!.view, presentViewController: nil)
-        return interactor
-    }()
+//    lazy var presentInteractor: MiniToLargeViewInteractive = {
+//        let interactor = MiniToLargeViewInteractive()
+//        interactor.attachToViewController(viewController: playerController!, withView: smallPlayerController!.view, presentViewController: smallPlayerController)
+//        return interactor
+//    }()
+//
+//    lazy var dismissInteractor: MiniToLargeViewInteractive = {
+//        let interactor = MiniToLargeViewInteractive()
+//        interactor.attachToViewController(viewController: smallPlayerController!, withView: smallPlayerController!.view, presentViewController: nil)
+//        return interactor
+//    }()
 
     // MARK: - Lifecycle methods
     override func toPresent() -> UIViewController {
@@ -67,13 +69,13 @@ extension PlaylistCoordinator: PlaylistControllerDelegate {
         router.popToRootModule(animated: true)
         if playerController == nil {
             playerController = PlayerController(track: track)
-            playerController?.delegate = self
-            
-            playerController?.transitioningDelegate = self
-            playerController?.modalPresentationStyle = .fullScreen
+            playerController!.delegate = self
+            playerController!.transitioningDelegate = self
+//            playerController?.modalPresentationStyle = .fullScreen
         } else if case PlayerManager.Status.newTrack = status {
             playerController!.prepareToPlayNewTrack(track)
         }
+        
         router.present(playerController!, animated: true)
     }
 }
@@ -95,7 +97,7 @@ extension PlaylistCoordinator: PlayerControllerDelegate {
                 ]
             )
         }
-        
+
         smallPlayerController!.update(with: playerController!.curTrack)
     }
 }
@@ -106,33 +108,61 @@ extension PlaylistCoordinator: SmallPlayerControllerDelegate {
     }    
 }
 
-extension PlaylistCoordinator: UIViewControllerTransitioningDelegate {
-    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        let animator = MiniToLargeViewAnimator()
-        animator.initialY = SmallPlayerController.height
-        animator.transitionType = .present
-        return animator
-    }
-    
-    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        let animator = MiniToLargeViewAnimator()
-        animator.initialY = SmallPlayerController.height
-        animator.transitionType = .dismiss
-        return animator
-    }
-    
-    func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return nil
-//        guard !disableInteractivePlayerTransitioning else { return nil }
-//        return presentInteractor
-    }
-    
-    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return nil
-//        guard !disableInteractivePlayerTransitioning else { return nil }
-//        return dismissInteractor
+extension UIView {
+    func takeScreenshot() -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, UIScreen.main.scale)
+        drawHierarchy(in: self.bounds, afterScreenUpdates: true)
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return image ?? UIImage()
     }
 }
+
+extension PlaylistCoordinator: UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        guard let smallPlayerView = smallPlayerController?.smallPlayerView else { return nil }
+        animator.smallPlayerView = UIImageView(image: smallPlayerView.takeScreenshot())
+        animator.isPresenting = true
+        return animator
+    }
+    
+//    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//        guard let smallPlayerView = smallPlayerController?.view else { return nil }
+//        animator.smallPlayerView = smallPlayerView
+//        animator.isPresenting = false
+//        return animator
+//    }
+}
+
+//extension PlaylistCoordinator: UIViewControllerTransitioningDelegate {
+//    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//        let animator = MiniToLargeViewAnimator()
+//        animator.initialY = SmallPlayerController.height
+//        animator.transitionType = .present
+//        return animator
+//    }
+//
+//    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//        let animator = MiniToLargeViewAnimator()
+//        animator.initialY = SmallPlayerController.height
+//        animator.transitionType = .dismiss
+//        return animator
+//    }
+//
+//    func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+//        return nil
+////        guard !disableInteractivePlayerTransitioning else { return nil }
+////        return presentInteractor
+//    }
+//
+//    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+//        return nil
+////        guard !disableInteractivePlayerTransitioning else { return nil }
+////        return dismissInteractor
+//    }
+//}
 
 
 

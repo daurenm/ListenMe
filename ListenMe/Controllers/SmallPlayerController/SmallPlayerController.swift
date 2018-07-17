@@ -85,17 +85,10 @@ class SmallPlayerController: UIViewController {
         PlayerManager.default.playPause()
     }
     
-    // MARK: - Lifecycle methods
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setupViews()
-    }
-}
-
-private extension SmallPlayerController {
-    func setupViews() {
+    lazy var smallPlayerView: UIView = {
+        let view = UIView()
         view.backgroundColor = UIColor.background
+
         [separatorView, progressView, coverIV, trackNameLabel, playPauseButton, jumpBackwardButton, playPauseBox].forEach {
             view.addSubview($0)
         }
@@ -137,6 +130,22 @@ private extension SmallPlayerController {
             self.delegate?.smallPlayerWasTapped()
         }
         view.addGestureRecognizer(tapGesture)
+        return view
+    }()
+    
+    // MARK: - Lifecycle methods
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupViews()
+    }
+}
+
+private extension SmallPlayerController {
+    func setupViews() {
+        view.backgroundColor = UIColor.background
+        view.addSubview(smallPlayerView)
+        smallPlayerView.easy.layout(Edges())
     }
     
     func updateProgress(with curTime: Int) {

@@ -57,6 +57,7 @@ final class Router: NSObject, RouterType, ShowsAlerts {
     
     // MARK: - RouterType
     func present(_ module: Presentable, animated: Bool) {
+//        rootViewController?.present(module.toPresent(), animated: animated)
         navigationController.present(module.toPresent(), animated: animated)
     }
     
