@@ -65,18 +65,33 @@ extension PlaylistCoordinator: PlaylistControllerDelegate {
             showError(with: errorText)
             return
         }
-
-        router.popToRootModule(animated: true)
-        if playerController == nil {
-            playerController = PlayerController(track: track)
-            playerController!.delegate = self
-            playerController!.transitioningDelegate = self
-//            playerController?.modalPresentationStyle = .fullScreen
-        } else if case PlayerManager.Status.newTrack = status {
-            playerController!.prepareToPlayNewTrack(track)
-        }
         
-        router.present(playerController!, animated: true)
+        if smallPlayerController == nil {
+            smallPlayerController = SmallPlayerController()
+            smallPlayerController!.delegate = self
+            let height = SmallPlayerController.height
+            playlistController.add(
+                smallPlayerController!,
+                attributes: [
+                    Bottom().to(playlistController.view.safeAreaLayoutGuide, .bottom), Height(height),
+                    Left(), Right()
+                ]
+            )
+            playlistController.bottomBarWasAdded(with: height)
+        }
+        smallPlayerController!.update(with: track)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+            if self.playerController == nil {
+                self.playerController = PlayerController(track: track)
+                self.playerController!.delegate = self
+                self.playerController!.transitioningDelegate = self
+                self.router.present(self.playerController!, animated: true)
+            } else if case PlayerManager.Status.newTrack = status {
+                self.playerController!.prepareToPlayNewTrack(track)
+                self.smallPlayerController!.playPause()
+            }
+        }
     }
 }
 
@@ -85,19 +100,6 @@ extension PlaylistCoordinator: PlayerControllerDelegate {
         controller.dismiss(animated: true)
         
         guard controller == playerController else { return }
-        
-        if smallPlayerController == nil {
-            smallPlayerController = SmallPlayerController()
-            smallPlayerController!.delegate = self
-            playlistController.add(
-                smallPlayerController!,
-                attributes: [
-                    Bottom().to(playlistController.view.safeAreaLayoutGuide, .bottom), Height(SmallPlayerController.height),
-                    Left(), Right()
-                ]
-            )
-        }
-
         smallPlayerController!.update(with: playerController!.curTrack)
     }
 }
@@ -106,18 +108,6 @@ extension PlaylistCoordinator: SmallPlayerControllerDelegate {
     func smallPlayerWasTapped() {
         router.present(playerController!, animated: true)
     }    
-}
-
-extension UIView {
-    func takeScreenshot() -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, UIScreen.main.scale)
-        drawHierarchy(in: self.bounds, afterScreenUpdates: true)
-        
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return image// ?? UIImage()
-    }
 }
 
 extension PlaylistCoordinator: UIViewControllerTransitioningDelegate {
@@ -129,12 +119,6 @@ extension PlaylistCoordinator: UIViewControllerTransitioningDelegate {
     }
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        guard let smallPlayerView = smallPlayerController?.smallPlayerView else { return nil }
-//        let dummyView = UIView()
-//        dummyView.backgroundColor = .flatPink
-//        let screenshot = smallPlayerView.takeScreenshot()
-//        assert(screenshot != nil)
-//        animator.smallPlayerView = UIImageView(image: screenshot)
         animator.isPresenting = false
         return animator
     }

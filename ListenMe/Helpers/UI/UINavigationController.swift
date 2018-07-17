@@ -1,5 +1,5 @@
 //
-//  UINavigationController+helpers.swift
+//  UINavigationController.swift
 //  ListenMe
 //
 //  Created by Dauren Muratov on 6/26/18.

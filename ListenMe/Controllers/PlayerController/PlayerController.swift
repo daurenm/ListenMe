@@ -167,7 +167,9 @@ class PlayerController: UIViewController {
         super.viewDidAppear(animated)
         
         if shouldAutoStart {
-            controlsView.play()
+            if !playerManager.isPlaying {
+                controlsView.play()
+            }
             shouldAutoStart = false
         }
     }

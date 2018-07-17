@@ -64,6 +64,10 @@ class PlaylistController: UIViewController {
     func updatePlaylist() {
         loadTracks()
     }
+    
+    func bottomBarWasAdded(with height: CGFloat) {
+        playlistCV.view.easy.layout(Bottom(height).to(view.safeAreaLayoutGuide, .bottom))
+    }
 }
 
 // MARK: - Private methods

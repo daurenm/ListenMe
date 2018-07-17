@@ -71,7 +71,7 @@ extension PlayerAnimator: UIViewControllerAnimatedTransitioning {
         backgroundView.frame = initialFrame
         toView.frame = initialFrame
         smallPlayerView.frame = CGRect(x: 0, y: initialFrame.minY, width: toView.frame.width, height: SmallPlayerController.height)
-        separatorView.frame = CGRect(x: 0, y: initialFrame.minY - 1, width: toView.frame.width, height: 1)
+        separatorView.frame = CGRect(x: 0, y: initialFrame.minY, width: toView.frame.width, height: 1)
         
         if isPresenting {
             finalFrame = CGRect(origin: .zero, size: toView.frame.size)
@@ -81,13 +81,13 @@ extension PlayerAnimator: UIViewControllerAnimatedTransitioning {
             finalAlphaForSmallPlayerView = 0
         } else {
             finalFrame = CGRect(x: 0, y: toView.frame.height - SmallPlayerController.height, width: toView.frame.width, height: toView.frame.height)
-            finalFrameForSeparatorView = CGRect(x: 0, y: finalFrame.minY - 1, width: toView.frame.width, height: 1)
+            finalFrameForSeparatorView = CGRect(x: 0, y: finalFrame.minY, width: toView.frame.width, height: 1)
 
             finalAlpha = 0
             finalAlphaForSmallPlayerView = 1
         }
         
-        UIView.animate(withDuration: duration, animations: {
+        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
             actionView.alpha = finalAlpha
             actionView.frame = finalFrame
             
