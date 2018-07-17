@@ -12,7 +12,7 @@ import EasyPeasy
 class PlayerAnimator: NSObject {
     
     // MARK: - Constants
-    var duration: TimeInterval { return 0.45 }
+    var duration: TimeInterval { return 0.4 }
     
     // MARK: - Public properties
     var smallPlayerView: UIView!
@@ -27,6 +27,8 @@ class PlayerAnimator: NSObject {
         view.backgroundColor = .separator
         return view
     }()
+    
+    lazy var backgroundView = UIView()
 }
 
 extension PlayerAnimator: UIViewControllerAnimatedTransitioning {
@@ -40,20 +42,18 @@ extension PlayerAnimator: UIViewControllerAnimatedTransitioning {
         let toView = transitionContext.view(forKey: .to)!
         let actionView = isPresenting ? toView : fromView
         
-        let backgroundView = UIView()
         backgroundView.backgroundColor = actionView.backgroundColor
+        backgroundView.addSubview(smallPlayerView)
+        smallPlayerView.easy.layout(Top(), Left(), Right(), Height(SmallPlayerController.height))
         
         let initialFrame: CGRect
         let finalFrame: CGRect
-        let finalFrameForSmallPlayerView: CGRect
         let finalFrameForSeparatorView: CGRect
         let finalAlpha: CGFloat
         let finalAlphaForSmallPlayerView: CGFloat
-        let completionAlphaForSmallPlayerView: CGFloat
         
         if isPresenting {
             containerView.addSubview(backgroundView)
-            containerView.addSubview(smallPlayerView)
             containerView.addSubview(toView)
             containerView.addSubview(separatorView)
             
@@ -61,8 +61,7 @@ extension PlayerAnimator: UIViewControllerAnimatedTransitioning {
 
             toView.alpha = 0
         } else {
-            containerView.insertSubview(smallPlayerView, belowSubview: fromView)
-            containerView.insertSubview(backgroundView, belowSubview: smallPlayerView)
+            containerView.insertSubview(backgroundView, belowSubview: fromView)
             containerView.insertSubview(toView, belowSubview: backgroundView)
             containerView.addSubview(separatorView)
             
@@ -76,36 +75,29 @@ extension PlayerAnimator: UIViewControllerAnimatedTransitioning {
         
         if isPresenting {
             finalFrame = CGRect(origin: .zero, size: toView.frame.size)
-            finalFrameForSmallPlayerView = CGRect(x: 0, y: 0, width: toView.frame.width, height: SmallPlayerController.height)
-            finalFrameForSeparatorView = CGRect(x: 0, y: -2, width: toView.frame.width, height: 1)
+            finalFrameForSeparatorView = CGRect(x: 0, y: -1, width: toView.frame.width, height: 1)
 
             finalAlpha = 1
             finalAlphaForSmallPlayerView = 0
-            completionAlphaForSmallPlayerView = 1
         } else {
             finalFrame = CGRect(x: 0, y: toView.frame.height - SmallPlayerController.height, width: toView.frame.width, height: toView.frame.height)
-            finalFrameForSmallPlayerView = CGRect(x: 0, y: finalFrame.minY, width: toView.frame.width, height: SmallPlayerController.height)
             finalFrameForSeparatorView = CGRect(x: 0, y: finalFrame.minY - 1, width: toView.frame.width, height: 1)
 
             finalAlpha = 0
             finalAlphaForSmallPlayerView = 1
-            completionAlphaForSmallPlayerView = 0
         }
         
         UIView.animate(withDuration: duration, animations: {
             actionView.alpha = finalAlpha
             actionView.frame = finalFrame
-            backgroundView.frame = finalFrame
-
+            
+            self.backgroundView.frame = finalFrame
             self.smallPlayerView.alpha = finalAlphaForSmallPlayerView
-            self.smallPlayerView.frame = finalFrameForSmallPlayerView
             self.separatorView.frame = finalFrameForSeparatorView
         }) { (_) in
-            self.smallPlayerView.alpha = completionAlphaForSmallPlayerView
-
             self.separatorView.removeFromSuperview()
             self.smallPlayerView.removeFromSuperview()
-            backgroundView.removeFromSuperview()
+            self.backgroundView.removeFromSuperview()
             
             transitionContext.completeTransition(true)
         }
