@@ -12,7 +12,7 @@ import EasyPeasy
 class PlayerAnimator: NSObject {
     
     // MARK: - Constants
-    var duration: TimeInterval { return 0.4 }
+    var duration: TimeInterval { return 0.25 }
     
     // MARK: - Public properties
     var smallPlayerView: UIView!
@@ -87,7 +87,7 @@ extension PlayerAnimator: UIViewControllerAnimatedTransitioning {
             finalAlphaForSmallPlayerView = 1
         }
         
-        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: duration, delay: 0, options: .curveLinear, animations: {
             actionView.alpha = finalAlpha
             actionView.frame = finalFrame
             
@@ -99,7 +99,7 @@ extension PlayerAnimator: UIViewControllerAnimatedTransitioning {
             self.smallPlayerView.removeFromSuperview()
             self.backgroundView.removeFromSuperview()
             
-            transitionContext.completeTransition(true)
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         }
     }
 }

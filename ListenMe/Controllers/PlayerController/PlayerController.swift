@@ -218,10 +218,10 @@ class PlayerController: UIViewController {
             Height(60)
         )
         
-        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeDown))
-        swipeDown.direction = .down
-        view.addGestureRecognizer(swipeDown)
-        view.isUserInteractionEnabled = true
+//        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeDown))
+//        swipeDown.direction = .down
+//        view.addGestureRecognizer(swipeDown)
+//        view.isUserInteractionEnabled = true
     }
     
     @objc func didSwipeDown() {

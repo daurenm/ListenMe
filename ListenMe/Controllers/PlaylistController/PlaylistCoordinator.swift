@@ -20,21 +20,14 @@ class PlaylistCoordinator: Coordinator, ShowsAlerts {
     }()
     
     var smallPlayerController: SmallPlayerController?
-    var playerController: PlayerController?
+    var playerController: PlayerController? {
+        didSet {
+            interactiveAnimator.viewController = playerController
+        }
+    }
 
     let animator = PlayerAnimator()
-    
-//    lazy var presentInteractor: MiniToLargeViewInteractive = {
-//        let interactor = MiniToLargeViewInteractive()
-//        interactor.attachToViewController(viewController: playerController!, withView: smallPlayerController!.view, presentViewController: smallPlayerController)
-//        return interactor
-//    }()
-//
-//    lazy var dismissInteractor: MiniToLargeViewInteractive = {
-//        let interactor = MiniToLargeViewInteractive()
-//        interactor.attachToViewController(viewController: smallPlayerController!, withView: smallPlayerController!.view, presentViewController: nil)
-//        return interactor
-//    }()
+    let interactiveAnimator = PlayerInteractiveAnimator()
 
     // MARK: - Lifecycle methods
     override func toPresent() -> UIViewController {
@@ -121,6 +114,15 @@ extension PlaylistCoordinator: UIViewControllerTransitioningDelegate {
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         animator.isPresenting = false
         return animator
+    }
+    
+    func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        print(#function)
+        return nil
+    }
+    
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return interactiveAnimator.inProgress ? interactiveAnimator : nil
     }
 }
 

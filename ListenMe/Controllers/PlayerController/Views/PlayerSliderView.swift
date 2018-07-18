@@ -65,6 +65,8 @@ class PlayerSliderView: UIView {
         timeLeftLabel.easy.layout(
             Right(), Top()
         )
+        
+        addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture)))
     }
     
     required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -90,5 +92,15 @@ private extension PlayerSliderView {
         updateTime(value, label: curTimeLabel)
         updateTimeLeft(curTime: value, label: timeLeftLabel)
         didSeek(value)
+    }
+    
+    @objc func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
+        let translationX = gesture.translation(in: slider).x
+        let add = Float(translationX / slider.frame.width) * slider.maximumValue
+        let value = slider.value + add
+        slider.setValue(value, animated: false)
+        gesture.setTranslation(.zero, in: slider)
+
+        sliderValueDidChange()
     }
 }
