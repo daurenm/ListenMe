@@ -13,7 +13,7 @@ class AppCoordinator: Coordinator {
     // MARK: - Properties
     lazy var playlistCoordinator = PlaylistCoordinator(router: router)
     
-    // MARK: - Lifecycle methods
+    // MARK: - Public methods
     override func start() {
         runPlaylistFlow()
     }
@@ -21,6 +21,10 @@ class AppCoordinator: Coordinator {
     func openNewTrack(with url: URL) {
         guard let track = saveNewTrack(url) else { return }
         playlistCoordinator.startTrack(track)
+    }
+    
+    func updateNowPlayingInfoCenter() {
+        playlistCoordinator.updateNowPlayingInfoCenter()
     }
 }
 

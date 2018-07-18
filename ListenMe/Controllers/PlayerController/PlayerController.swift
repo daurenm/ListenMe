@@ -161,6 +161,13 @@ class PlayerController: UIViewController {
         playerManager.timeDidChange = { [unowned self] (curTime) in
             self.sliderView.timeDidChange(curTime)
         }
+        playerManager.playingStatusDidChange = { [weak self] (isPlaying) in
+            if isPlaying {
+                self?.controlsView.play()
+            } else {
+                self?.controlsView.pause()
+            }
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {

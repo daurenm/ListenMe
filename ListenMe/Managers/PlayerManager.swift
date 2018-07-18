@@ -50,6 +50,10 @@ class PlayerManager: NSObject {
         return .newTrack
     }
     
+    func controlsPlayPause() {
+        playingStatusDidChange?(isPlaying)
+    }
+    
     func playPause() {
         if isPlaying {
             pause()
@@ -69,6 +73,7 @@ class PlayerManager: NSObject {
     }
     
     func pause() {
+        print("PlayerManager.pause")
         player?.pause()
         timer?.invalidate()
     }
@@ -101,7 +106,7 @@ class PlayerManager: NSObject {
     private var player: AVAudioPlayer?
     private var timer: Timer?
     
-//    var onSuddenPause: (() -> ())?
+    var playingStatusDidChange: ((Bool) -> ())?
     var timeDidChange: ((Int) -> ())?
     var didFinishPlaying: (() -> ())?
     var currentTime: Int { return Int(player?.currentTime.rounded() ?? 0) }

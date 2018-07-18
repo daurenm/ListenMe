@@ -19,6 +19,11 @@ class SmallPlayerController: UIViewController {
     
     static var height: CGFloat { return 60 }
     
+    // MARK: - Shared methods
+    func getProgress() -> Float {
+        return progressView.progress
+    }
+    
     // MARK: - Properties
     weak var delegate: SmallPlayerControllerDelegate?
     
@@ -164,6 +169,9 @@ extension SmallPlayerController {
         
         PlayerManager.default.timeDidChange = { [unowned self] curTime in
             self.updateProgress(with: curTime)
+        }
+        PlayerManager.default.playingStatusDidChange = { [weak self] isPlaying in
+            self?.playPause()
         }
     }
 }

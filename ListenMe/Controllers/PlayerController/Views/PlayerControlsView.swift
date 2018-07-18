@@ -25,6 +25,10 @@ class PlayerControlsView: UIView {
         playPauseAction(playPauseButton)
     }
     
+    func pause() {
+        playPauseAction(playPauseButton)
+    }
+    
     func updatePlayingStatus() {
         playPauseButton.isSelected = PlayerManager.default.isPlaying
     }

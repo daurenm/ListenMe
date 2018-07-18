@@ -8,6 +8,7 @@
 
 import UIKit
 import EasyPeasy
+import MediaPlayer
 
 class PlaylistCoordinator: Coordinator, ShowsAlerts {
     
@@ -45,6 +46,41 @@ class PlaylistCoordinator: Coordinator, ShowsAlerts {
     let dismissInteractiveAnimator = PlayerInteractiveAnimator(isPresenting: false)
 
     // MARK: - Lifecycle methods
+    override init(router: RouterType = Router()) {
+        super.init(router: router)
+        
+        setupNowPlayingInfoCenter()
+    }
+    
+    private func setupNowPlayingInfoCenter() {
+        let rcc = MPRemoteCommandCenter.shared()
+        rcc.playCommand.addTarget { (_) -> MPRemoteCommandHandlerStatus in
+            PlayerManager.default.controlsPlayPause()
+            self.updateNowPlayingInfoCenter(isPlaying: true)
+            return .success
+        }
+        rcc.pauseCommand.addTarget { (_) -> MPRemoteCommandHandlerStatus in
+            PlayerManager.default.controlsPlayPause()
+            self.updateNowPlayingInfoCenter(isPlaying: false)
+            return .success
+        }
+    }
+    
+    func updateNowPlayingInfoCenter(isPlaying: Bool = PlayerManager.default.isPlaying) {
+        guard let smallPlayerController = smallPlayerController, let track = smallPlayerController.curTrack else {
+            print(#function, "no track")
+            return
+        }
+        
+        print(PlayerManager.default.currentTime, PlayerManager.default.currentTime)
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+            MPMediaItemPropertyTitle: track.url.fileName,
+            MPMediaItemPropertyPlaybackDuration: track.durationInSeconds,
+            MPNowPlayingInfoPropertyElapsedPlaybackTime: PlayerManager.default.currentTime,
+            MPNowPlayingInfoPropertyPlaybackRate: isPlaying ? UserDefaults.getSavedRate()?.rawValue ?? 1 : 0
+        ]
+    }
+    
     override func toPresent() -> UIViewController {
         return playlistController
     }
