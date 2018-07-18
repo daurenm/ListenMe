@@ -23,4 +23,10 @@ extension Track {
         self.url = url
         self.durationInSeconds = durationInSeconds
     }
+    
+    var addedDate: Date {
+        guard let resourceValue = try? url.resourceValues(forKeys: [.contentModificationDateKey]),
+            let modificationDate = resourceValue.contentModificationDate else { return Date.distantPast }
+        return modificationDate
+    }
 }

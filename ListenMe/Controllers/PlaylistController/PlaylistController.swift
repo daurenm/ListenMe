@@ -36,6 +36,12 @@ class PlaylistController: UIViewController {
     weak var errorDelegate: ErrorDelegate?
     weak var delegate: PlaylistControllerDelegate?
     
+    var sortByDate: Bool = true {
+        didSet {
+            tracks = sort(tracks)
+        }
+    }
+    
     // MARK: - Views
     lazy var playlistCV: PlaylistCV = {
         let cv = PlaylistCV(width: view.frame.width)
@@ -75,6 +81,13 @@ class PlaylistController: UIViewController {
 private extension PlaylistController {
     func setupNavigationBar() {
         title = "Playlist"
+        
+        let sortButton = UIButton()
+        sortButton.setImage(#imageLiteral(resourceName: "playlist_sort_date").withRenderingMode(.alwaysTemplate), for: .normal)
+        sortButton.setImage(#imageLiteral(resourceName: "playlist_sort_a_z").withRenderingMode(.alwaysTemplate), for: .selected)
+        sortButton.tintColor = .white
+        sortButton.addTarget(closure: sortPlaylist)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: sortButton)
     }
     
     func setupViews() {
@@ -92,8 +105,24 @@ private extension PlaylistController {
         case .error(let errorText):
             errorDelegate?.didEncounterError(errorText: errorText)
         case .success(let tracks):
-            self.tracks = tracks
+            self.tracks = sort(tracks)
         }
+    }
+    
+    func sort(_ tracks: [Track]) -> [Track] {
+        return sortByDate ? sortByDates(tracks) : sortFromAtoZ(tracks)
+    }
+    
+    func sortByDates(_ tracks: [Track]) -> [Track] {
+        return tracks.sorted(by: { (a, b) -> Bool in
+            return a.addedDate > b.addedDate
+        })
+    }
+    
+    func sortFromAtoZ(_ tracks: [Track]) -> [Track] {
+        return tracks.sorted(by: { (a, b) -> Bool in
+            return a.url.fileName < b.url.fileName
+        })
     }
 }
 
@@ -104,6 +133,12 @@ extension PlaylistController {
             self.loadTracks()
             self.refresher.endRefreshing()
         }
+    }
+    
+    @objc func sortPlaylist(_ button: UIButton) {
+        print(#function)
+        button.isSelected.flip()
+        sortByDate = button.isSelected
     }
 }
 
