@@ -14,13 +14,22 @@ class PlayerInteractiveAnimator: UIPercentDrivenInteractiveTransition {
     // MARK: - Public properties
     var inProgress = false
 
-    var viewController: UIViewController! {
+    var onBegin: (() -> ())!
+    
+    var view: UIView! {
         didSet {
-            prepareGestureRecognizer(in: viewController.view)
+            prepareGestureRecognizer(in: view)
         }
     }
     
     // MARK: - Private properties
+    let isPresenting: Bool
+    
+    // MARK: - Lifecycle methods
+    init(isPresenting: Bool) {
+        self.isPresenting = isPresenting
+        super.init()
+    }
     
     // MARK: - Private methods
     private func prepareGestureRecognizer(in view: UIView) {
@@ -30,15 +39,22 @@ class PlayerInteractiveAnimator: UIPercentDrivenInteractiveTransition {
     
     @objc func handleGesture(_ gesture: UIPanGestureRecognizer) {
         let view = gesture.view!
-        let y = gesture.translation(in: view).y
-        var progress = (y) / (view.frame.height - SmallPlayerController.height)
+        var y = gesture.translation(in: view).y
+        let height: CGFloat
+        if !isPresenting {
+            height = view.frame.height - SmallPlayerController.height
+        } else {
+            y = -y
+            height = view.superview!.frame.height
+        }
+        var progress = y / height
         progress = min(progress, 1)
         progress = max(progress, 0)
         
         switch gesture.state {
         case .began:
             inProgress = true
-            viewController.dismiss(animated: true)
+            onBegin()
             
         case .changed:
             update(progress)
@@ -50,7 +66,8 @@ class PlayerInteractiveAnimator: UIPercentDrivenInteractiveTransition {
         case .ended:
             inProgress = false
             let velocity = gesture.velocity(in: view)
-            if velocity.y >= 0 {
+            let completeTransition = (!isPresenting && velocity.y > 0) || (isPresenting && velocity.y < 0)
+            if completeTransition {
                 finish()
             } else {
                 cancel()

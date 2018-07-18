@@ -19,15 +19,30 @@ class PlaylistCoordinator: Coordinator, ShowsAlerts {
         return vc
     }()
     
-    var smallPlayerController: SmallPlayerController?
+    var smallPlayerController: SmallPlayerController? {
+        didSet {
+            presentInteractiveAnimator.view = smallPlayerController?.view
+        }
+    }
+    
     var playerController: PlayerController? {
         didSet {
-            interactiveAnimator.viewController = playerController
+            guard let playerController = playerController else { return }
+            
+            presentInteractiveAnimator.onBegin = { [weak self] in
+                guard let `self` = self else { return }
+                self.router.present(playerController, animated: true)
+            }
+            dismissInteractiveAnimator.view = playerController.view
+            dismissInteractiveAnimator.onBegin = { 
+                playerController.dismiss(animated: true)
+            }
         }
     }
 
     let animator = PlayerAnimator()
-    let interactiveAnimator = PlayerInteractiveAnimator()
+    let presentInteractiveAnimator = PlayerInteractiveAnimator(isPresenting: true)
+    let dismissInteractiveAnimator = PlayerInteractiveAnimator(isPresenting: false)
 
     // MARK: - Lifecycle methods
     override func toPresent() -> UIViewController {
@@ -117,12 +132,11 @@ extension PlaylistCoordinator: UIViewControllerTransitioningDelegate {
     }
     
     func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        print(#function)
-        return nil
+        return presentInteractiveAnimator.inProgress ? presentInteractiveAnimator : nil
     }
     
     func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return interactiveAnimator.inProgress ? interactiveAnimator : nil
+        return dismissInteractiveAnimator.inProgress ? dismissInteractiveAnimator : nil
     }
 }
 
