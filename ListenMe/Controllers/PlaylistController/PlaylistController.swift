@@ -13,6 +13,7 @@ import AsyncDisplayKit
 
 protocol PlaylistControllerDelegate: class {
     func didSelect(_ track: Track)
+    func askingToRemove(_ track: Track)
 }
 
 protocol ErrorDelegate: class {
@@ -113,8 +114,9 @@ extension PlaylistController: ASCollectionDataSource {
     
     func collectionNode(_ collectionNode: ASCollectionNode, nodeBlockForItemAt indexPath: IndexPath) -> ASCellNodeBlock {
         let track = tracks[indexPath.item]
-        let cellNodeBlock = { () -> ASCellNode in
+        let cellNodeBlock = { [weak self] () -> ASCellNode in
             let cell = PlaylistCellNode(track: track)
+            cell.delegate = self
             return cell
         }
         return cellNodeBlock
@@ -128,6 +130,11 @@ extension PlaylistController: ASCollectionDelegate {
     }
 }
 
+extension PlaylistController: PlaylistCellNodeDelegate {
+    func remove(_ track: Track) {
+        delegate?.askingToRemove(track)
+    }
+}
 
 
 

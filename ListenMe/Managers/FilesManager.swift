@@ -89,6 +89,10 @@ class FilesManager {
         }
         return .success(response)
     }
+    
+    func remove(_ track: Track) {
+        removeFile(at: track.url)
+    }
 }
 
 // MARK: - Private methods
@@ -128,8 +132,6 @@ extension FilesManager {
     }
     
     private func removeFile(at url: URL) {
-        guard url.path.contains("Inbox") else { return }
-        
         guard fileManager.fileExists(atPath: url.path) else {
             print("\(url.path) doesn't exist")
             return

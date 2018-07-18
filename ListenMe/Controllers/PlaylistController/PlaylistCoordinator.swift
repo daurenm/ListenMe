@@ -110,6 +110,16 @@ extension PlaylistCoordinator: PlayerControllerDelegate {
         guard controller == playerController else { return }
         smallPlayerController!.update(with: playerController!.curTrack)
     }
+    
+    func askingToRemove(_ track: Track) {
+        let vc = UIAlertController(title: "Remove track?", message: "", preferredStyle: .actionSheet)
+        vc.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { [weak self] (action) in
+            FilesManager.default.remove(track)
+            self?.playlistController.updatePlaylist()
+        }))
+        vc.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+        router.present(vc, animated: true)
+    }
 }
 
 extension PlaylistCoordinator: SmallPlayerControllerDelegate {

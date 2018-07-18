@@ -10,10 +10,18 @@ import UIKit
 import EasyPeasy
 import AsyncDisplayKit
 
+protocol PlaylistCellNodeDelegate: class {
+    func remove(_ track: Track)
+}
+
 class PlaylistCellNode: ASCellNode {
     
+    // MARK: - Shared properties
+    weak var delegate: PlaylistCellNodeDelegate?
+
     // MARK: - Properties
     let track: Track
+    
     
     // MARK: - Views
     lazy var trackNameNode: TextNode = {
@@ -23,7 +31,6 @@ class PlaylistCellNode: ASCellNode {
 
         let trackName = track.url.fileName
         node.setText(trackName)
-
         return node
     }()
     
@@ -32,7 +39,7 @@ class PlaylistCellNode: ASCellNode {
         
         let duration = track.durationInSeconds.asTrackDurationFormat
         node.setText(duration)
-        
+    
         return node
     }()
     
@@ -51,6 +58,18 @@ class PlaylistCellNode: ASCellNode {
         automaticallyManagesSubnodes = true
     }
     
+    override func didLoad() {
+        super.didLoad()
+        
+        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe))
+        swipe.direction = .left
+        view.addGestureRecognizer(swipe)
+    }
+    
+    @objc func handleSwipe() {
+        delegate?.remove(track)
+    }
+        
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         let horizontalStack = ASStackLayoutSpec(direction: .horizontal, spacing: 20, justifyContent: .spaceBetween, alignItems: .center, children: [trackNameNode, durationNode])
         horizontalStack.style.flexGrow = 2
