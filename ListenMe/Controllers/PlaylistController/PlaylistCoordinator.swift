@@ -72,7 +72,7 @@ class PlaylistCoordinator: Coordinator, ShowsAlerts {
             return
         }
         
-        print(PlayerManager.default.currentTime, PlayerManager.default.currentTime)
+        print(PlayerManager.default.currentTime, PlayerManager.default.currentTime, isPlaying)
         MPNowPlayingInfoCenter.default().nowPlayingInfo = [
             MPMediaItemPropertyTitle: track.url.fileName,
             MPMediaItemPropertyPlaybackDuration: track.durationInSeconds,

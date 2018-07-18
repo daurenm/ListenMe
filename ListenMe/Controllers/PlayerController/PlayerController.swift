@@ -112,7 +112,6 @@ class PlayerController: UIViewController {
         view.onForwardJump = { [weak self] in
             self?.playerManager.jump(for: PlayerControlsView.jumpForSeconds)
         }
-        playerManager.didFinishPlaying = view.prepareToPlay
         return view
     }()
     
@@ -151,23 +150,38 @@ class PlayerController: UIViewController {
         super.viewDidLoad()
         
         setupViews()
+        setupNotifications()
+    }
+    
+    private func setupNotifications() {
+        let nc = NotificationCenter.default
+        nc.addObserver(self, selector: #selector(didFinishPlaying), name: .didFinishPlaying, object: nil)
+        nc.addObserver(self, selector: #selector(timeDidChange), name: .timeDidChange, object: nil)
+        nc.addObserver(self, selector: #selector(didStartPlaying), name: .didStartPlaying, object: nil)
+        nc.addObserver(self, selector: #selector(didStopPlaying), name: .didStopPlaying, object: nil)
+    }
+    
+    @objc func didFinishPlaying() {
+        controlsView.prepareToPlay()
+    }
+    
+    @objc func timeDidChange(_ notification: Notification) {
+        guard let currentTime = notification.userInfo?["currentTime"] as? Int else { return }
+        sliderView.timeDidChange(currentTime)
+    }
+    
+    @objc func didStartPlaying() {
+        controlsView.didStartPlaying()
+    }
+    
+    @objc func didStopPlaying() {
+        controlsView.didStopPlaying()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         controlsView.updatePlayingStatus()
-
-        playerManager.timeDidChange = { [unowned self] (curTime) in
-            self.sliderView.timeDidChange(curTime)
-        }
-        playerManager.playingStatusDidChange = { [weak self] (isPlaying) in
-            if isPlaying {
-                self?.controlsView.play()
-            } else {
-                self?.controlsView.pause()
-            }
-        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -224,16 +238,10 @@ class PlayerController: UIViewController {
             Left(20), Right(20),
             Height(60)
         )
-        
-//        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeDown))
-//        swipeDown.direction = .down
-//        view.addGestureRecognizer(swipeDown)
-//        view.isUserInteractionEnabled = true
     }
     
     @objc func didSwipeDown() {
         dismiss(animated: true)
-//        delegate?.dismiss(self)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -242,10 +250,8 @@ class PlayerController: UIViewController {
         delegate?.wasDismissed(self)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-//        delegate?.wasDismissed(self)
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
 

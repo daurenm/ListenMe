@@ -17,6 +17,14 @@ class PlayerControlsView: UIView {
     static let jumpForSeconds = 30
 
     // MARK: - Public API
+    func didStartPlaying() {
+        playPauseButton.isSelected = true
+    }
+    
+    func didStopPlaying() {
+        playPauseButton.isSelected = false
+    }
+
     func prepareToPlay() {
         playPauseButton.isSelected = false
     }
@@ -26,7 +34,7 @@ class PlayerControlsView: UIView {
     }
     
     func pause() {
-        playPauseAction(playPauseButton)
+        playPauseButton.isSelected = false
     }
     
     func updatePlayingStatus() {

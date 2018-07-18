@@ -27,12 +27,13 @@ class PlayerManager: NSObject {
         return player?.url?.fileName
     }
     
+    var nc: NotificationCenter { return NotificationCenter.default }
+    
     // MARK: - Public API
     func prepareToPlay(url: URL) -> Status {
         guard player?.url != url else { return .isPlayingAlready }
 
         pause()
-//        onSuddenPause?()
         
         do {
             player = try AVAudioPlayer(contentsOf: url)
@@ -51,7 +52,10 @@ class PlayerManager: NSObject {
     }
     
     func controlsPlayPause() {
-        playingStatusDidChange?(isPlaying)
+        playPause()
+        let name: Notification.Name = isPlaying ? .didStartPlaying : .didStopPlaying
+        print(#function, isPlaying)
+        nc.post(name: name, object: nil)
     }
     
     func playPause() {
@@ -68,7 +72,7 @@ class PlayerManager: NSObject {
 
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { [unowned self] (_) in
-            self.timeDidChange?(self.currentTime)
+            self.nc.post(name: .timeDidChange, object: nil, userInfo: ["currentTime": self.currentTime])
         })
     }
     
@@ -89,7 +93,7 @@ class PlayerManager: NSObject {
         newTime = max(newTime, 0)
         newTime = min(newTime, player!.duration)
         seek(to: Int(newTime))
-        timeDidChange?(currentTime)
+        nc.post(name: .timeDidChange, object: nil, userInfo: ["currentTime": currentTime])
         player?.volume = savedVolume
     }
     
@@ -106,9 +110,6 @@ class PlayerManager: NSObject {
     private var player: AVAudioPlayer?
     private var timer: Timer?
     
-    var playingStatusDidChange: ((Bool) -> ())?
-    var timeDidChange: ((Int) -> ())?
-    var didFinishPlaying: (() -> ())?
     var currentTime: Int { return Int(player?.currentTime.rounded() ?? 0) }
     
     // MARK: - Lifecycle methods
@@ -119,10 +120,16 @@ class PlayerManager: NSObject {
 
 extension PlayerManager: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        didFinishPlaying?()
+        nc.post(name: .didFinishPlaying, object: nil)
     }
 }
 
+extension Notification.Name {
+    static let didStartPlaying = Notification.Name("didStartPlaying")
+    static let didStopPlaying = Notification.Name("didStopPlaying")
+    static let timeDidChange = Notification.Name("timeDidChange")
+    static let didFinishPlaying = Notification.Name("didFinishPlaying")
+}
 
 
 

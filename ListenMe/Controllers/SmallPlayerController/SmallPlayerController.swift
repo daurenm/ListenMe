@@ -77,6 +77,11 @@ class SmallPlayerController: UIViewController {
         return view
     }()
     
+    func playPause() {
+        playPauseButton.isSelected.flip()
+        PlayerManager.default.playPause()
+    }
+    
     lazy var playPauseButton: UIButton = {
         let button = UIButton()
         button.setImage(#imageLiteral(resourceName: "player_controls_play").withRenderingMode(.alwaysTemplate), for: .normal)
@@ -84,11 +89,6 @@ class SmallPlayerController: UIViewController {
         button.tintColor = .iconTint
         return button
     }()
-    
-    func playPause() {
-        playPauseButton.isSelected.flip()
-        PlayerManager.default.playPause()
-    }
     
     lazy var smallPlayerView: UIView = {
         let view = UIView()
@@ -143,6 +143,11 @@ class SmallPlayerController: UIViewController {
         super.viewDidLoad()
         
         setupViews()
+        setupNotifications()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
@@ -157,6 +162,26 @@ private extension SmallPlayerController {
         let progress = Float(curTime) / Float(curTrack.durationInSeconds)
         progressView.setProgress(progress, animated: true)
     }
+    
+    func setupNotifications() {
+        let nc = NotificationCenter.default
+        nc.addObserver(self, selector: #selector(timeDidChange), name: .timeDidChange, object: nil)
+        nc.addObserver(self, selector: #selector(didStartPlaying), name: .didStartPlaying, object: nil)
+        nc.addObserver(self, selector: #selector(didStopPlaying), name: .didStopPlaying, object: nil)
+    }
+    
+    @objc func timeDidChange(_ notification: Notification) {
+        guard let currentTime = notification.userInfo?["currentTime"] as? Int else { return }
+        updateProgress(with: currentTime)
+    }
+    
+    @objc func didStartPlaying() {
+        playPauseButton.isSelected = true
+    }
+
+    @objc func didStopPlaying() {
+        playPauseButton.isSelected = false
+    }
 }
 
 // MARK: - Public API
@@ -165,14 +190,7 @@ extension SmallPlayerController {
         curTrack = track
         trackNameLabel.set(text: track.url.fileName + "  ")
         updateProgress(with: PlayerManager.default.currentTime)
-        playPauseButton.isSelected = PlayerManager.default.isPlaying
-        
-        PlayerManager.default.timeDidChange = { [unowned self] curTime in
-            self.updateProgress(with: curTime)
-        }
-        PlayerManager.default.playingStatusDidChange = { [weak self] isPlaying in
-            self?.playPause()
-        }
+        playPauseButton.isSelected = PlayerManager.default.isPlaying        
     }
 }
 
