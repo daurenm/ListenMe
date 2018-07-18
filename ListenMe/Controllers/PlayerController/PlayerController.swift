@@ -14,7 +14,7 @@ import MarqueeLabel
 import Hero
 
 protocol PlayerControllerDelegate: class {
-    func dismiss(_ controller: UIViewController)
+    func wasDismissed(_ controller: UIViewController)
 }
 
 class PlayerController: UIViewController {
@@ -225,7 +225,20 @@ class PlayerController: UIViewController {
     }
     
     @objc func didSwipeDown() {
-        delegate?.dismiss(self)
+        dismiss(animated: true)
+//        delegate?.dismiss(self)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        delegate?.wasDismissed(self)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+//        delegate?.wasDismissed(self)
     }
 }
 

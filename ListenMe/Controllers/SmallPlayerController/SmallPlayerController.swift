@@ -150,7 +150,7 @@ private extension SmallPlayerController {
     
     func updateProgress(with curTime: Int) {
         let progress = Float(curTime) / Float(curTrack.durationInSeconds)
-        progressView.progress = progress
+        progressView.setProgress(progress, animated: true)
     }
 }
 

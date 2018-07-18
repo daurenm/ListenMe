@@ -104,8 +104,8 @@ extension PlaylistCoordinator: PlaylistControllerDelegate {
 }
 
 extension PlaylistCoordinator: PlayerControllerDelegate {
-    func dismiss(_ controller: UIViewController) {
-        controller.dismiss(animated: true)
+    func wasDismissed(_ controller: UIViewController) {
+//        controller.dismiss(animated: true)
         
         guard controller == playerController else { return }
         smallPlayerController!.update(with: playerController!.curTrack)
@@ -140,33 +140,9 @@ extension PlaylistCoordinator: UIViewControllerTransitioningDelegate {
     }
 }
 
-//extension PlaylistCoordinator: UIViewControllerTransitioningDelegate {
-//    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-//        let animator = MiniToLargeViewAnimator()
-//        animator.initialY = SmallPlayerController.height
-//        animator.transitionType = .present
-//        return animator
-//    }
-//
-//    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-//        let animator = MiniToLargeViewAnimator()
-//        animator.initialY = SmallPlayerController.height
-//        animator.transitionType = .dismiss
-//        return animator
-//    }
-//
-//    func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-//        return nil
-////        guard !disableInteractivePlayerTransitioning else { return nil }
-////        return presentInteractor
-//    }
-//
-//    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-//        return nil
-////        guard !disableInteractivePlayerTransitioning else { return nil }
-////        return dismissInteractor
-//    }
-//}
+
+
+
 
 
 
