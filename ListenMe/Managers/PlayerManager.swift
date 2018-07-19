@@ -54,7 +54,6 @@ class PlayerManager: NSObject {
     func controlsPlayPause() {
         playPause()
         let name: Notification.Name = isPlaying ? .didStartPlaying : .didStopPlaying
-        print(#function, isPlaying)
         nc.post(name: name, object: nil)
     }
     
@@ -77,7 +76,6 @@ class PlayerManager: NSObject {
     }
     
     func pause() {
-        print("PlayerManager.pause")
         player?.pause()
         timer?.invalidate()
     }

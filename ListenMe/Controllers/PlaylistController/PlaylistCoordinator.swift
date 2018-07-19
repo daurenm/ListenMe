@@ -64,6 +64,16 @@ class PlaylistCoordinator: Coordinator, ShowsAlerts {
             self.updateNowPlayingInfoCenter(isPlaying: false)
             return .success
         }
+        rcc.nextTrackCommand.addTarget { (_) -> MPRemoteCommandHandlerStatus in
+            PlayerManager.default.jump(for: PlayerControlsView.jumpForSeconds)
+            self.updateNowPlayingInfoCenter()
+            return .success
+        }
+        rcc.previousTrackCommand.addTarget { (_) -> MPRemoteCommandHandlerStatus in
+            PlayerManager.default.jump(for: -PlayerControlsView.jumpForSeconds)
+            self.updateNowPlayingInfoCenter()
+            return .success
+        }
     }
     
     func updateNowPlayingInfoCenter(isPlaying: Bool = PlayerManager.default.isPlaying) {
@@ -72,7 +82,6 @@ class PlaylistCoordinator: Coordinator, ShowsAlerts {
             return
         }
         
-        print(PlayerManager.default.currentTime, PlayerManager.default.currentTime, isPlaying)
         MPNowPlayingInfoCenter.default().nowPlayingInfo = [
             MPMediaItemPropertyTitle: track.url.fileName,
             MPMediaItemPropertyPlaybackDuration: track.durationInSeconds,
