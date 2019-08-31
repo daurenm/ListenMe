@@ -14,7 +14,7 @@ class PlayerInteractiveAnimator: UIPercentDrivenInteractiveTransition {
     // MARK: - Public properties
     var inProgress = false
 
-    var onBegin: (() -> ())!
+    var onBegin: (() -> Void)!
     
     var view: UIView! {
         didSet {

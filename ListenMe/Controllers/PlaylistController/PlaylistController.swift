@@ -136,7 +136,6 @@ extension PlaylistController {
     }
     
     @objc func sortPlaylist(_ button: UIButton) {
-        print(#function)
         button.isSelected.flip()
         sortByDate = button.isSelected
     }

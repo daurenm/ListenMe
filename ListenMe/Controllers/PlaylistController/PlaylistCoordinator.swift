@@ -149,9 +149,7 @@ extension PlaylistCoordinator: PlaylistControllerDelegate {
 }
 
 extension PlaylistCoordinator: PlayerControllerDelegate {
-    func wasDismissed(_ controller: UIViewController) {
-//        controller.dismiss(animated: true)
-        
+    func wasDismissed(_ controller: UIViewController) {        
         guard controller == playerController else { return }
         smallPlayerController!.update(with: playerController!.curTrack)
     }

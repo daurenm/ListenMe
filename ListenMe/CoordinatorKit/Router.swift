@@ -13,9 +13,9 @@ protocol RouterType: Presentable {
     var rootViewController: UIViewController? { get }
     
     func present(_ module: Presentable, animated: Bool)
-    func dismissModule(animated: Bool, completion: (() -> ())?)
+    func dismissModule(animated: Bool, completion: (() -> Void)?)
     
-    func push(_ module: Presentable, animated: Bool, completion: (() -> ())?)
+    func push(_ module: Presentable, animated: Bool, completion: (() -> Void)?)
     func popModule(animated: Bool)
     
     func setRootModule(_ module: Presentable, hideBar: Bool)
@@ -25,7 +25,7 @@ protocol RouterType: Presentable {
 }
 
 extension RouterType {
-    func push(_ module: Presentable, animated: Bool, completion: (() -> ())? = nil) {
+    func push(_ module: Presentable, animated: Bool, completion: (() -> Void)? = nil) {
         push(module, animated: animated, completion: completion)
     }
     
@@ -41,7 +41,7 @@ final class Router: NSObject, RouterType, ShowsAlerts {
         return navigationController.viewControllers.first
     }
 
-    private var completions: [UIViewController: () -> ()]
+    private var completions: [UIViewController: () -> Void]
     let navigationController: UINavigationController
     
     // MARK: - Lifecycle methods
@@ -57,15 +57,14 @@ final class Router: NSObject, RouterType, ShowsAlerts {
     
     // MARK: - RouterType
     func present(_ module: Presentable, animated: Bool) {
-//        rootViewController?.present(module.toPresent(), animated: animated)
         navigationController.present(module.toPresent(), animated: animated)
     }
     
-    func dismissModule(animated: Bool, completion: (() -> ())? = nil) {
+    func dismissModule(animated: Bool, completion: (() -> Void)? = nil) {
         navigationController.dismiss(animated: animated, completion: completion)
     }
     
-    func push(_ module: Presentable, animated: Bool, completion: (() -> ())? = nil) {
+    func push(_ module: Presentable, animated: Bool, completion: (() -> Void)? = nil) {
         let controller = module.toPresent()
         if let completion = completion {
             completions[controller] = completion

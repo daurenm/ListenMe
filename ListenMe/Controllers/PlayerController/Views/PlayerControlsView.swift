@@ -13,7 +13,7 @@ class PlayerControlsView: UIView {
     
     // MARK: - Constants
     static var defaultHeight: CGFloat { return 80 }
-    typealias ButtonClosure = () -> ()
+    typealias ButtonClosure = () -> Void
     static let jumpForSeconds = 30
 
     // MARK: - Public API

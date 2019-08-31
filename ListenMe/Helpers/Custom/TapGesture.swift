@@ -14,7 +14,7 @@ class TapGesture: UITapGestureRecognizer {
         static var onTap: UInt8 = 0
     }
     
-    init(onTap: @escaping (UITapGestureRecognizer) -> ()) {
+    init(onTap: @escaping (UITapGestureRecognizer) -> Void) {
         let closureWrapper = ClosureWrapper<UITapGestureRecognizer>(onTap)
         super.init(target: closureWrapper, action: closureWrapper.selector)
         objc_setAssociatedObject(self, &AssociatedKeys.onTap, closureWrapper, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)

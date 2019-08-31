@@ -11,9 +11,9 @@ import Foundation
 class ClosureWrapper<T> {
     
     let selector: Selector
-    private let closure: (T) -> ()
+    private let closure: (T) -> Void
     
-    init(_ closure: @escaping (T) -> ()) {
+    init(_ closure: @escaping (T) -> Void) {
         self.closure = closure
         selector = #selector(invoke(_:))
     }

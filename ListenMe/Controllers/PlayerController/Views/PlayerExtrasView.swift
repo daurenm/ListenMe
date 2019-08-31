@@ -40,7 +40,7 @@ class PlayerExtrasView: UIView {
         return nf
     }()
     
-    var rateDidChange: ((PlayerRate) -> ())!
+    var rateDidChange: ((PlayerRate) -> Void)!
     
     // MARK: - Views
     lazy var rateLabel: Label = {
