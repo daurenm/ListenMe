@@ -15,7 +15,7 @@ class PlaylistCV: ASCollectionNode {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: width, height: 60)
         layout.minimumLineSpacing = 0
-        super.init(collectionViewLayout: layout)
+        super.init(frame: .zero, collectionViewLayout: layout, layoutFacilitator: nil)
         
         backgroundColor = .white
     }

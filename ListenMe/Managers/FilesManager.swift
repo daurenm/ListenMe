@@ -13,6 +13,7 @@ class FilesManager {
     
     // MARK: - Singleton
     static let `default` = FilesManager()
+    
     private init() {
         // create necessary directories
         FileManager.default.changeToPlaylistsDirectory()

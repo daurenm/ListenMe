@@ -11,18 +11,18 @@ import EasyPeasy
 
 extension UIViewController {
     func add(_ child: UIViewController, attributes: [Attribute]? = nil) {
-        addChildViewController(child)
+        addChild(child)
         view.addSubview(child.view)
         if let attributes = attributes {
             child.view.easy.layout(attributes)
         }
-        child.didMove(toParentViewController: self)
+        child.didMove(toParent: self)
     }
     
     func remove() {
         guard parent != nil else { return }
-        willMove(toParentViewController: nil)
-        removeFromParentViewController()
+        willMove(toParent: nil)
+        removeFromParent()
         view.removeFromSuperview()
     }
 }

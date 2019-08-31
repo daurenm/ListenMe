@@ -19,6 +19,8 @@ import AppKit
  */
 #if os(OSX) && swift(>=4.0)
     public typealias Relation = NSLayoutConstraint.Relation
+#elseif swift(>=4.2)
+    public typealias Relation = NSLayoutConstraint.Relation
 #else
     public typealias Relation = NSLayoutRelation
 #endif
@@ -81,7 +83,7 @@ public extension CGFloat {
         - parameter rhs: Value for the `Constant`
         - returns: The resulting `Constant` struct
      */
-    public static prefix func == (rhs: CGFloat) -> Constant {
+    static prefix func == (rhs: CGFloat) -> Constant {
         return Constant(value: rhs, relation: .equal, multiplier: 1.0)
     }
 
@@ -91,7 +93,7 @@ public extension CGFloat {
         - parameter rhs: Value for the `Constant`
         - returns: The resulting `Constant` struct
      */
-    public static prefix func >= (rhs: CGFloat) -> Constant {
+    static prefix func >= (rhs: CGFloat) -> Constant {
         return Constant(value: rhs, relation: .greaterThanOrEqual, multiplier: 1.0)
     }
 
@@ -101,7 +103,7 @@ public extension CGFloat {
         - parameter rhs: Value for the `Constant`
         - returns: The resulting `Constant` struct
      */
-    public static prefix func <= (rhs: CGFloat) -> Constant {
+    static prefix func <= (rhs: CGFloat) -> Constant {
         return Constant(value: rhs, relation: .lessThanOrEqual, multiplier: 1.0)
     }
 
@@ -111,7 +113,7 @@ public extension CGFloat {
         - parameter rhs: Value for the `multiplier`
         - returns: The resulting `Constant` struct
      */
-    public static prefix func * (rhs: CGFloat) -> Constant {
+    static prefix func * (rhs: CGFloat) -> Constant {
         return Constant(value: rhs, relation: .equal, multiplier: rhs)
     }
 
@@ -127,7 +129,7 @@ public extension CGFloat {
         - parameter rhs: a `CGFloat` multiplier
         - returns: A new `Constant` with the `multiplier` applied
      */
-    public static func * (lhs: Constant, rhs: CGFloat) -> Constant {
+    static func * (lhs: Constant, rhs: CGFloat) -> Constant {
         return Constant(value: lhs.value, relation: lhs.relation, multiplier: lhs.multiplier * rhs)
     }
 

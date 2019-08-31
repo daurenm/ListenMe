@@ -16,7 +16,7 @@ extension UIButton {
         static var addTarget: UInt8 = 0
     }
     
-    func addTarget(for controlEvents: UIControlEvents = .touchUpInside, closure: @escaping (UIButton) -> ()) {
+    func addTarget(for controlEvents: UIControl.Event = .touchUpInside, closure: @escaping (UIButton) -> Void) {
         let closureWrapper = ClosureWrapper<UIButton>(closure)
         objc_setAssociatedObject(self, &AssociatedKeys.addTarget, closureWrapper, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         addTarget(closureWrapper, action: closureWrapper.selector, for: controlEvents)

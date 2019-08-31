@@ -18,7 +18,7 @@ extension AVAudioSession {
         isActive = true
         let session = sharedInstance()
         do {
-            try session.setCategory(AVAudioSessionCategoryPlayback)
+            try session.setCategory(.playback)
             try session.setActive(true)
         } catch {
             assert(false, error.localizedDescription)

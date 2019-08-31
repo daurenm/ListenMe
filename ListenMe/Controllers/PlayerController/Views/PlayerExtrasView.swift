@@ -19,7 +19,7 @@ enum PlayerRate: Float {
     static var all: [PlayerRate] = [.normal, oneAnd25, .oneAndHalf, oneAnd75, .two, .normal]
     
     mutating func next() {
-        let index = PlayerRate.all.index(of: self)! + 1
+        let index = PlayerRate.all.firstIndex(of: self)! + 1
         self = PlayerRate.all[index]
     }
 }

@@ -6,7 +6,6 @@
 [![Version](https://img.shields.io/cocoapods/v/EasyPeasy.svg?style=flat)](http://cocoapods.org/pods/EasyPeasy)
 [![Carthage compatible](https://img.shields.io/badge/carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)](https://travis-ci.org/nakiostudio/EasyPeasy)
-[![Docs](https://img.shields.io/cocoapods/metrics/doc-percent/EasyPeasy.svg)](http://cocoadocs.org/docsets/EasyPeasy)
 
 **EasyPeasy** is a Swift framework that lets you create *Auto Layout* constraints
 programmatically without headaches and never ending boilerplate code. Besides the
@@ -73,7 +72,8 @@ result using **EasyPeasy**.
 * To work with Swift 2.2 use EasyPeasy `v.1.2.1` or earlier versions of the library.
 * To work with Swift 2.3 use EasyPeasy `v.1.3.1`.
 * To work with Swift 3 use EasyPeasy `v.1.4.2`.
-* To work with Swift 4 use EasyPeasy `v.1.5.0` and above
+* To work with Swift 4 use EasyPeasy `v.1.8.0`.
+* To work with Swift 5 use EasyPeasy `v.1.9.0` and above.
 (thanks [Bas van Kuijck](https://github.com/basvankuijck)).
 
 ### Cocoapods
@@ -560,7 +560,7 @@ classes and methods are available in [Cocoadocs](http://cocoadocs.org/docsets/Ea
 
 ## Author
 
-Carlos Vidal - [@carlostify](https://twitter.com/carlostify)
+Carlos Vidal - [@nakiostudio](https://twitter.com/nakiostudio)
 
 ## License
 

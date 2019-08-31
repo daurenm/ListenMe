@@ -51,7 +51,7 @@ extension Coordinator {
     }
     
     func removeChildCoordinator(_ coordinator: Coordinator?) {
-        guard let coordinator = coordinator, let index = childCoordinators.index(of: coordinator) else { return }
+        guard let coordinator = coordinator, let index = childCoordinators.firstIndex(of: coordinator) else { return }
         childCoordinators.remove(at: index)
     }
 }
